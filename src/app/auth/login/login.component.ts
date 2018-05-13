@@ -14,6 +14,12 @@ export class LoginComponent implements OnInit {
         //this.auth.createUser('test@wp.pl', 'abec1234');
         this.auth.login('test@wp.pl', 'abec1234');
 
+        this.test(this.auth);//wyswietli false
+        setTimeout(this.test, 1000, this.auth);//wyswietli true
+    }
+
+    test(auth: AuthService){
+        console.log(auth.isLogged());
     }
 
 }
