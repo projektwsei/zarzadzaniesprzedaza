@@ -1,8 +1,5 @@
 <form class="form-registration">
 <h2 class="form-registration-heading">Zarządzanie Sprzedażą</h2>
-<div class="facebook-auth-login">
-  <div class="button-content">Zarejestruj się z Facebook</div>
-</div>
 <div class="google-auth-login">
   <div class="button-content">Zarejestruj się z Google</div>
 </div>
@@ -12,11 +9,15 @@
 </div>
 <div class="text-input">
   <label for="inputLogin" class="sr-only">Login</label>
-  <input id="inputLogin" class="form-control" placeholder="Login" required="" autofocus="">
+  <input type="text" id="inputLogin" class="form-control" placeholder="Login" required="" autofocus="">
 </div>
 <div class="text-input">
   <label for="inputPassword" class="sr-only">Hasło</label>
   <input type="password" id="inputPassword" class="form-control" placeholder="Hasło" required="">
+</div>
+<div class="text-input">
+  <label for="inputImieNazw" class="sr-only">Imie i nazwisko</label>
+  <input type="text" id="inputImieNazw" class="form-control" placeholder="Imie i nazwisko" required="">
 </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit">Zarejestruj się</button>
   <div class="separator-2">
@@ -24,3 +25,4 @@
   <span><a routerLink="/login">Zaloguj się</a>  jeśli masz już konto</span>
 </div>
 </form>
+
