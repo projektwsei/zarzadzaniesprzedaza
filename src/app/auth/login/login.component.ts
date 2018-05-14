@@ -11,15 +11,15 @@ export class LoginComponent implements OnInit {
     constructor(private auth: AuthService) { }
 
     ngOnInit() {
-        //this.auth.createUser('test@wp.pl', 'abec1234');
-        this.auth.login('test@wp.pl', 'abec1234');
+        //this.auth.createUser('test5@wp.pl', 'abec1234', 'test usera');
+        this.auth.login('test5@wp.pl', 'abec1234');
 
         //this.test(this.auth);//wyswietli false
-        //setTimeout(this.test, 1000, this.auth);//wyswietli true
+        //setInterval(this.test, 1000, this.auth);//wyswietli true
     }
 
     //test(auth: AuthService){
-        //console.log(auth.isLogged());
+    //    console.log(auth.isLogged());
     //}
 
 }

@@ -1,4 +1,5 @@
 import { HomePageComponent } from './home-page/home-page.component';
+import { LoadingComponent } from './loading/loading.component';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -6,14 +7,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 const appRoutes: Routes = [
     {
-        path: '', component: HomePageComponent,
+        path: '', component: LoadingComponent,
         // canActivate: [AuthGuard]
     },
+    { path: 'home', component: HomePageComponent }
     { path: 'login', loadChildren: './auth/login/login.module#LoginModule' },
-    {
-        path: 'register',
-        loadChildren: './auth/registration/registration.module#RegistrationModule'
-    },
+    { path: 'register', loadChildren: './auth/registration/registration.module#RegistrationModule' },
     // otherwise redirect to HomePageComponent
     { path: '**', redirectTo: '' }
 ];
@@ -23,3 +22,4 @@ const appRoutes: Routes = [
     exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

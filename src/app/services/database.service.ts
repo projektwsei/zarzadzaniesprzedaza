@@ -27,7 +27,7 @@ export class DatabaseService {
 
     private createMaxIDs(){
         this.maxID = new MaxIDs();
-        this.maxID.idUser = 0;
+        //this.maxID.idUser = 0;
         this.maxID.idFaktura = 0;
         this.maxID.idKontrahent = 0;
         this.maxID.idPrzedmiot = 0;
@@ -38,15 +38,38 @@ export class DatabaseService {
         this.fire.db().ref('maxids').set(this.maxID);
     }
 
-    public updateData(table: string, id: number, data:any):void{
+    private deleteId(table: string, data: any):number|string{
+        if(table==TABLE_USERS){
+            let ret = data.uid;
+            delete data.uid;
+            return ret;
+        } else {
+            let ret = data.id;
+            delete data.id;
+            return ret;
+        }
+    }
+    
+    private restoreId(table: string, data: any, id: number|string):void{
+        if(table==TABLE_USERS){
+            data.uid = id;
+        } else {
+            data.id = id;
+        }
+    }
+
+    public updateData(table: string, id: number|string, data:any):void{
+        let lastId = this.deleteId(table, data);
         this.fire.db().ref(table+'/'+id).set(data);
+        this.restoreId(table, data, lastId);
     }
     
     public addData(table: string, data:any):void{
         let id=0;
         
         if(table==TABLE_USERS){
-            id = this.maxID.idUser++;
+            //id = this.maxID.idUser++;
+            id = data.uid;
         } else if(table==TABLE_FAKTURY){
             id = this.maxID.idFaktura++;
         } else if(table==TABLE_KONTRAHENCI){
@@ -54,10 +77,16 @@ export class DatabaseService {
         } else if(table==TABLE_MAGAZYN){
             id = this.maxID.idPrzedmiot++;
         }
+
+        this.deleteId(table, data);
         
-        this.updateMaxIDs(); //aktualizuj w bazie nowe max id
+        if(table!=TABLE_USERS) {
+            this.updateMaxIDs(); //aktualizuj w bazie nowe max id
+        }
 
         this.fire.db().ref(table+'/'+id).set(data);
+
+        this.restoreId(table, data, id);
     }
     
 
@@ -71,6 +100,7 @@ export class DatabaseService {
             } else {
                 ref.once("value", (snapshot) => {
                     observer.next(snapshot.val());
+                    observer.complete();
                 });
             }
         });
@@ -78,7 +108,7 @@ export class DatabaseService {
         return ret;        
     }
 
-    public readById(table: string, id: number, isOnce: boolean):Observable<any>{
+    public readById(table: string, id: number|string, isOnce: boolean):Observable<any>{//isOnce - czy pobieramy to jeden raz, czy subskrybujemy?
         let ret = new Observable(observer => {
             let ref = this.fire.db().ref(table+'/'+id);
             if(!isOnce){            
@@ -88,6 +118,7 @@ export class DatabaseService {
             } else {
                 ref.once("value", (snapshot) => {
                     observer.next(snapshot.val());
+                    observer.complete();
                 });
             }
         });

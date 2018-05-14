@@ -9,12 +9,14 @@ import { Router, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

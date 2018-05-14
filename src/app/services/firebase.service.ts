@@ -22,9 +22,9 @@ export class FirebaseService {
         
     }
 
-    //public auth(){
-    //    return firebase.auth();
-    //}
+    public auth(){
+        return firebase.auth();
+    }
 
     public db(){
         return firebase.database();
