@@ -8,14 +8,21 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-    constructor(private auth: AuthService) { }
+    constructor(private auth: AuthService) {
+        auth.logout(); //wyloguj, przy wlaczeniu strony logowania
+    }
 
     ngOnInit() {
         //this.auth.createUser('test5@wp.pl', 'abec1234', 'test usera');
         this.auth.login('test5@wp.pl', 'abec1234');
 
+        //this.auth.loginWithGoogle();
+        this.auth.waitForLogin().subscribe(v => {
+            console.log(v);
+        });
+
         //this.test(this.auth);//wyswietli false
-        //setInterval(this.test, 1000, this.auth);//wyswietli true
+        //setTimeout(this.test, 1000, this.auth);//wyswietli true
     }
 
     //test(auth: AuthService){

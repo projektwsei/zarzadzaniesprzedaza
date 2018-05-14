@@ -30,5 +30,9 @@ export class FirebaseService {
         return firebase.database();
     }
 
+    public getGoogleAuthProvider(){
+        return new firebase.auth.GoogleAuthProvider();
+    }
+
 
 }
