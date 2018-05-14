@@ -10,7 +10,7 @@ const appRoutes: Routes = [
         path: '', component: LoadingComponent,
         // canActivate: [AuthGuard]
     },
-    { path: 'home', component: HomePageComponent }
+    { path: 'home', component: HomePageComponent },
     { path: 'login', loadChildren: './auth/login/login.module#LoginModule' },
     { path: 'register', loadChildren: './auth/registration/registration.module#RegistrationModule' },
     // otherwise redirect to HomePageComponent

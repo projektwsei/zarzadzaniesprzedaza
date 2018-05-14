@@ -39,10 +39,7 @@ export class UsersService {
         this.db.updateData(TABLE_USERS, u.uid, u);
     }
 
-    public potwierdzUser(u: User|string):void{//u: obiekt User lub UID
-        if(!(u instanceof User)){
-            u = this.getUserByUid(u);
-        }
+    public potwierdzUser(u: User):void{
         u.isPotw=true;
         this.saveUser(u);
     }
