@@ -10,13 +10,15 @@ import { Router, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoadingComponent } from './loading/loading.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    LoadingComponent
+    LoadingComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -26,3 +28,4 @@ import { LoadingComponent } from './loading/loading.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

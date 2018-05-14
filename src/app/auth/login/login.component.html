@@ -1,3 +1,27 @@
-<p>
-  login works!
-</p>
+<form class="form-signin">
+<h2 class="form-signin-heading">Zarządzanie Sprzedażą</h2>
+<div class="facebook-auth-login">
+  <div class="button-content">Zaloguj się z Facebook</div>
+</div>
+<div class="google-auth-login">
+  <div class="button-content">Zaloguj się z Google</div>
+</div>
+<div class="separator">
+  <hr>
+  <span>lub</span>
+</div>
+<div class="text-input">
+  <label for="inputLogin" class="sr-only">Login</label>
+  <input id="inputLogin" class="form-control" placeholder="Login" required="" autofocus="">
+</div>
+<div class="text-input">
+  <label for="inputPassword" class="sr-only">Hasło</label>
+  <input type="password" id="inputPassword" class="form-control" placeholder="Hasło" required="">
+</div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj się</button>
+<div class="separator-2">
+  <hr>
+  <span><a routerLink="/register">Zarejestruj się</a>  jeśli nie masz konta</span>
+</div>
+</form>
+
