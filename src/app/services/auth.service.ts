@@ -5,9 +5,7 @@ import { UsersService } from './users.service';
 import { Observable } from 'rxjs';
 import { User } from '../model/user';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
     private currentUserFirebase;
     private currentUser: User;
