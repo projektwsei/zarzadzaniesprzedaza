@@ -44,8 +44,8 @@ Thumbs.db
 
 # by lukas:
 /OLDFILES
-angular.json
-package-lock.json
-package.json
-tsconfig.json
-tslint.json
+#angular.json
+#package-lock.json
+#package.json
+#tsconfig.json
+#tslint.json
