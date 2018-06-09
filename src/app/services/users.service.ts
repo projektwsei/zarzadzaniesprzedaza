@@ -10,7 +10,7 @@ export class UsersService {
         
     }
 
-    public getUserByUid(uid: string):Observable<any>{
+    public getUserByUid(uid: string):Observable<any>{//tylko zwracamy usera i od razu zakanczamy observer
         let ret = new Observable(observer => {
             this.db.readById(TABLE_USERS, uid, true).subscribe(val => {
                 if(val==null){
@@ -42,5 +42,14 @@ export class UsersService {
         this.saveUser(u);
     }
 
+    public getUserList(isOnce: boolean):Observable<any>{//isOnce - czy pobieramy raz liste, czy subskrybujemy
+        let ret = new Observable(observer => {
+            this.db.readList(TABLE_USERS, isOnce).subscribe(val => {
+                observer.next(val);
+                if(isOnce) observer.complete();
+            });
+        });
+        return ret;
+    }
 
 }

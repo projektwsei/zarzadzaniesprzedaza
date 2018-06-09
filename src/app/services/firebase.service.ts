@@ -7,7 +7,7 @@ export class FirebaseService {
 
     constructor() {
 
-        var config = {
+        let config = {
             apiKey: "AIzaSyDl80S6ZmbRNJaM1_B3jupNsF_CI_Bs4RI",
             authDomain: "projektwsei-59f5e.firebaseapp.com",
             databaseURL: "https://projektwsei-59f5e.firebaseio.com",

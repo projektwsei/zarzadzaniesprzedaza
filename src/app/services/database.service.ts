@@ -36,7 +36,7 @@ export class DatabaseService {
         this.fire.db().ref('maxids').set(this.maxID);
     }
 
-    private deleteId(table: string, data: any):number|string{
+    private deleteId(table: string, data: any):number|string{ //usuwamy ID w trakcie zapisywania do bazy danych (id jest kluczem, a nie polem)
         if(table==TABLE_USERS){
             let ret = data.uid;
             delete data.uid;
@@ -48,7 +48,7 @@ export class DatabaseService {
         }
     }
     
-    private restoreId(table: string, data: any, id: number|string):void{
+    private restoreId(table: string, data: any, id: number|string):void{ //po odczytaniu danych zapisujemy ich ID
         if(table==TABLE_USERS){
             data.uid = id;
         } else {
@@ -88,7 +88,7 @@ export class DatabaseService {
     }
     
 
-    public readList(table: string, isOnce: boolean):Observable<any>{
+    public readList(table: string, isOnce: boolean):Observable<any>{//isOnce - czy pobieramy to jeden raz, czy subskrybujemy?
         let ret = new Observable(observer => {
             let ref = this.fire.db().ref(table);
             if(!isOnce){            

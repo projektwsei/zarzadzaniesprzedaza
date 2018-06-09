@@ -11,8 +11,6 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoadingComponent } from './loading/loading.component';
 import { MenuComponent } from './shared/menu/menu.component';
-import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
-import { InvoiceAddComponent } from './invoice/invoice-add/invoice-add.component';
 
 
 @NgModule({
@@ -20,9 +18,7 @@ import { InvoiceAddComponent } from './invoice/invoice-add/invoice-add.component
     AppComponent,
     HomePageComponent,
     LoadingComponent,
-    MenuComponent,
-    InvoiceListComponent,
-    InvoiceAddComponent
+    MenuComponent
   ],
   imports: [
     BrowserModule,

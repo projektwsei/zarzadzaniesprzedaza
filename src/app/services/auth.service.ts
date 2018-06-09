@@ -18,7 +18,7 @@ export class AuthService {
         //this.currentUserFirebase = null;
         //this.currentUser = null;
         this.creatingImieNazw = '';
-        this.bState = new BehaviorSubject<LoginState>(new LoginState(AUTH_WAITING, null, null));//pusty state jako wartosc startowa - niezalogowany
+        this.bState = new BehaviorSubject<LoginState>(new LoginState(AUTH_NOT_LOGGED, null, null));//pusty state jako wartosc startowa - niezalogowany
 
         this.fire.auth().onAuthStateChanged((user) => {
             //this.currentUserFirebase = user;
@@ -92,7 +92,7 @@ export class AuthService {
 
     public logout(): void{
         this.fire.auth().signOut().then(() => {
-            this.bState.next(new LoginState(AUTH_LOGGEDOUT, null, null));
+            this.bState.next(new LoginState(AUTH_NOT_LOGGED, null, null));
         }).catch(function(error) { console.log(error); });
     }
 
@@ -153,10 +153,10 @@ export class LoginState{
     }
 }
 
-export const AUTH_WAITING: number = 0; //oczekiwanie - brak danych dot logowania
-export const AUTH_INVALID: number = 1; //nie zalogowano
+export const AUTH_NOT_LOGGED: number = 0; //niezalogowano
+export const AUTH_INVALID: number = 1; //blad logowania
 export const AUTH_ONLY_VALID: number = 2;//email i haslo sie zgadza, jednak uzytkownik nie jest potwierdzony
-export const AUTH_LOGIN_OK: number = 3;//zalogowano poprawnie
-export const AUTH_NEWUSER: number = 4;//stworzony nowy uzytkownik
-export const AUTH_LOGGEDOUT: number = 5;//wylogowano usera
+export const AUTH_LOGIN_OK: number = 4;//zalogowano poprawnie
+export const AUTH_NEWUSER: number = 5;//stworzony nowy uzytkownik
+//export const AUTH_LOGGEDOUT: number = 6;//wylogowano usera
 

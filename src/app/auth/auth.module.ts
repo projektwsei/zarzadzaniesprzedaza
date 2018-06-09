@@ -16,6 +16,11 @@ import { CommonModule } from '@angular/common';
   declarations: [
     LoginComponent,
     RegistrationComponent
+  ],
+  exports: [
+    RegistrationComponent,
+    LoginComponent
   ]
+
 })
-export class AuthModule {}
+export class AuthModule { }
