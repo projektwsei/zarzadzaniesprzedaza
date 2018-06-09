@@ -14,7 +14,7 @@ const appRoutes: Routes = [
     { path: 'login', loadChildren: './auth/login/login.module#LoginModule' },
     { path: 'register', loadChildren: './auth/registration/registration.module#RegistrationModule' },
     
-    { path: 'klienci', loadChildren: './klienci/klienci.module#KlienciModule' },
+    { path: 'kontrahenci', loadChildren: './klienci/klienci.module#KlienciModule' },
 
     { path: 'magazyn', loadChildren: './magazyn/magazyn.module#MagazynModule'},
 
@@ -23,7 +23,7 @@ const appRoutes: Routes = [
     { path: 'faktury', loadChildren: './faktury/faktury.module#FakturyModule'},
     //{ path: 'faktury/dodaj', 
 
-    { path: 'koszta', loadChildren: './koszta/koszta.module#KosztaModule'},
+    { path: 'koszty', loadChildren: './koszta/koszta.module#KosztaModule'},
 
     // otherwise redirect to HomePageComponent
     { path: '**', redirectTo: '' }
