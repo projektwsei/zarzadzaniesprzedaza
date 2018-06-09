@@ -13,6 +13,11 @@ const appRoutes: Routes = [
     { path: 'home', component: HomePageComponent },
     { path: 'login', loadChildren: './auth/login/login.module#LoginModule' },
     { path: 'register', loadChildren: './auth/registration/registration.module#RegistrationModule' },
+    { path: 'klienci', loadChildren: './klienci/klienci.module#KlienciModule' },
+    { path: 'magazyn', loadChildren: './magazyn/magazyn.module#MagazynModule'},
+    { path: 'ustawienia', loadChildren: './ustawienia/ustawienia.module#UstawieniaModule'},
+    { path: 'faktury', loadChildren: './faktury/faktury.module#FakturyModule'},
+    { path: 'koszta', loadChildren: './koszta/koszta.module#KosztaModule'},
     // otherwise redirect to HomePageComponent
     { path: '**', redirectTo: '' }
 ];
