@@ -17,17 +17,12 @@ export class LoginComponent implements OnInit {
         this.auth.login('test5@wp.pl', 'abec1234');
 
         //this.auth.loginWithGoogle();
-        this.auth.waitForLogin().subscribe(v => {
+        this.auth.getLoginState().subscribe(v => {
             console.log(v);
         });
 
-        //this.test(this.auth);//wyswietli false
-        //setTimeout(this.test, 1000, this.auth);//wyswietli true
+        
     }
-
-    //test(auth: AuthService){
-    //    console.log(auth.isLogged());
-    //}
 
 }
 
