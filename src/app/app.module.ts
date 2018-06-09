@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoadingComponent } from './loading/loading.component';
 import { HeaderComponent } from './header/header.component';
+import { FakturyComponent } from './faktury/faktury.component';
+import { DodajComponent } from './faktury/dodaj/dodaj.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { HeaderComponent } from './header/header.component';
     AppComponent,
     HomePageComponent,
     LoadingComponent,
-    HeaderComponent
+    HeaderComponent,
+    FakturyComponent,
+    DodajComponent
   ],
   imports: [
     BrowserModule,

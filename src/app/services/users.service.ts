@@ -3,9 +3,7 @@ import { User } from '../model/user';
 import { DatabaseService, TABLE_USERS } from './database.service';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UsersService {
 
     constructor(private db: DatabaseService) {

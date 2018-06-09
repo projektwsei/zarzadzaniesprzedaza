@@ -3,9 +3,7 @@ import { FirebaseService } from './firebase.service';
 import { Observable } from 'rxjs';
 import { MaxIDs } from '../model/maxIDs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DatabaseService {
     public maxID: MaxIDs;
 
