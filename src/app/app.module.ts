@@ -1,3 +1,9 @@
+import { UstawieniaComponent } from './ustawienia/ustawienia.component';
+import { KosztaComponent } from './koszta/koszta.component';
+import { KlienciComponent } from './klienci/klienci.component';
+import { FakturyComponent } from './faktury/faktury.component';
+import { MagazynComponent } from './magazyn/magazyn.component';
+import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app.routing';
 import { AuthGuard } from './auth/guard.auth';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,16 +29,22 @@ import { KosztaDodajComponent } from './koszta/koszta-dodaj/koszta-dodaj.compone
     HomePageComponent,
     LoadingComponent,
     MenuComponent,
+    MagazynComponent,
     MagazynDodajComponent,
+    FakturyComponent,
     FakturaDodajComponent,
+    KlienciComponent,
     KlienciDodajComponent,
-    KosztaDodajComponent
+    KosztaComponent,
+    KosztaDodajComponent,
+    UstawieniaComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
