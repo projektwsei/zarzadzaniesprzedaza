@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     { path: 'register', component: RegistrationComponent },
 
     { path: 'kontrahenci', component: KlienciComponent },
-    { path: 'kontrachenci/dodaj/:id', component: KlienciDodajComponent },
+    { path: 'kontrahenci/dodaj/:id', component: KlienciDodajComponent },
 
     { path: 'magazyn', component: MagazynComponent },
     { path: 'magazyn/dodaj/:id', component: MagazynDodajComponent },
