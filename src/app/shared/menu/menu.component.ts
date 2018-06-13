@@ -10,6 +10,9 @@ export class MenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    $('.nav a').on('click', function() {
+      $('#navbar').collapse('hide');
+    });
   }
 
 }
