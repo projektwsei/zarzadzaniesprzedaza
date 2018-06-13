@@ -1,3 +1,42 @@
-<p>
-  klienci-dodaj works!
-</p>
+<div class="row">
+<div class="col-sm-6">
+<form [formGroup]="clientAddForm"
+      (ngSubmit)="onSubmitAdd(clientAddForm.value)">
+      <div class="form-group">
+          <h2>Nowy kontrahent</h2>
+          <div class="col-sm-12">
+          <label for="buyer_name">Nazwa</label>
+          <input type="text" class="form-control" name="buyer_name" id="buyer_name" formControlName="buyer_name">
+          </div>
+          <div class="col-sm-12">
+          <label for="buyer_tax_no">NIP</label>
+          <input type="text" class="form-control" name="buyer_tax_no" id="buyer_tax_no" formControlName="buyer_tax_no">
+          </div>
+          <div class="col-sm-12">
+          <label for="buyer_street">Ulica i nr</label>
+          <input type="text" class="form-control" formControlName="buyer_street" name="buyer_street" id="buyer_street">
+          </div>
+          <div class="col-sm-3">
+          <label for="buyer_post_code">Kod pocztowy</label>
+          <input type="text" class="form-control" formControlName="buyer_post_code" name="buyer_post_code" id="buyer_post_code">
+          </div>
+          <div class="col-sm-9">
+          <label for="buyer_city">Miejscowość</label>
+          <input type="text" class="form-control" formControlName="buyer_city" name="buyer_city" id="buyer_city">
+          </div>
+          <div class="col-sm-12">
+          <label for="seller_bank_account">Konto</label>
+          <input type="text" class="form-control" formControlName="seller_bank_account" name="seller_bank_account" id="seller_bank_account">
+          </div>
+          <div class="col-sm-12">
+          <label for="seller_bank">Bank</label>
+          <input type="text" class="form-control" formControlName="seller_bank" name="seller_bank" id="seller_bank">
+          </div>
+          <div class="col-sm-12 col_mar">       
+          <button class="btn btn-primary" type="submit">Zapisz</button>
+          <button class="btn btn-danger">Anuluj</button>
+          </div>
+      </div>
+</form>
+</div>
+</div>

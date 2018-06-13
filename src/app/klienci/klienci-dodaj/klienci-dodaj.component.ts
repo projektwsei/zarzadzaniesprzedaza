@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-klienci-dodaj',
@@ -7,7 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KlienciDodajComponent implements OnInit {
 
-  constructor() { }
+  clientAddForm: FormGroup;
+  constructor(
+    fbc: FormBuilder) {
+      this.clientAddForm = fbc.group({
+      'buyer_name': [],
+      'buyer_tax_no': [],
+      'buyer_street': [],
+      'buyer_post_code': [],
+      'buyer_city': [],
+      'seller_bank_account': [],
+      'seller_bank': []
+    });
+  }
 
   ngOnInit() {
   }

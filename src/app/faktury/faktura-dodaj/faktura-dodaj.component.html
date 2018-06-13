@@ -90,7 +90,7 @@
 </div>
   <div *ngFor="let position of invoiceForm.controls.invoice_positions.controls; let i=index" [formGroupName]="i" >
     <!-- The repeated template -->
-    <div class="row">
+    <div class="row row_pos">
       <div class="col-sm-4">
         <input class="form-control" formControlName="attributes_name">
       </div>
@@ -120,13 +120,16 @@
         <input class="form-control" formControlName="attributes_total_price_gross" readonly>
       </div>
       <div class="col-sm-1">
-        <button (click)="delInvoicePosition(i)" type="button">-</button>
+        <button (click)="delInvoicePosition(i)" class="btn btn-danger" title="Usuń" type="button">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
       </div>
     </div>
   </div> 
     <!-- End of the repeated template -->
-  <button (click)="addInvoicePosition()" type="button">+</button>
-  
+  <button (click)="addInvoicePosition()" type="button" class="btn btn-success add_button">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+  </button>
   <div class="row">
   <div class="col-sm-4 col-sm-offset-8">
   <table class="table">
@@ -156,6 +159,7 @@
   </div>
 </div>
  
-  <button type="submit">Zapisz</button>
+  <button class="btn btn-primary" type="submit">Zapisz</button>
+  <button class="btn btn-danger">Anuluj</button>
  </div>
 </form>
