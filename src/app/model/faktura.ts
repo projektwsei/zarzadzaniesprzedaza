@@ -32,6 +32,7 @@ export class Faktura { //klasa z danymi
         }
     }*/
 
+    //funkcje te wykorzystujemy przy zapisie do bazy danych! w bazie danych ma byc number!
     public dateToNumber(): void{
         if(this.dataWystawienia instanceof Date){
             this.dataWystawienia = this.dataWystawienia.getTime();
@@ -56,6 +57,7 @@ export class Faktura { //klasa z danymi
 export class FakturaPrzedmiot { //przedmiot na fakturze
     public przedmiot_id: number; //id przedmiotu z magazynie
     public ilosc: number;
-    public cenaNetto: number; //cena netto przedmiotu
+    public cenaNetto: number; //cena netto przedmiotu wpisana na fakturze
+    public nazwa: string; //nazwa przedmiotu w chwili dodania na fakture
 }
 

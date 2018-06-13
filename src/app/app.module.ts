@@ -1,5 +1,4 @@
 import { UstawieniaComponent } from './ustawienia/ustawienia.component';
-import { KosztaComponent } from './koszta/koszta.component';
 import { KlienciComponent } from './klienci/klienci.component';
 import { FakturyComponent } from './faktury/faktury.component';
 import { MagazynComponent } from './magazyn/magazyn.component';
@@ -20,7 +19,6 @@ import { MenuComponent } from './shared/menu/menu.component';
 import { MagazynDodajComponent } from './magazyn/magazyn-dodaj/magazyn-dodaj.component';
 import { FakturaDodajComponent } from './faktury/faktura-dodaj/faktura-dodaj.component';
 import { KlienciDodajComponent } from './klienci/klienci-dodaj/klienci-dodaj.component';
-import { KosztaDodajComponent } from './koszta/koszta-dodaj/koszta-dodaj.component';
 
 
 @NgModule({
@@ -35,8 +33,6 @@ import { KosztaDodajComponent } from './koszta/koszta-dodaj/koszta-dodaj.compone
     FakturaDodajComponent,
     KlienciComponent,
     KlienciDodajComponent,
-    KosztaComponent,
-    KosztaDodajComponent,
     UstawieniaComponent,
   ],
   imports: [

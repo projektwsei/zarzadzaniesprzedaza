@@ -6,6 +6,13 @@ export class Przedmiot {
     public vat: number; //procent vat
     public jednostka: string;
 
+    public setNettoByBrutto(brutto: number): number{//funkcja ustawia cene netto po cenie brutto, oraz od razu zwraca obliczona kwote
+        let vat = this.vat / 100;
+        let kwota = brutto / (1 + vat);
+        this.cenaDomyslna = kwota;
+        return kwota;
+    }
+
     public getBruttoDefault(): number{
         return this.getBrutto(this.cenaDomyslna);
     }

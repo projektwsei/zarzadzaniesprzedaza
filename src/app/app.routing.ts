@@ -1,8 +1,6 @@
-import { KosztaDodajComponent } from './koszta/koszta-dodaj/koszta-dodaj.component';
 import { KlienciDodajComponent } from './klienci/klienci-dodaj/klienci-dodaj.component';
 import { MagazynDodajComponent } from './magazyn/magazyn-dodaj/magazyn-dodaj.component';
 import { FakturaDodajComponent } from './faktury/faktura-dodaj/faktura-dodaj.component';
-import { KosztaComponent } from './koszta/koszta.component';
 import { UstawieniaComponent } from './ustawienia/ustawienia.component';
 import { MagazynComponent } from './magazyn/magazyn.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -35,9 +33,6 @@ const appRoutes: Routes = [
 
     { path: 'faktury', component: FakturyComponent },
     { path: 'faktury/dodaj/:id', component: FakturaDodajComponent },
-
-    { path: 'koszty', component: KosztaComponent },
-    { path: 'koszty/dodaj/:id', component: KosztaDodajComponent },
 
     // otherwise redirect to HomePageComponent
     { path: '**', redirectTo: '' }
