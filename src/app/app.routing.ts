@@ -13,7 +13,6 @@ import { RegistrationComponent } from './auth/registration/registration.componen
 import { KlienciComponent } from './klienci/klienci.component';
 import { FakturyComponent } from './faktury/faktury.component';
 
-
 const appRoutes: Routes = [
     {
         path: '', component: LoadingComponent,

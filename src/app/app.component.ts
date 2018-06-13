@@ -11,7 +11,7 @@ export class AppComponent {
     constructor(){
         this.canShowMenu = false;
         //TODO pokazywanie menu tylko w przypadku, gdy jesteśmy zalogowani
-        setTimeout( () => { this.canShowMenu=true; }, 5000); //testowe pokazanie menu po 5s
+        setTimeout( () => { this.canShowMenu=true; }, 1000); //testowe pokazanie menu po 5s
     }
 
     public setCanShowMenu(b: boolean){

@@ -5,6 +5,16 @@ export class Przedmiot {
     public cenaDomyslna: number;
     public vat: number; //procent vat
     public jednostka: string;
+    //ilosci przedmiotu nie dajemy, bedzie ona wyliczana automatycznie :)
+
+    constructor(){
+        this.id = -1;
+        this.nazwa = '';
+        this.czyUsluga = false;
+        this.cenaDomyslna = 0;
+        this.vat = 23;
+        this.jednostka = JEDNOSTKI[0];
+    }
 
     public setNettoByBrutto(brutto: number): number{//funkcja ustawia cene netto po cenie brutto, oraz od razu zwraca obliczona kwote
         let vat = this.vat / 100;

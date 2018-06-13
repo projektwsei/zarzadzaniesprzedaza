@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { MaxIDs } from '../model/maxIDs';
 
 @Injectable()
 export class DatabaseService {
-    public maxID: MaxIDs;
+    private maxID: MaxIDs;
+
+    private bCanAdd: BehaviorSubject<boolean>;
 
     constructor(private fire: FirebaseService) {
+        this.bCanAdd = new BehaviorSubject<boolean>(false);
         this.getMaxIDs();        
     }
 
@@ -16,9 +19,12 @@ export class DatabaseService {
             if(snapshot.val()==null) this.createMaxIDs();
             else {
                 this.maxID = snapshot.val();
-                //this.maxID = Object.assign(new MaxIDs, this.maxID); // to dziala do pojedynczego obiektu jak i do tablicy obiektow
-                this.maxID = Object.setPrototypeOf(this.maxID, MaxIDs.prototype); //ustawia prototyp, dziala tylko dla jednego obiektu
+                this.maxID = Object.assign(new MaxIDs, this.maxID); // to dziala do pojedynczego obiektu jak i do tablicy obiektow
+                //this.maxID = Object.setPrototypeOf(this.maxID, MaxIDs.prototype); //ustawia prototyp, dziala tylko dla jednego obiektu
                 console.log(this.maxID);
+
+                this.bCanAdd.next(true);
+                this.bCanAdd.complete();
             }
         });
     }
@@ -30,6 +36,9 @@ export class DatabaseService {
         this.maxID.idKontrahent = 0;
         this.maxID.idPrzedmiot = 0;
         this.updateMaxIDs();
+
+        this.bCanAdd.next(true);
+        this.bCanAdd.complete();
     }
 
     private updateMaxIDs(){
@@ -57,14 +66,30 @@ export class DatabaseService {
     }
 
     public updateData(table: string, id: number|string, data:any):void{
-        let lastId = this.deleteId(table, data);
-        this.fire.db().ref(table+'/'+id).set(data);
-        this.restoreId(table, data, lastId);
+        if(table!=TABLE_DANE_FIRMY){
+            let lastId = this.deleteId(table, data);
+            this.fire.db().ref(table+'/'+id).set(data);
+            this.restoreId(table, data, lastId);
+        } else {
+            this.fire.db().ref(table).set(data);//bez id dla danych firmy
+        }
     }
     
     public addData(table: string, data:any):void{
+        if(this.bCanAdd.isStopped){
+            this.addDataPriv(table, data);
+        } else {
+            this.bCanAdd.subscribe((canAdd)=>{//oczekuj na mozliwosc dodania (az wczytaja sie maxID)
+                if(canAdd){
+                    this.addDataPriv(table, data);
+                }
+            });
+        }
+    }
+
+    private addDataPriv(table: string, data:any):void{
         let id=0;
-        
+
         if(table==TABLE_USERS){
             //id = this.maxID.idUser++;
             id = data.uid;
@@ -74,17 +99,22 @@ export class DatabaseService {
             id = this.maxID.idKontrahent++;
         } else if(table==TABLE_MAGAZYN){
             id = this.maxID.idPrzedmiot++;
+        } else if(table==TABLE_DANE_FIRMY){
+            id = 0;//nie ma id w dancyh firmy!
         }
 
-        this.deleteId(table, data);
-        
-        if(table!=TABLE_USERS) {
+        if(table!=TABLE_DANE_FIRMY) this.deleteId(table, data);
+
+        if(table!=TABLE_USERS && table!=TABLE_DANE_FIRMY) {
             this.updateMaxIDs(); //aktualizuj w bazie nowe max id
         }
 
-        this.fire.db().ref(table+'/'+id).set(data);
+        let sciezka = table+'/'+id;
+        if(table==TABLE_DANE_FIRMY) sciezka = table; //w danych firmy nie ma id!
 
-        this.restoreId(table, data, id);
+        this.fire.db().ref(sciezka).set(data);
+
+        if(table!=TABLE_DANE_FIRMY) this.restoreId(table, data, id);
     }
     
 
@@ -123,10 +153,14 @@ export class DatabaseService {
 
         return ret;        
     }
+
+    public deleteById(table: string, id: number|string){
+        this.fire.db().ref(table+'/'+id).remove();
+    }
 }
 
 export const TABLE_USERS: string = 'users';
 export const TABLE_FAKTURY: string = 'faktury';
 export const TABLE_KONTRAHENCI: string = 'kontrahenci';
 export const TABLE_MAGAZYN: string = 'magazyn';
-
+export const TABLE_DANE_FIRMY: string = 'danefirmy';

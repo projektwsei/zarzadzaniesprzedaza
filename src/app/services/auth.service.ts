@@ -18,12 +18,12 @@ export class AuthService {
         //this.currentUserFirebase = null;
         //this.currentUser = null;
         this.creatingImieNazw = '';
-        this.bState = new BehaviorSubject<LoginState>(new LoginState(AUTH_NOT_LOGGED, null, null));//pusty state jako wartosc startowa - niezalogowany
+        this.bState = new BehaviorSubject<LoginState>(new LoginState(AUTH_NOT_LOGGED, null, null));//wartosc startowa - niezalogowany
 
         this.fire.auth().onAuthStateChanged((user) => {
             //this.currentUserFirebase = user;
             if(user){
-                this.users.getUserByUid(user.uid).subscribe(val => {
+                this.users.getUserByUid(user.uid).toPromise().then(val => {
                     if(val==null){//jezeli NULL, to nowy uzytkownik, dodaj go do bazy jako niepotwierdzony:
                         let u = new User();
                         u.uid = user.uid;
@@ -38,25 +38,31 @@ export class AuthService {
                     } else {
                         //this.currentUser = val;  
                         if(val.isPotw){
-                            this.bState.next(new LoginState(AUTH_ONLY_VALID, val, user));//niepotwierdzony user
+                            this.bState.next(new LoginState(AUTH_LOGIN_OK, val, user));//niepotwierdzony user
                         } else {
-                            this.bState.next(new LoginState(AUTH_LOGIN_OK, val, user));
+                            this.bState.next(new LoginState(AUTH_ONLY_VALID, val, user));
                         }
                     }
                 });
             } else {
-                this.bState.next(new LoginState(AUTH_INVALID,null,null));         
+                this.bState.next(new LoginState(AUTH_NOT_LOGGED,null,null));  //user null oznacza niezalogowany       
             }
         });
     }
 
     public login(email: string, haslo: string):void{
-        this.fire.auth().signInWithEmailAndPassword(email, haslo).catch(function(error){ console.log(error); });
+        this.fire.auth().signInWithEmailAndPassword(email, haslo).catch((error)=>{ 
+            this.bState.next(new LoginState(AUTH_INVALID,null,null));
+            console.log(error); 
+        });
     }
 
     public createUser(email: string, haslo: string, imieNazw: string):void{
-        this.fire.auth().createUserWithEmailAndPassword(email, haslo).catch(function(error){ console.log(error); });
-        this.creatingImieNazw = imieNazw;        
+        this.creatingImieNazw = imieNazw;  
+        this.fire.auth().createUserWithEmailAndPassword(email, haslo).catch((error)=>{ 
+            this.bState.next(new LoginState(AUTH_INVALID,null,null));
+            console.log(error); 
+        });
     }
 
     public loginWithGoogle():void{
@@ -68,7 +74,10 @@ export class AuthService {
             if(user.displayName) this.creatingImieNazw = user.displayName; //jako imie i nazwisko uzywamy danych z konta google
             else this.creatingImieNazw = '';
             
-        }).catch(function(error) { console.log(error); });
+        }).catch((error)=>{ 
+            this.bState.next(new LoginState(AUTH_INVALID,null,null));
+            console.log(error); 
+        });
     }
 
     /*public isLogged(): boolean{
@@ -93,31 +102,8 @@ export class AuthService {
     public logout(): void{
         this.fire.auth().signOut().then(() => {
             this.bState.next(new LoginState(AUTH_NOT_LOGGED, null, null));
-        }).catch(function(error) { console.log(error); });
+        }).catch((error)=>{ console.log(error); });
     }
-
-    //TODO dodanie jakiegoś observable (lub czegoś), aby asynchronicznie wyciągnąć informacje o przebiegu logowania
-    /*public waitForLogin(): Observable<any>{ //TODO: to jest tylko testowe rozwiazanie, trzeba wymyslic cos innego!
-        let ret = new Observable(observer => {
-            let probyIsValid = 0;
-            let interval = setInterval( () => {
-                if(this.isValid()){
-                    if(this.isLogged()){
-                        observer.next(AUTH_LOGIN_OK);
-                        observer.complete();
-                        clearInterval(interval);
-                    } else {
-                        if(probyIsValid>1) {//2 proby, bo moze zdarzyc sie, ze jednak nie zdazymy wykonac pobrania info z bazy firebase
-                            observer.next(AUTH_ONLY_VALID);
-                            observer.complete();
-                            clearInterval(interval)
-                        } else probyIsValid++;
-                    }
-                }//isValid?
-            }, 200);
-        });
-        return ret;
-    }*/
 
     public getLoginState(): BehaviorSubject<LoginState>{
         return this.bState;
@@ -130,8 +116,8 @@ export class AuthService {
 }
 
 export class LoginState{
-    public state: number; //AUTH_ONLY_VALID lub AUTH_LOGIN_OK
-    public dbUser: User;
+    public state: number; //to co na dole, te wartosci const
+    public dbUser: User; //obiekt user z bazy danych (wyciagamy z niego imie i nazwisko)
     public firebaseUser; //jakbysmy potrzebowali - obiekt firebase
 
     /*constructor(){
@@ -156,7 +142,7 @@ export class LoginState{
 export const AUTH_NOT_LOGGED: number = 0; //niezalogowano
 export const AUTH_INVALID: number = 1; //blad logowania
 export const AUTH_ONLY_VALID: number = 2;//email i haslo sie zgadza, jednak uzytkownik nie jest potwierdzony
-export const AUTH_LOGIN_OK: number = 4;//zalogowano poprawnie
-export const AUTH_NEWUSER: number = 5;//stworzony nowy uzytkownik
+export const AUTH_LOGIN_OK: number = 3;//zalogowano poprawnie
+export const AUTH_NEWUSER: number = 4;//stworzony nowy uzytkownik
 //export const AUTH_LOGGEDOUT: number = 6;//wylogowano usera
 

@@ -21,6 +21,16 @@ import { FakturaDodajComponent } from './faktury/faktura-dodaj/faktura-dodaj.com
 import { KlienciDodajComponent } from './klienci/klienci-dodaj/klienci-dodaj.component';
 
 
+//services:
+import { AuthService } from './services/auth.service';
+import { DaneFirmyService } from './services/danefirmy.service';
+import { DatabaseService } from './services/database.service';
+import { FakturyService } from './services/faktury.service';
+import { FirebaseService } from './services/firebase.service';
+import { KontrahenciService } from './services/kontrahenci.service';
+import { MagazynService } from './services/magazyn.service';
+import { UsersService } from './services/users.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +52,7 @@ import { KlienciDodajComponent } from './klienci/klienci-dodaj/klienci-dodaj.com
     ReactiveFormsModule,
     AuthModule,
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, AuthService, DaneFirmyService, DatabaseService, FakturyService, FirebaseService, KontrahenciService, MagazynService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

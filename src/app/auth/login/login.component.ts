@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -6,22 +6,35 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+    private observer;
+
+    private formLogin: string = '';
+    private formPass: string = '';
+
 
     constructor(private auth: AuthService) {
-        auth.logout(); //wyloguj, przy wlaczeniu strony logowania
+
     }
 
     ngOnInit() {
-        //this.auth.createUser('test5@wp.pl', 'abec1234', 'test usera');
-        this.auth.login('test5@wp.pl', 'abec1234');
+        this.auth.logout(); //wyloguj, przy wlaczeniu strony logowania
 
-        //this.auth.loginWithGoogle();
-        this.auth.getLoginState().subscribe(v => {
+        this.observer = this.auth.getLoginState().subscribe(v => {
             console.log(v);
         });
+    }
 
-        
+    ngOnDestroy(){
+        if(this.observer) this.observer.unsubscribe();
+    }
+
+    private zaloguj():void{
+        this.auth.login(this.formLogin, this.formPass);
+    }
+
+    private loginGoogle():void{
+        this.auth.loginWithGoogle();
     }
 
 }

@@ -8,5 +8,17 @@ export class Kontrahent {
     public kodPocztowy: string;
     public nip: string;
     public platnikVat: boolean; //czy jest platnikiem vat (wymagane?)
+
+    constructor(){
+        this.id = -1;
+        this.nazwa = '';
+        this.firma = true;
+        this.nazwaFirmy = '';
+        this.adres = '';
+        this.miasto = '';
+        this.kodPocztowy = '';
+        this.nip = '';
+        this.platnikVat = false;
+    }
 }
 
