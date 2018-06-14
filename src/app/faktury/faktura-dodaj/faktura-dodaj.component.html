@@ -76,9 +76,9 @@
       </div>
       
   
-<div id="invoice_positions" formArrayName="invoice_positions" class="row">
-<div class="row">
-  <h4>Pozycje na fakturze</h4>
+<div id="invoice_positions" formArrayName="invoice_positions" class="row col-sm-12">
+<h4>Pozycje na fakturze</h4>
+<div class="row hidden-xs labels">
   <div class="col-sm-4">Nazwa:</div>
   <div class="col-sm-1">Ilość:</div>
   <div class="col-sm-1">Jednostka:</div>
@@ -92,31 +92,39 @@
     <!-- The repeated template -->
     <div class="row row_pos">
       <div class="col-sm-4">
+        <label class="visible-xs">Nazwa:</label>
         <input class="form-control" formControlName="attributes_name">
       </div>
       <div class="col-sm-1">
+        <label class="visible-xs">Ilość:</label>
         <input class="form-control" formControlName="attributes_quantity">
       </div>
       <div class="col-sm-1">
+        <label class="visible-xs">Jednostka:</label>
         <select class="form-control" formControlName="attributes_quantity_unit" required >
           <option *ngFor="let u of attributes_quantity_unit" [value]="u">{{u}}</option>
         </select>
       </div>
       <div class="col-sm-1">
+        <label class="visible-xs">Cena netto:</label>
         <input class="form-control" formControlName="attributes_price_net">
       </div>
       <div class="col-sm-1">
+        <label class="visible-xs">VAT %:</label>
         <select class="form-control" formControlName="attributes_tax_per">
           <option *ngFor="let t of attributes_tax" [value]="t">{{t}}</option>
         </select>
       </div>
       <div class="col-sm-1">
+        <label class="visible-xs">Wartość netto:</label>
         <input class="form-control" formControlName="attributes_total_price_net" readonly>
       </div>
       <div class="col-sm-1">
+        <label class="visible-xs">Wartość VAT:</label>
         <input class="form-control" formControlName="attributes_tax" readonly>
       </div>
       <div class="col-sm-1">
+        <label class="visible-xs">Wartość brutto:</label>
         <input class="form-control" formControlName="attributes_total_price_gross" readonly>
       </div>
       <div class="col-sm-1">
