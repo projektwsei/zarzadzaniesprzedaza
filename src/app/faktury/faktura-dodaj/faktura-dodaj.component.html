@@ -40,37 +40,37 @@
           <label for="invoice_seller_city">Miejscowość</label>
           <input type="text" class="form-control" formControlName="invoice_seller_city" name="invoice_seller_city" id="invoice_seller_city">
           </div>
-          <div class="col-sm-12">
-          <label for="invoice_seller_bank_account">Konto</label>
-          <input type="text" class="form-control" formControlName="invoice_seller_bank_account" name="invoice_seller_bank_account" id="invoice_seller_bank_account">
-          </div>
-          <div class="col-sm-12">
-          <label for="invoice_seller_bank">Bank</label>
-          <input type="text" class="form-control" formControlName="invoice_seller_bank" name="invoice_seller_bank" id="invoice_seller_bank">
-          </div>
         </div>
         <div formGroupName = "buyer" class="col-sm-6">
           <div class="col-sm-12">
           <h3>Nabywca</h3>
-          <select class="form-control" name="invoice_buyer_name" id="invoice_buyer_name" formControlName="invoice_buyer_name">
-          <option></option>
+          <select class="form-control" name="invoice_buyer_name" id="invoice_buyer_name" formControlName="invoice_buyer_name" (change)="onChangeKontrahent($event)">
+            <option *ngFor="let k of kontrahenci" [ngValue]="k">{{k.nazwa}}</option>
           </select>
           </div>
           <div class="col-sm-12">
+          <label for="invoice_buyer_tax_no">Typ kontrahenta</label>
+          <input type="text" class="form-control" name="invoice_buyer_typ" id="invoice_buyer_typ" formControlName="invoice_buyer_typ" readonly />
+          </div>
+          <div class="col-sm-12">
+          <label for="invoice_buyer_tax_no">Nazwa Firmy / Imie i nazwisko</label>
+          <input type="text" class="form-control" name="invoice_buyer_nazwafirmy" id="invoice_buyer_nazwafirmy" formControlName="invoice_buyer_nazwafirmy" readonly />
+          </div>
+          <div class="col-sm-12">
           <label for="invoice_buyer_tax_no">NIP</label>
-          <input type="text" class="form-control" name="invoice_buyer_tax_no" id="invoice_buyer_tax_no" formControlName="invoice_buyer_tax_no">
+          <input type="text" class="form-control" name="invoice_buyer_tax_no" id="invoice_buyer_tax_no" formControlName="invoice_buyer_tax_no" readonly />
           </div>
           <div class="col-sm-12">
           <label for="invoice_buyer_street">Ulica i nr</label>
-          <input type="text" class="form-control" formControlName="invoice_buyer_street" name="invoice_buyer_street" id="invoice_buyer_street">
+          <input type="text" class="form-control" formControlName="invoice_buyer_street" name="invoice_buyer_street" id="invoice_buyer_street" readonly />
           </div>
           <div class="col-sm-3">
           <label for="invoice_buyer_post_code">Kod pocztowy</label>
-          <input type="text" class="form-control" formControlName="invoice_buyer_post_code" name="invoice_buyer_post_code" id="invoice_buyer_post_code">
+          <input type="text" class="form-control" formControlName="invoice_buyer_post_code" name="invoice_buyer_post_code" id="invoice_buyer_post_code" readonly />
           </div>
           <div class="col-sm-9">
           <label for="invoice_buyer_city">Miejscowość</label>
-          <input type="text" class="form-control" formControlName="invoice_buyer_city" name="invoice_buyer_city" id="invoice_buyer_city">
+          <input type="text" class="form-control" formControlName="invoice_buyer_city" name="invoice_buyer_city" id="invoice_buyer_city" readonly />
           </div>
         </div>
       </div>
@@ -92,23 +92,28 @@
     <!-- The repeated template -->
     <div class="row row_pos">
       <div class="col-sm-4">
-        <input class="form-control" formControlName="attributes_name">
+        <!-- <input class="form-control" formControlName="attributes_name">-->
+        <select class="form-control" formControlName="attributes_id_name" (change)="onChangePrzedmiot($event, i)">
+            <option *ngFor="let n of przedmioty" [ngValue]="n">{{n.nazwa}}</option>
+        </select>
       </div>
       <div class="col-sm-1">
         <input class="form-control" formControlName="attributes_quantity">
       </div>
       <div class="col-sm-1">
-        <select class="form-control" formControlName="attributes_quantity_unit" required >
-          <option *ngFor="let u of attributes_quantity_unit" [value]="u">{{u}}</option>
-        </select>
+        <!--<select class="form-control" formControlName="attributes_quantity_unit" required >
+          <option *ngFor="let u of getQuantityUnit()" [value]="u">{{u}}</option>
+        </select>-->
+        <input class="form-control" formControlName="attributes_quantity_unit" readonly />
       </div>
       <div class="col-sm-1">
         <input class="form-control" formControlName="attributes_price_net">
       </div>
       <div class="col-sm-1">
-        <select class="form-control" formControlName="attributes_tax_per">
-          <option *ngFor="let t of attributes_tax" [value]="t">{{t}}</option>
-        </select>
+        <!--<select class="form-control" formControlName="attributes_tax_per">
+          <option *ngFor="let t of getVatValues()" [value]="t">{{t}}</option>
+         </select>-->
+        <input class="form-control" formControlName="attributes_tax_per" readonly />
       </div>
       <div class="col-sm-1">
         <input class="form-control" formControlName="attributes_total_price_net" readonly>
@@ -160,6 +165,6 @@
 </div>
  
   <button class="btn btn-primary" type="submit">Zapisz</button>
-  <button class="btn btn-danger">Anuluj</button>
+  <button class="btn btn-danger" type="cancel">Anuluj</button>
  </div>
 </form>

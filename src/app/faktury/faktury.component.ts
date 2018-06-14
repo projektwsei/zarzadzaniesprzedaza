@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Faktura } from '../model/faktura';
+import { FakturyService } from '../services/faktury.service';
 
 @Component({
   selector: 'app-faktury',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FakturyComponent implements OnInit {
 
-  constructor() { }
+    private faktury: Faktura[] = [];
 
-  ngOnInit() {
-  }
+    constructor(private fakt: FakturyService) {
+    
+    }
+
+    ngOnInit() {
+        //wczytaj liste faktur
+        this.fakt.getFakturyList().then(val => {
+            this.faktury = val;
+        });
+    }
 
 }

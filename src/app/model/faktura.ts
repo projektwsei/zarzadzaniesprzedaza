@@ -39,7 +39,7 @@ export class Faktura { //klasa z danymi
 
     public defaultNrFaktury():void{
         let d = new Date();
-        this.numerFaktury = d.getFullYear() + '/' + (d.getMonth()+1) + '/' + d.getDate() + '/';
+        this.numerFaktury = d.getFullYear() + '/' + this.getFullDateMonthValue(d.getMonth()+1) + '/' + this.getFullDateMonthValue(d.getDate()) + '/';
     }
 
     public setNrFaktury(id: string):void{//ustaw numer faktury po jakims id czy czyms
@@ -49,18 +49,36 @@ export class Faktura { //klasa z danymi
 
 
     public getSumNetto(): number {
-        return 0;//TODO
+        let sum = 0;
+
+        for(let i=0;i<this.przedmioty.length;i++){
+            sum += this.przedmioty[i].cenaNetto * this.przedmioty[i].ilosc;
+        }
+        
+        return sum;
     }
 
     public getSumBrutto(): number {
-        return 0;//TODO
+        let sum = 0;
+
+        for(let i=0;i<this.przedmioty.length;i++){
+            let vat = this.przedmioty[i].cenaNetto * this.przedmioty[i].vat / 100;
+            sum += (this.przedmioty[i].cenaNetto + vat) * this.przedmioty[i].ilosc;
+        }
+        
+        return sum;
     }
 
-    /*public getPrzedmiotyObjects(): void{
-        for(let i=0;i<this.dane.przedmioty.length;i++){
-            
+    public getSumVat(): number {
+        let sum = 0;
+
+        for(let i=0;i<this.przedmioty.length;i++){
+            let vat = this.przedmioty[i].cenaNetto * this.przedmioty[i].vat / 100;
+            sum += vat * this.przedmioty[i].ilosc;
         }
-    }*/
+        
+        return sum;
+    }
 
     //funkcje te wykorzystujemy przy zapisie do bazy danych! w bazie danych ma byc number! po pobraniu ma byc obiekt Date
     public dateToNumber(): void{
@@ -82,6 +100,33 @@ export class Faktura { //klasa z danymi
             this.dataPlatnosci = new Date(this.dataPlatnosci);
         }
     }
+
+    public getPrzedmiotyById(id: number):FakturaPrzedmiot[]{
+        let ret = [];
+        for(let i=0;i<this.przedmioty.length;i++){
+            if(this.przedmioty[i].przedmiot_id == id) ret.push(this.przedmioty[i]);
+        }
+        return ret;
+    }
+
+    //funkcje Date to string, do formularzy, zeby zwrocic w formacie yyyy-MM-dd
+    public getDataWystawieniaAsString():string{
+        this.numberToDate();
+        return this.dateToString(this.dataWystawienia);
+    }
+
+    public getDataPlatnosciAsString():string{
+        this.numberToDate();
+        return this.dateToString(this.dataPlatnosci);
+    }
+
+    private dateToString(d: any):string{
+        return d.getFullYear()+'-'+this.getFullDateMonthValue(d.getMonth()+1)+'-'+this.getFullDateMonthValue(d.getDate());
+    }
+
+    private getFullDateMonthValue(n: number):string{
+        return ((n>9)? '' : '0')+n;
+    }
 }
 
 export class FakturaPrzedmiot { //przedmiot na fakturze
@@ -89,12 +134,16 @@ export class FakturaPrzedmiot { //przedmiot na fakturze
     public ilosc: number;
     public cenaNetto: number; //cena netto przedmiotu wpisana na fakturze
     public nazwa: string; //nazwa przedmiotu w chwili dodania na fakture
+    public jednostka: string;//jednostka w chwili dodania na fakture
+    public vat: number; //vat w chwili dodania na fakture
 
     constructor(){
         this.przedmiot_id = -1;
         this.ilosc = 0;
         this.cenaNetto = 0;
         this.nazwa = '';
+        this.vat = 0;
+        this.jednostka = '';
     }
 }
 

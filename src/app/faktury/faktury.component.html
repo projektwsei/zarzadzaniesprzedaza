@@ -15,18 +15,20 @@
                   <th>Numer</th>
                   <th>Wartość netto</th>
                   <th>Wartość brutto</th>
-                  <th>Klient</th>
+                  <th>Klient (nazwa własna)</th>
+                  <th>Nazwa firmy/Imie i nazwisko</th>
                   <th>Data wystawienia</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>ff</td>
-                  <td >ff</td>
-                  <td>ff</td>
-                  <td>ffgfgf vfgfgrfgr vbfgrtrtr</td>
-                  <td>ff</td>
+                <tr *ngFor="let f of faktury">
+                  <td>{{f.numerFaktury}}</td>
+                  <td>{{f.getSumNetto()}}</td>
+                  <td>{{f.getSumBrutto()}}</td>
+                  <td>{{f.kontrahent.nazwa}}</td>
+                  <td>{{f.nazwaFirmy}}</td>
+                  <td>{{f.getDataWystawieniaAsString()}}</td>
                   <td class="text-right">
                     <a href="" class="btn btn-primary" title="Zobacz">
                       <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>

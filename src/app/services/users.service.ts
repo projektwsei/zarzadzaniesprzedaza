@@ -77,4 +77,8 @@ export class UsersService {
         //TODO zmiana hasla w firebase    
     }
 
+    public getCurrentUserData():User{
+        return new User();//TODO
+    }
+
 }

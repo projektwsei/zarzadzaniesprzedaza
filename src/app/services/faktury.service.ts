@@ -34,7 +34,7 @@ export class FakturyService {
 
     public getFakturyListObs(isOnce: boolean):Observable<Faktura[]>{//isOnce - czy pobieramy raz liste, czy subskrybujemy
         let ret = new Observable<Faktura[]>(observer => {
-            let sub = this.db.readList(TABLE_FAKTURY, isOnce).subscribe(val => {
+            this.db.readList(TABLE_FAKTURY, isOnce).subscribe(val => {
                 let tab = [];
     
                 if(val) {

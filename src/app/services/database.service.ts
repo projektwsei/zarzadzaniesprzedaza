@@ -6,7 +6,7 @@ import { MaxIDs } from '../model/maxIDs';
 @Injectable()
 export class DatabaseService {
     private maxID: MaxIDs;
-
+    
     private bCanAdd: BehaviorSubject<boolean>;
 
     constructor(private fire: FirebaseService) {
@@ -122,7 +122,7 @@ export class DatabaseService {
         let ret = new Observable(observer => {
             let ref = this.fire.db().ref(table);
             if(!isOnce){            
-                ref.on("value", (snapshot) => {
+                let x = ref.on("value", (snapshot) => {
                     observer.next(snapshot.val());
                 });
             } else {
