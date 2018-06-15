@@ -37,12 +37,11 @@ export class MagazynService {
                 let tab = [];
     
                 if(val) {
-                    for(let i=0;i<val.length;i++){
-                        if(val[i]){
-                            let u = Object.assign(new Przedmiot, val[i]);
-                            u.id = i;
-                            tab.push(u);
-                        } //else tab.push(null);
+                    let entries = Object.entries(val);
+                    for(let i=0;i<entries.length;i++){
+                        let u = Object.assign(new Przedmiot, entries[i][1]);
+                        u.id = Number(entries[i][0]);
+                        tab.push(u);
                     }
                 }
 

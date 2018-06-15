@@ -11,12 +11,10 @@ export class FakturyService {
     }
 
     public addFaktura(f: Faktura):void{
-        f.dateToNumber();
         this.db.addData(TABLE_FAKTURY, f);
     }
 
     public updateFaktura(f: Faktura):void{
-        f.dateToNumber();
         this.db.updateData(TABLE_FAKTURY, f.id, f);
     }
 
@@ -36,15 +34,13 @@ export class FakturyService {
         let ret = new Observable<Faktura[]>(observer => {
             this.db.readList(TABLE_FAKTURY, isOnce).subscribe(val => {
                 let tab = [];
-    
+                
                 if(val) {
-                    for(let i=0;i<val.length;i++){
-                        if(val[i]){
-                            let u = Object.assign(new Faktura, val[i]);
-                            u.id = i;
-                            u.numberToDate();
-                            tab.push(u);
-                        } //else tab.push(null);
+                    let entries = Object.entries(val);
+                    for(let i=0;i<entries.length;i++){
+                        let u = Object.assign(new Faktura, entries[i][1]);
+                        u.id = Number(entries[i][0]);
+                        tab.push(u);
                     }
                 }
 

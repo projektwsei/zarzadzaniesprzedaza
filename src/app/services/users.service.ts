@@ -6,8 +6,10 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class UsersService {
 
+    private currentUser: User = null;
+
     constructor(private db: DatabaseService) {
-        
+        this.currentUser = new User();
     }
 
     public getUserByUid(uid: string):Observable<User|null>{//tylko zwracamy usera i od razu zakanczamy observer
@@ -77,8 +79,12 @@ export class UsersService {
         //TODO zmiana hasla w firebase    
     }
 
-    public getCurrentUserData():User{
-        return new User();//TODO
+    public setCurrentUser(u: User){//do aktualnego usera wpisujemy do cache, by byl dostep synchroniczny, a nie przez observable lub promise
+        this.currentUser = u;
+    }
+
+    public getCurrentUser():User{//aktualny user
+        return this.currentUser;
     }
 
 }

@@ -21,7 +21,7 @@ export class DatabaseService {
                 this.maxID = snapshot.val();
                 this.maxID = Object.assign(new MaxIDs, this.maxID); // to dziala do pojedynczego obiektu jak i do tablicy obiektow
                 //this.maxID = Object.setPrototypeOf(this.maxID, MaxIDs.prototype); //ustawia prototyp, dziala tylko dla jednego obiektu
-                console.log(this.maxID);
+                //console.log(this.maxID);
 
                 this.bCanAdd.next(true);
                 this.bCanAdd.complete();

@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { DatabaseService, TABLE_KONTRAHENCI } from './database.service';
 import { Kontrahent } from '../model/kontrahent';
 import { Observable } from 'rxjs';
+import { FakturyService } from './faktury.service';
 
 @Injectable()
 export class KontrahenciService {
 
-    constructor(private db: DatabaseService) {
+    constructor(private db: DatabaseService, private fakt: FakturyService) {
 
     }
 
@@ -34,14 +35,13 @@ export class KontrahenciService {
         let ret = new Observable<Kontrahent[]>(observer => {
             let sub = this.db.readList(TABLE_KONTRAHENCI, isOnce).subscribe(val => {
                 let tab = [];
-    
+
                 if(val) {
-                    for(let i=0;i<val.length;i++){
-                        if(val[i]){
-                            let u = Object.assign(new Kontrahent, val[i]);
-                            u.id = i;
-                            tab.push(u);
-                        } //else tab.push(null);
+                    let entries = Object.entries(val);
+                    for(let i=0;i<entries.length;i++){
+                        let u = Object.assign(new Kontrahent, entries[i][1]);
+                        u.id = Number(entries[i][0]);
+                        tab.push(u);
                     }
                 }
 
@@ -52,5 +52,24 @@ export class KontrahenciService {
             });
         });
         return ret;
+    }
+
+    //ilosc faktur ktore sa na kontrahenta
+    public iloscFaktur(k: Kontrahent):Promise<number>{
+        return this.iloscFakturById(k.id);
+    }
+
+    public iloscFakturById(id: number):Promise<number>{
+        return new Promise((resolve, reject) => {
+            let num = 0;
+
+            this.fakt.getFakturyList().then(val => {
+                for(let i=0;i<val.length;i++){
+                    if(val[i].kontrahent.id == id) num++;
+                }
+            });
+
+            resolve(num);//zwroc ilosc faktur
+        });
     }
 }

@@ -3,9 +3,9 @@
     <h2>Lista faktur</h2>
   </div>
   <div class="col-md-6 text-right">
-    <a routerLink="dodaj/0" class="btn btn-primary">
+    <a routerLink="dodaj/new" class="btn btn-primary">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    <span><strong>Dodaj nową</strong></span></a>
+    <span><strong> Dodaj fakturę</strong></span></a>
  </div>
 </div>
 <div class="table-responsive">
@@ -15,9 +15,9 @@
                   <th>Numer</th>
                   <th>Wartość netto</th>
                   <th>Wartość brutto</th>
-                  <th>Klient (nazwa własna)</th>
                   <th>Nazwa firmy/Imie i nazwisko</th>
                   <th>Data wystawienia</th>
+                  <th>Typ</th>
                   <th></th>
                 </tr>
               </thead>
@@ -26,17 +26,17 @@
                   <td>{{f.numerFaktury}}</td>
                   <td>{{f.getSumNetto()}}</td>
                   <td>{{f.getSumBrutto()}}</td>
-                  <td>{{f.kontrahent.nazwa}}</td>
-                  <td>{{f.nazwaFirmy}}</td>
-                  <td>{{f.getDataWystawieniaAsString()}}</td>
+                  <td>{{f.kontrahent.nazwaFirmy}}</td>
+                  <td>{{f.dataWystawienia}}</td>
+                  <td>{{f.getTypeName()}}</td>
                   <td class="text-right">
-                    <a href="" class="btn btn-primary" title="Zobacz">
+                    <a routerLink="dodaj/{{f.id}}" class="btn btn-primary" title="Zobacz">
                       <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                     </a>
-                    <a href="" class="btn btn-primary" title="Edytuj">
+                    <a routerLink="dodaj/{{f.id}}" class="btn btn-primary" title="Edytuj">
                       <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                     </a>
-                    <a href="" class="btn btn-danger" title="Usuń">
+                    <a routeLink="." class="btn btn-danger" title="Usuń">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>
                   </td>

@@ -1,84 +1,98 @@
-<form [formGroup]="invoiceForm"
-        (ngSubmit)="onSubmitAdd(invoiceForm.value)">
- <div class="form-group">
+<form [formGroup]="fakturaForm"
+        (ngSubmit)="onSubmitAdd(fakturaForm.value)">
+  <div class="form-group">
       <div class="row">
-      <div class="col-sm-12">
-      <div class="col-sm-2">
-      <label for="number">Numer</label>
-      <input type="text" class="form-control" formControlName="invoice_number" name="invoice_number" id="invoice_number">
-      </div>
-      <div class="col-sm-2">
-      <label for="invoice_issue_date">Data wystawienia</label><input type="date" class="form-control" formControlName="invoice_issue_date" name="invoice_issue_date" id="invoice_issue_date">
-      </div>
-      <div class="col-sm-2">
-      <label for="invoice_place">Miejsce wystawienia</label><input type="text" class="form-control" formControlName="invoice_place" name="invoice_place" id="invoice_place">
-      </div>
-      <div class="col-sm-2">
-      <label for="invoice_sell_date">Data sprzedaży</label><input type="date" class="form-control" formControlName="invoice_sell_date" name="invoice_sell_date" id="invoice_sell_date">
-      </div>
-      </div>
-      </div>
-      <div class="row">
-        <div formGroupName = "seller" class="col-sm-6">
-          <div class="col-sm-12">
-          <h3>Sprzedawca</h3>
-          <input type="text" class="form-control" formControlName="invoice_seller_name" name="invoice_seller_name" id="invoice_seller_name">
+        <div class="col-sm-12">
+          <div class="col-sm-2">
+          <label for="number">Numer</label>
+          <input type="text" class="form-control" formControlName="numerFaktury" name="numerFaktury" id="numerFaktury">
           </div>
-          <div class="col-sm-12">
-          <label for="invoice_seller_tax_no">NIP</label>
-          <input type="text" class="form-control" formControlName="invoice_seller_tax_no" name="invoice_seller_tax_no" id="invoice_seller_tax_no">
+          <div class="col-sm-2">
+          <label for="dataWystawienia">Data wystawienia</label><input type="date" class="form-control" formControlName="dataWystawienia" name="dataWystawienia" id="dataWystawienia">
           </div>
-          <div class="col-sm-12">
-          <label for="invoice_seller_street">Ulica i nr</label>
-          <input type="text" class="form-control" formControlName="invoice_seller_street" name="invoice_seller_street" id="invoice_seller_street">
+          <div class="col-sm-2">
+          <label for="miejsceWystawienia">Miejsce wystawienia</label><input type="text" class="form-control" formControlName="miejsceWystawienia" name="miejsceWystawienia" id="miejsceWystawienia">
           </div>
-          <div class="col-sm-3">
-          <label for="invoice_seller_post_code">Kod pocztowy</label>
-          <input type="text" class="form-control" formControlName="invoice_seller_post_code" name="invoice_seller_post_code" id="invoice_seller_post_code">
+          <div class="col-sm-2">
+          <label for="dataSprzedazy">Data płatności</label><input type="date" class="form-control" formControlName="dataPlatnosci" name="dataPlatnosci" id="dataPlatnosci">
           </div>
-          <div class="col-sm-9">
-          <label for="invoice_seller_city">Miejscowość</label>
-          <input type="text" class="form-control" formControlName="invoice_seller_city" name="invoice_seller_city" id="invoice_seller_city">
-          </div>
-        </div>
-        <div formGroupName = "buyer" class="col-sm-6">
-          <div class="col-sm-12">
-          <h3>Nabywca</h3>
-          <select class="form-control" name="invoice_buyer_name" id="invoice_buyer_name" formControlName="invoice_buyer_name" (change)="onChangeKontrahent($event)">
-            <option *ngFor="let k of kontrahenci" [ngValue]="k">{{k.nazwa}}</option>
+          <div class="col-sm-4">
+          <label for="fakturaType">Typ dokumentu</label>
+          <select class="form-control" formControlName="fakturaType" (change)="onChangeFakturaType($event)">
+            <option *ngFor="let t of getFakturaTypes()" [value]="t">{{t}}</option>
           </select>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+        <div class="col-sm-12">
+        <label for="opis">Opis (opcjonalnie)</label>
+        <input type="text" class="form-control" formControlName="opis" name="opis" id="opis">
+        </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!czyStrata">
+        <div formGroupName = "daneFirmy" class="col-sm-6">
           <div class="col-sm-12">
-          <label for="invoice_buyer_tax_no">Typ kontrahenta</label>
-          <input type="text" class="form-control" name="invoice_buyer_typ" id="invoice_buyer_typ" formControlName="invoice_buyer_typ" readonly />
+          <h3>{{sprzedawcaNapis}}</h3>
+          <input type="text" class="form-control" formControlName="nazwaFirmy" name="nazwaFirmy" id="nazwaFirmy" readonly>
           </div>
           <div class="col-sm-12">
-          <label for="invoice_buyer_tax_no">Nazwa Firmy / Imie i nazwisko</label>
-          <input type="text" class="form-control" name="invoice_buyer_nazwafirmy" id="invoice_buyer_nazwafirmy" formControlName="invoice_buyer_nazwafirmy" readonly />
+          <label for="nip">NIP</label>
+          <input type="text" class="form-control" formControlName="nip" name="nip" id="nip" readonly>
           </div>
           <div class="col-sm-12">
-          <label for="invoice_buyer_tax_no">NIP</label>
-          <input type="text" class="form-control" name="invoice_buyer_tax_no" id="invoice_buyer_tax_no" formControlName="invoice_buyer_tax_no" readonly />
-          </div>
-          <div class="col-sm-12">
-          <label for="invoice_buyer_street">Ulica i nr</label>
-          <input type="text" class="form-control" formControlName="invoice_buyer_street" name="invoice_buyer_street" id="invoice_buyer_street" readonly />
+          <label for="adres">Ulica i nr</label>
+          <input type="text" class="form-control" formControlName="adres" name="adres" id="adres" readonly>
           </div>
           <div class="col-sm-3">
-          <label for="invoice_buyer_post_code">Kod pocztowy</label>
-          <input type="text" class="form-control" formControlName="invoice_buyer_post_code" name="invoice_buyer_post_code" id="invoice_buyer_post_code" readonly />
+          <label for="kodPocztowy">Kod pocztowy</label>
+          <input type="text" class="form-control" formControlName="kodPocztowy" name="kodPocztowy" id="kodPocztowy" readonly>
           </div>
           <div class="col-sm-9">
-          <label for="invoice_buyer_city">Miejscowość</label>
-          <input type="text" class="form-control" formControlName="invoice_buyer_city" name="invoice_buyer_city" id="invoice_buyer_city" readonly />
+          <label for="miasto">Miejscowość</label>
+          <input type="text" class="form-control" formControlName="miasto" name="miasto" id="miasto" readonly>
+          </div>
+          <!--<div class="col-sm-12">
+          <label for="konto">Konto</label>
+          <input type="text" class="form-control" formControlName="konto" name="konto" id="konto">
+          </div>
+          <div class="col-sm-12">
+          <label for="bank">Bank</label>
+          <input type="text" class="form-control" formControlName="bank" name="bank" id="bank">
+          </div>-->
+        </div>
+        <div formGroupName = "kontrahent" class="col-sm-6">
+          <div class="col-sm-12">
+            <h3>{{nabywcaNapis}}</h3>
+            <select class="form-control" name="nazwaFirmy" id="nazwaFirmy" formControlName="nazwaFirmy">
+              <option [value]="kontrahent.id" *ngFor="let kontrahent of kontrahenci">{{kontrahent.getFullName()}}</option>
+            </select>
+          </div>
+          <div class="col-sm-12">
+          <label for="nip">NIP</label>
+          <input type="text" class="form-control" name="nip" id="nip" formControlName="nip" readonly>
+          </div>
+          <div class="col-sm-12">
+          <label for="adres">Ulica i nr</label>
+          <input type="text" class="form-control" formControlName="adres" name="adres" id="adres" readonly>
+          </div>
+          <div class="col-sm-3">
+          <label for="kodPocztowy">Kod pocztowy</label>
+          <input type="text" class="form-control" formControlName="kodPocztowy" name="kodPocztowy" id="kodPocztowy" readonly>
+          </div>
+          <div class="col-sm-9">
+          <label for="miasto">Miejscowość</label>
+          <input type="text" class="form-control" formControlName="miasto" name="miasto" id="miasto" readonly>
           </div>
         </div>
       </div>
-      
-  
-<div id="invoice_positions" formArrayName="invoice_positions" class="row">
-<div class="row">
-  <h4>Pozycje na fakturze</h4>
+
+<div id="przedmioty" formArrayName="przedmioty" class="row col-sm-12">
+<h4 *ngIf="!czyStrata">Pozycje na fakturze</h4>
+<h4 *ngIf="czyStrata">Pozycje strat</h4>
+<div class="row hidden-xs labels" *ngIf="!czyStrata">
   <div class="col-sm-4">Nazwa:</div>
   <div class="col-sm-1">Ilość:</div>
   <div class="col-sm-1">Jednostka:</div>
@@ -88,83 +102,108 @@
   <div class="col-sm-1">Wartość VAT:</div>
   <div class="col-sm-1">Wartość brutto:</div>
 </div>
-  <div *ngFor="let position of invoiceForm.controls.invoice_positions.controls; let i=index" [formGroupName]="i" >
+
+<div class="row hidden-xs labels" *ngIf="czyStrata">
+  <div class="col-sm-4">Nazwa:</div>
+  <div class="col-sm-1">Ilość:</div>
+  <div class="col-sm-1">Jednostka:</div>
+  <div class="col-sm-2">Wartość strat:</div>
+  <div class="col-sm-3">Wartość strat razem:</div>
+</div>
+
+  <div *ngFor="let position of fakturaForm.controls.przedmioty.controls; let i=index" [formGroupName]="i" >
     <!-- The repeated template -->
     <div class="row row_pos">
       <div class="col-sm-4">
-        <!-- <input class="form-control" formControlName="attributes_name">-->
-        <select class="form-control" formControlName="attributes_id_name" (change)="onChangePrzedmiot($event, i)">
-            <option *ngFor="let n of przedmioty" [ngValue]="n">{{n.nazwa}}</option>
+        <label class="visible-xs">Nazwa:</label>
+        <select class="form-control" formControlName="nazwa" (change)="onChangePrzedmiot($event, i)">
+            <option *ngFor="let p of przedmioty" [value]="p.id">{{p.nazwa}}</option>
         </select>
       </div>
       <div class="col-sm-1">
-        <input class="form-control" formControlName="attributes_quantity">
+        <label class="visible-xs">Ilość:</label>
+        <input class="form-control" formControlName="ilosc">
       </div>
       <div class="col-sm-1">
-        <!--<select class="form-control" formControlName="attributes_quantity_unit" required >
-          <option *ngFor="let u of getQuantityUnit()" [value]="u">{{u}}</option>
-        </select>-->
-        <input class="form-control" formControlName="attributes_quantity_unit" readonly />
+        <label class="visible-xs">Jednostka:</label>
+        <input class="form-control" formControlName="jednostka" readonly />
+      </div>
+      <div class="col-sm-1" *ngIf="!czyStrata">
+        <label class="visible-xs">Cena netto:</label>
+        <input class="form-control" formControlName="cenaNetto">
+      </div>
+      <div class="col-sm-2" *ngIf="czyStrata">
+        <label class="visible-xs">Wartość strat:</label>
+        <input class="form-control" formControlName="cenaNetto">
+      </div>
+      <div class="col-sm-1" *ngIf="!czyStrata">
+        <label class="visible-xs">VAT %:</label>
+        <input class="form-control" formControlName="vat" readonly />
+      </div>
+      <div class="col-sm-3" *ngIf="czyStrata">
+        <label class="visible-xs">Wartość strat razem:</label>
+        <input class="form-control" formControlName="wartoscNetto" readonly>
+      </div>
+      <div class="col-sm-1" *ngIf="!czyStrata">
+        <label class="visible-xs">Wartość netto:</label>
+        <input class="form-control" formControlName="wartoscNetto" readonly>
+      </div>
+      <div class="col-sm-1" *ngIf="!czyStrata">
+        <label class="visible-xs">Wartość VAT:</label>
+        <input class="form-control" formControlName="wartoscVat" readonly>
+      </div>
+      <div class="col-sm-1" *ngIf="!czyStrata">
+        <label class="visible-xs">Wartość brutto:</label>
+        <input class="form-control" formControlName="wartoscBrutto" readonly>
       </div>
       <div class="col-sm-1">
-        <input class="form-control" formControlName="attributes_price_net">
-      </div>
-      <div class="col-sm-1">
-        <!--<select class="form-control" formControlName="attributes_tax_per">
-          <option *ngFor="let t of getVatValues()" [value]="t">{{t}}</option>
-         </select>-->
-        <input class="form-control" formControlName="attributes_tax_per" readonly />
-      </div>
-      <div class="col-sm-1">
-        <input class="form-control" formControlName="attributes_total_price_net" readonly>
-      </div>
-      <div class="col-sm-1">
-        <input class="form-control" formControlName="attributes_tax" readonly>
-      </div>
-      <div class="col-sm-1">
-        <input class="form-control" formControlName="attributes_total_price_gross" readonly>
-      </div>
-      <div class="col-sm-1">
-        <button (click)="delInvoicePosition(i)" class="btn btn-danger" title="Usuń" type="button">
+        <button (click)="delPrzedmioty(i)" class="btn btn-danger" title="Usuń" type="button">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         </button>
       </div>
     </div>
   </div> 
     <!-- End of the repeated template -->
-  <button (click)="addInvoicePosition()" type="button" class="btn btn-success add_button">
+  <button (click)="addPrzedmioty()" type="button" class="btn btn-success add_button">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
   </button>
   <div class="row">
   <div class="col-sm-4 col-sm-offset-8">
-  <table class="table">
+  <table class="table" *ngIf="!czyStrata">
     <tbody>
       <tr>
-        <th>VAT</th>
+        <th></th>
         <th>Wartość netto</th>
         <th>Wartość VAT</th>
         <th>Wartość brutto</th>
       </tr>
       <tr>
+        <td><strong>Razem</strong></td>
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Razem</td>
-        <td></td>
-        <td></td>
-        <td></td>
-
       </tr>
     </tbody>
   </table>
+
+  <table class="table" *ngIf="czyStrata">
+    <tbody>
+      <tr>
+        <th></th>
+        <th>Wartość strat</th>
+      </tr>
+      <tr>
+        <td><strong>Razem</strong></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>
   </div>
 </div>
  
   <button class="btn btn-primary" type="submit">Zapisz</button>
-  <button class="btn btn-danger" type="cancel">Anuluj</button>
+  <button class="btn btn-danger">Anuluj</button>
  </div>
 </form>

@@ -13,7 +13,7 @@ export class Przedmiot {
         this.czyUsluga = false;
         this.cenaDomyslna = 0;
         this.vat = VAT_VALUES[0];
-        this.jednostka = JEDNOSTKI[0];
+        this.jednostka = JEDNOSTKI[1];
     }
 
     public setNettoByBrutto(brutto: number): number{//funkcja ustawia cene netto po cenie brutto, oraz od razu zwraca obliczona kwote
@@ -41,8 +41,8 @@ export class Przedmiot {
 }
 
 export const JEDNOSTKI: string[] = [
-    "szt", "cm^2", "cm^3", "g", "kg", "ml", "l", //jednostki dla przedmiotow
-    "Usługa" //jednostka dla usług
+    "Usługa", //jednostka dla usług
+    "szt", "cm^2", "cm^3", "g", "kg", "ml", "l" //jednostki dla przedmiotow
 ];
 
 export const VAT_VALUES: number[] = [23, 8, 5, 0];

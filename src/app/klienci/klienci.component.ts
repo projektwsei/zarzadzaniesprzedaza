@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Kontrahent } from '../model/kontrahent';
+import { KontrahenciService } from '../services/kontrahenci.service';
 
 @Component({
   selector: 'app-klienci',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KlienciComponent implements OnInit {
 
-  constructor() { }
+    private kontrahenci: Kontrahent[] = [];
 
-  ngOnInit() {
-  }
+    constructor(private kon: KontrahenciService) { 
+
+    }
+
+    ngOnInit() {
+        //wczytaj liste kontrahentow
+        this.kon.getKontrahenciList().then(val => {
+            this.kontrahenci = val;
+        });
+    }
 
 }
