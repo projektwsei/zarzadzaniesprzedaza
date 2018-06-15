@@ -9,6 +9,8 @@ export class UstawieniaComponent implements OnInit {
 
   constructor() { }
 
+  
+
   ngOnInit() {
   }
 

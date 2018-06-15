@@ -1,3 +1,4 @@
+import { AktywacjaRejestracjiComponent } from './ustawienia/aktywacja-rejestracji/aktywacja-rejestracji.component';
 import { KosztaDodajComponent } from './koszta/koszta-dodaj/koszta-dodaj.component';
 import { KlienciDodajComponent } from './klienci/klienci-dodaj/klienci-dodaj.component';
 import { MagazynDodajComponent } from './magazyn/magazyn-dodaj/magazyn-dodaj.component';
@@ -14,6 +15,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { KlienciComponent } from './klienci/klienci.component';
 import { FakturyComponent } from './faktury/faktury.component';
+import { EdycjaProfiluComponent } from './ustawienia/edycja-profilu/edycja-profilu.component';
 
 
 const appRoutes: Routes = [
@@ -32,6 +34,8 @@ const appRoutes: Routes = [
     { path: 'magazyn/dodaj/:id', component: MagazynDodajComponent },
 
     { path: 'ustawienia', component: UstawieniaComponent },
+    { path: 'ustawienia/aktywacja-rejestracji/', component: AktywacjaRejestracjiComponent},
+    { path: 'ustawienia/edycja-profilu/', component: EdycjaProfiluComponent},
 
     { path: 'faktury', component: FakturyComponent },
     { path: 'faktury/dodaj/:id', component: FakturaDodajComponent },

@@ -21,6 +21,7 @@ import { MagazynDodajComponent } from './magazyn/magazyn-dodaj/magazyn-dodaj.com
 import { FakturaDodajComponent } from './faktury/faktura-dodaj/faktura-dodaj.component';
 import { KlienciDodajComponent } from './klienci/klienci-dodaj/klienci-dodaj.component';
 import { KosztaDodajComponent } from './koszta/koszta-dodaj/koszta-dodaj.component';
+import { EdycjaProfiluComponent } from './ustawienia/edycja-profilu/edycja-profilu.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { KosztaDodajComponent } from './koszta/koszta-dodaj/koszta-dodaj.compone
     KosztaComponent,
     KosztaDodajComponent,
     UstawieniaComponent,
+    EdycjaProfiluComponent,
   ],
   imports: [
     BrowserModule,
