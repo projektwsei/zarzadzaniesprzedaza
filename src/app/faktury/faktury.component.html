@@ -3,7 +3,7 @@
     <h2>Lista faktur</h2>
   </div>
   <div class="col-md-6 text-right">
-    <a routerLink="dodaj/new" class="btn btn-primary">
+    <a routerLink="dodaj/-1" class="btn btn-primary">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     <span><strong> Dodaj fakturę</strong></span></a>
  </div>
@@ -30,13 +30,13 @@
                   <td>{{f.dataWystawienia}}</td>
                   <td>{{f.getTypeName()}}</td>
                   <td class="text-right">
-                    <a routerLink="dodaj/{{f.id}}" class="btn btn-primary" title="Zobacz">
+                    <a routerLink="{{f.id}}" class="btn btn-primary" title="Zobacz">
                       <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                     </a>
                     <a routerLink="dodaj/{{f.id}}" class="btn btn-primary" title="Edytuj">
                       <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                     </a>
-                    <a routeLink="." class="btn btn-danger" title="Usuń">
+                    <a (click)="usun(f.id)" class="btn btn-danger" title="Usuń">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>
                   </td>

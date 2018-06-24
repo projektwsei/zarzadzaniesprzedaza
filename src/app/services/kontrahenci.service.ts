@@ -11,42 +11,42 @@ export class KontrahenciService {
 
     }
 
-    public addKontrahent(f: Kontrahent):void{
+    public addKontrahent(f: Kontrahent): void {
         this.db.addData(TABLE_KONTRAHENCI, f);
     }
 
-    public updateKontrahent(f: Kontrahent):void{
+    public updateKontrahent(f: Kontrahent): void {
         this.db.updateData(TABLE_KONTRAHENCI, f.id, f);
     }
 
-    public deleteKontrahent(f: Kontrahent){
-        this.db.deleteById(TABLE_KONTRAHENCI, f.id);    
+    public deleteKontrahent(f: Kontrahent) {
+        this.db.deleteById(TABLE_KONTRAHENCI, f.id);
     }
 
-    public deleteKontrahentById(id: number){
+    public deleteKontrahentById(id: number) {
         this.db.deleteById(TABLE_KONTRAHENCI, id);
     }
 
-    public getKontrahenciList():Promise<Kontrahent[]>{
+    public getKontrahenciList(): Promise<Kontrahent[]> {
         return this.getKontrahenciListObs(true).toPromise();
     }
 
-    public getKontrahenciListObs(isOnce: boolean):Observable<Kontrahent[]>{//isOnce - czy pobieramy raz liste, czy subskrybujemy
-        let ret = new Observable<Kontrahent[]>(observer => {
-            let sub = this.db.readList(TABLE_KONTRAHENCI, isOnce).subscribe(val => {
-                let tab = [];
+    public getKontrahenciListObs(isOnce: boolean): Observable<Kontrahent[]> {// isOnce - czy pobieramy raz liste, czy subskrybujemy
+        const ret = new Observable<Kontrahent[]>(observer => {
+            const sub = this.db.readList(TABLE_KONTRAHENCI, isOnce).subscribe(val => {
+                const tab = [];
 
-                if(val) {
-                    let entries = Object.entries(val);
-                    for(let i=0;i<entries.length;i++){
-                        let u = Object.assign(new Kontrahent, entries[i][1]);
+                if (val) {
+                    const entries = Object.entries(val);
+                    for (let i = 0; i < entries.length; i++) {
+                        const u = Object.assign(new Kontrahent, entries[i][1]);
                         u.id = Number(entries[i][0]);
                         tab.push(u);
                     }
                 }
 
                 observer.next(tab);
-                if(isOnce) {
+                if (isOnce) {
                     observer.complete();
                 }
             });
@@ -54,22 +54,22 @@ export class KontrahenciService {
         return ret;
     }
 
-    //ilosc faktur ktore sa na kontrahenta
-    public iloscFaktur(k: Kontrahent):Promise<number>{
+    // ilosc faktur ktore sa na kontrahenta
+    public iloscFaktur(k: Kontrahent): Promise<number> {
         return this.iloscFakturById(k.id);
     }
 
-    public iloscFakturById(id: number):Promise<number>{
+    public iloscFakturById(id: number): Promise<number> {
         return new Promise((resolve, reject) => {
             let num = 0;
 
             this.fakt.getFakturyList().then(val => {
-                for(let i=0;i<val.length;i++){
-                    if(val[i].kontrahent.id == id) num++;
+                for (let i = 0; i < val.length; i++) {
+                    if (val[i].kontrahent.id === id) { num++; }
                 }
             });
 
-            resolve(num);//zwroc ilosc faktur
+            resolve(num); // zwroc ilosc faktur
         });
     }
 }

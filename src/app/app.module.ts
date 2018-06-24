@@ -30,6 +30,7 @@ import { FirebaseService } from './services/firebase.service';
 import { KontrahenciService } from './services/kontrahenci.service';
 import { MagazynService } from './services/magazyn.service';
 import { UsersService } from './services/users.service';
+import { EdytujProfilComponent } from './ustawienia/edytuj-profil/edytuj-profil.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { UsersService } from './services/users.service';
     KlienciComponent,
     KlienciDodajComponent,
     UstawieniaComponent,
+    EdytujProfilComponent,
   ],
   imports: [
     BrowserModule,

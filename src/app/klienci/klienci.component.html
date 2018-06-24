@@ -31,7 +31,7 @@
             <a routerLink="dodaj/{{k.id}}" class="btn btn-primary" title="Edytuj">
               <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
             </a>
-            <a routerLink="." class="btn btn-danger" title="Usuń">
+            <a (click)="usun(k.id)" class="btn btn-danger" title="Usuń">
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </a>
           </td>
