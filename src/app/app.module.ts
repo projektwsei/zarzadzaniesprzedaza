@@ -30,6 +30,7 @@ import { FirebaseService } from './services/firebase.service';
 import { KontrahenciService } from './services/kontrahenci.service';
 import { MagazynService } from './services/magazyn.service';
 import { UsersService } from './services/users.service';
+import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podglad.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { UsersService } from './services/users.service';
     KlienciComponent,
     KlienciDodajComponent,
     UstawieniaComponent,
+    FakturaPodgladComponent,
   ],
   imports: [
     BrowserModule,

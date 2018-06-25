@@ -1,0 +1,132 @@
+<div class="row">
+<div class="faktura-podglad">
+<div>
+  <table class="table-responsive">
+    <tbody>
+      <tr>
+        <td>
+          <h3><strong>Faktura nr </strong><span>{{faktura.numerFaktury}}</span></h3>
+          <br>
+          <p><strong>Data wystawienia: </strong><span>{{faktura.dataWystawienia}}</span></p>
+          <p><strong>Miejsce wystawienia: </strong><span>{{faktura.miejsceWystawienia}}</span></p>
+          <p><strong>Termin płatności: </strong><span>{{faktura.dataPlatnosci}}</span></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<hr>
+<table class="table-responsive" *ngIf="!czyStrata">
+	<thead>
+		<tr>
+			<th>
+				<span>{{sprzedawcaNapis}}</span>
+			</th>
+			<th>
+				<span>{{nabywcaNapis}}</span>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<p>{{daneFirmy.nazwaFirmy}}</p>
+				<p>
+					{{daneFirmy.adres}}<br>{{daneFirmy.kodPocztowy}} {{daneFirmy.miasto}}
+				</p>
+					<p>NIP: {{daneFirmy.nip}}</p>
+				</td>
+				<td>
+				<p>{{kontrahenci.nazwaFirmy}}</p>
+				<p> 
+					{{kontrahenci.adres}}<br>{{kontrahenci.kodPocztowy}} {{kontrahenci.miasto}}
+				</p>
+					<p>NIP: {{kontrahenci.nip}}</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div *ngIf="!czyStrata">
+<table class="przedmioty">
+		<thead>
+	<tr>
+		<th class="width1">LP</th>
+		<th class="col-sm-4">Nazwa towaru / usługi</th>
+	  <th class="width1">Ilość</th>
+    <th class="width1">Jm</th>
+		<th class="col-sm-1">Cena netto</th>
+		<th class="col-sm-1">Wartość netto</th>
+    <th class="width1">VAT %</th>
+		<th class="col-sm-1">Wartość VAT</th>
+		<th class="col-sm-1">Wartość brutto</th>
+	</tr>
+</thead>
+		<tbody>
+		   	<tr>
+					<td>124</td>
+				  <td class="text_left">fgfgvfbfbfbf</td>
+				  <td>234</td>
+          <td>szt</td>
+					<td></td>
+					<td></td>
+					<td></td>        
+					<td></td>
+					<td></td>
+		    </tr>
+        <tr>
+					<td class="empty" colspan=5>RAZEM:</td>
+					<td></td>
+					<td>X</td>        
+					<td></td>
+					<td></td>
+		    </tr>
+        <tr>
+					<td class="empty" colspan=5>W tym:</td>
+					<td></td>
+					<td>23</td>        
+					<td></td>
+					<td></td>
+		    </tr>
+    </tbody>
+	</table>
+  <br>
+  <table>
+    <tr>
+      <td class="col-sm-10 text-right"><b>Razem do zapłaty:</b></td>
+      <td class="col-sm-2">77</td>
+    </tr>
+  </table>
+</div>
+
+<div *ngIf="czyStrata">
+<table class="przedmioty">
+		<thead>
+	<tr>
+		<th class="width1">LP</th>
+		<th class="col-sm-4">Nazwa towaru / usługi</th>
+	  <th class="width1">Ilość</th>
+    <th class="width1">Jm</th>
+		<th class="col-sm-1">Wartość strat</th>
+		<th class="col-sm-1">Wartość strat razem</th>
+	</tr>
+</thead>
+		<tbody>
+		   	<tr>
+					<td>124</td>
+				  <td class="text_left">fgfgvfbfbfbf</td>
+				  <td>234</td>
+          <td>szt</td>
+					<td></td>
+					<td></td>
+		    </tr>
+        <tr>
+					<td class="empty" colspan=5>RAZEM:</td>
+					<td></td>
+		    </tr>
+    </tbody>
+	</table>
+</div>
+</div>
+</div>
+</div>
+
+

@@ -1,0 +1,51 @@
+.faktura-podglad {
+    background-color: white;
+    -webkit-box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.75);
+    border: 1px solid #ddd;
+    padding: 20px;
+    padding-bottom: 40px;
+    min-width: 700px;
+    width: 8.25in;
+    overflow: visible;
+    margin: auto auto 20px auto;
+}
+
+table {
+    width: 100%;
+    font-size: 0.9em;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table th, table td {
+    margin: 0;
+    padding: 5px;
+}
+
+table.przedmioty td.empty {
+    border: 0;
+}
+
+table.przedmioty th {
+    font-weight: bold;
+    background-color: #f1f1f1;
+    border: 1px solid #000;
+    font-size: 10px;
+}
+
+table.przedmioty td {
+    border-collapse: collapse;
+    border: 1px solid #000;
+    text-align: right;
+}
+
+table.przedmioty td.text_left {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.width1 {
+    width: 1%;
+}
