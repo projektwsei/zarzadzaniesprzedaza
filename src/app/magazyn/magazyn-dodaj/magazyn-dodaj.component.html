@@ -1,3 +1,38 @@
-<p>
-  magazyn-dodaj works!
-</p>
+<div class="row">
+<div class="col-sm-6">
+<form [formGroup]="przedmiotAddForm"
+      (ngSubmit)="onSubmitAdd(przedmiotAddForm.value)">
+      <div class="form-group">
+          <h2>Nowy produkt</h2>
+          <div class="col-sm-12">
+          <input type="checkbox" value="0" name="czyUsluga" id="czyUsluga" formControlName="czyUsluga">
+					<label for="czyUsluga">Usługa</label>
+          </div>
+          <div class="col-sm-12">
+          <label for="nazwaPrzedmiotu">Nazwa</label>
+          <input type="text" class="form-control" name="nazwaPrzedmiotu" id="nazwaPrzedmiotu" formControlName="nazwaPrzedmiotu">
+          </div>
+          <div class="col-sm-4">
+          <label for="cenaDomyslna">Cena netto</label>
+          <input type="text" class="form-control" name="cenaDomyslna" id="cenaDomyslna" formControlName="cenaDomyslna">
+          </div>
+          <div class="col-sm-4">
+          <label for="vat">VAT</label>
+          <select class="form-control" formControlName="vat">
+          <option *ngFor="let t of getVatTypes()" [value]="t">{{t}}</option>
+          </select>
+          </div>
+          <div class="col-sm-4">
+          <label for="jednostka">Jednostka</label>
+          <select class="form-control" formControlName="jednostka">
+          <option *ngFor="let t of getJednostkTypes()" [value]="t">{{t}}</option>
+          </select>
+          </div>
+          <div class="col-sm-12 col_mar">       
+          <button class="btn btn-primary" type="submit">Zapisz</button>
+          <button class="btn btn-danger">Anuluj</button>
+          </div>
+      </div>
+</form>
+</div>
+</div>

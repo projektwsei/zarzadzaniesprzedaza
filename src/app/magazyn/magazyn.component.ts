@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Przedmiot } from '../model/przedmiot';
+import { MagazynService } from '../services/magazyn.service';
 
 @Component({
   selector: 'app-magazyn',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MagazynComponent implements OnInit {
 
-  constructor() { }
+   private przedmioty: Przedmiot[] = [];
+
+  constructor(private mag: MagazynService) { }
 
   ngOnInit() {
+    //wczytaj liste przdmiotów
+        this.mag.getPrzedmiotyList().then(val => {
+            this.przedmioty = val;
+        });
   }
 
 }
