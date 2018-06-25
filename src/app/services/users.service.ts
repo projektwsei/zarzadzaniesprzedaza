@@ -79,7 +79,7 @@ export class UsersService {
         //TODO zmiana hasla w firebase    
     }
 
-    public setCurrentUser(u: User){//do aktualnego usera wpisujemy do cache, by byl dostep synchroniczny, a nie przez observable lub promise
+    public setCurrentUser(u: User){//aktualnego usera wpisujemy do cache, by byl dostep synchroniczny, a nie przez observable lub promise
         this.currentUser = u;
     }
 

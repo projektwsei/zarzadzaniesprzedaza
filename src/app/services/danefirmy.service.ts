@@ -31,14 +31,14 @@ export class DaneFirmyService {
 
     public getDaneFirmyObs(isOnce: boolean):Observable<DaneFirmy>{//jako observable
         return new Observable<DaneFirmy>(obs => {
-            let sub = this.db.readList(TABLE_DANE_FIRMY, isOnce).subscribe(val => {
+            /*let sub = */this.db.readList(TABLE_DANE_FIRMY, isOnce).subscribe(val => {
                 if(val) Object.assign(new DaneFirmy, val);
                 else val = new DaneFirmy();//jesli nie utworzylismy danych, zwroc puste dane
                 
                 obs.next(val);
                 if(isOnce) {
                     obs.complete();
-                    sub.unsubscribe();
+                    //sub.unsubscribe();
                 }
             });
         });

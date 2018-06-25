@@ -54,6 +54,29 @@ export class MagazynService {
         return ret;
     }
 
+    public getPrzedmiotById(id: number):Promise<Przedmiot>{
+        return this.getPrzedmiotByIdObs(id, true).toPromise();
+    }
+
+    public getPrzedmiotByIdObs(id: number, isOnce: boolean):Observable<Przedmiot>{
+        let ret = new Observable<Przedmiot>(observer => {
+            this.db.readById(TABLE_MAGAZYN, id, isOnce).subscribe(val => {
+                let obj = null;
+                
+                if(val) {
+                    Object.assign(new Przedmiot, val);
+                    val.id = id;
+                }
+
+                observer.next(obj);
+                if(isOnce) {
+                    observer.complete();
+                }
+            });
+        });
+        return ret;
+    }
+
     //inne funkcje zw. z przedmiotami
     
     //ilośc. UWAGA - dla usługi (przedmiot.czyUsluga==true) nie pobieramy ilosci!!!

@@ -122,7 +122,7 @@ export class DatabaseService {
         const ret = new Observable(observer => {
             const ref = this.fire.db().ref(table);
             if (!isOnce) {
-                const x = ref.on('value', (snapshot) => {
+                ref.on('value', (snapshot) => {
                     observer.next(snapshot.val());
                 });
             } else {

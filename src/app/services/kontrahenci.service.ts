@@ -54,6 +54,29 @@ export class KontrahenciService {
         return ret;
     }
 
+    public getKontrahentById(id: number):Promise<Kontrahent>{
+        return this.getKontrahentByIdObs(id, true).toPromise();
+    }
+
+    public getKontrahentByIdObs(id: number, isOnce: boolean):Observable<Kontrahent>{
+        let ret = new Observable<Kontrahent>(observer => {
+            this.db.readById(TABLE_KONTRAHENCI, id, isOnce).subscribe(val => {
+                let obj = null;
+                
+                if(val) {
+                    Object.assign(new Kontrahent, val);
+                    val.id = id;
+                }
+
+                observer.next(obj);
+                if(isOnce) {
+                    observer.complete();
+                }
+            });
+        });
+        return ret;
+    }
+
     // ilosc faktur ktore sa na kontrahenta
     public iloscFaktur(k: Kontrahent): Promise<number> {
         return this.iloscFakturById(k.id);

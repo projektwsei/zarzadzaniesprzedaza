@@ -79,7 +79,7 @@ export class FakturaDodajComponent implements OnInit {
       this.kontrahenci = val;//tablica
     });
 
-    if (this.isEdit) {
+    if (!this.isEdit) {//jesli to NIE JEST edycja to pobieramy aktualne dane firmy z bazdy
       this.df.getDaneFirmy().then(val => {
         this.daneFirmy = val;
 
@@ -89,7 +89,7 @@ export class FakturaDodajComponent implements OnInit {
         this.fakturaForm.controls.daneFirmy.get('kodPocztowy').setValue(val.kodPocztowy);
         this.fakturaForm.controls.daneFirmy.get('miasto').setValue(val.miasto);
       });
-    }
+    }//jesli to jest edycja, dane firmy sa juz na fakturze
 
   }
 

@@ -12,7 +12,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private formLogin: string = '';
     private formPass: string = '';
 
-
     constructor(private auth: AuthService) {
 
     }
