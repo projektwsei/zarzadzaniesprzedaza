@@ -1,3 +1,4 @@
+import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podglad.component';
 import { KlienciDodajComponent } from './klienci/klienci-dodaj/klienci-dodaj.component';
 import { MagazynDodajComponent } from './magazyn/magazyn-dodaj/magazyn-dodaj.component';
 import { FakturaDodajComponent } from './faktury/faktura-dodaj/faktura-dodaj.component';
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
 
     { path: 'faktury', component: FakturyComponent },
     { path: 'faktury/dodaj/:id', component: FakturaDodajComponent },
+    { path: 'faktury/:id', component: FakturaPodgladComponent },
 
     // otherwise redirect to HomePageComponent
     { path: '**', redirectTo: '' }
