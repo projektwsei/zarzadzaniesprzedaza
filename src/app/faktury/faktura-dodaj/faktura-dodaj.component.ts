@@ -231,17 +231,17 @@ export class FakturaDodajComponent implements OnInit {
         return;
     }
 
-    if(v.dataWystawienia.replace(' ', '') == ''){
+    if(v.dataWystawienia.trim() == ''){
         alert("Należy wpisać datę wystawienia faktury!");
         return;
     }
 
-    if(v.dataPlatnosci.replace(' ', '') == ''){
+    if(v.dataPlatnosci.trim() == ''){
         alert("Należy wpisać datę płatności faktury!");
         return;
     }
 
-    if(v.miejsceWystawienia.replace(' ', '') == ''){
+    if(v.miejsceWystawienia.trim() == ''){
         alert("Należy wpisać miejsce wystawienia faktury!");
         return;
     }

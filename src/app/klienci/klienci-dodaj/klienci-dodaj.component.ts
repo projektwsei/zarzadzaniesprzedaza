@@ -43,7 +43,6 @@ export class KlienciDodajComponent implements OnInit {
             });
 
         } else {
-            console.log("Edycja");
             // this.kontrahent = this.kontr.getKontrahentById(this.nrKlienta);
             this.isEdit = true;
             this.clientAddForm = this.fbc.group({
