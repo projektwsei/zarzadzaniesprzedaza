@@ -113,6 +113,13 @@ export class Faktura { //klasa z danymi
     private getFullDateMonthValue(n: number):string{//do generowania nr faktury
         return ((n>9)? '' : '0')+n;
     }
+
+    public isPrzedmiot(id: number):boolean{
+        for(let i=0;i<this.przedmioty.length;i++){
+            if(this.przedmioty[i].przedmiot_id === id) return true;   
+        }
+        return false;
+    }
 }
 
 export class FakturaPrzedmiot { //przedmiot na fakturze

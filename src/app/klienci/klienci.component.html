@@ -3,7 +3,7 @@
     <h2>Lista kontahentów</h2>
   </div>
   <div class="col-md-6 text-right">
-    <a routerLink="dodaj/new" class="btn btn-primary">
+    <a routerLink="dodaj/-1" class="btn btn-primary">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     <span><strong> Dodaj kontrahenta</strong></span></a>
  </div>
@@ -25,7 +25,7 @@
 					<td *ngIf="!k.firma">(osoba fizyczna)</td>
           <td>{{k.miasto}}</td>
           <td class="text-right">
-            <a routerLink="dodaj/{{k.id}}" class="btn btn-primary" title="Zobacz">
+            <a routerLink="{{k.id}}" class="btn btn-primary" title="Zobacz">
               <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
             </a>
             <a routerLink="dodaj/{{k.id}}" class="btn btn-primary" title="Edytuj">

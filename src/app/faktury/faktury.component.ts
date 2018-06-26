@@ -23,10 +23,12 @@ export class FakturyComponent implements OnInit {
     }
 
     usun(id) {
-        this.fakt.deleteFakturaById(id);
-        this.faktury.splice(this.findIndexById(id), 1);
-
+        if(confirm("Czy napewno usunąć?")){
+            this.fakt.deleteFakturaById(id);
+            this.faktury.splice(this.findIndexById(id), 1);
+        }
     }
+
     findIndexById(id) {
         for (let i = 0; i < this.faktury.length; i++) {
             if (this.faktury[i].id === id) { return i; }

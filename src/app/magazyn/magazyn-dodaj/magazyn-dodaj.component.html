@@ -5,7 +5,7 @@
       <div class="form-group">
           <h2>Nowy produkt</h2>
           <div class="col-sm-12">
-          <input type="checkbox" value="0" name="czyUsluga" id="czyUsluga" formControlName="czyUsluga">
+          <input type="checkbox" value="0" name="czyUsluga" id="czyUsluga" formControlName="czyUsluga" (change)="onChangeCzyUsluga($event)">
 					<label for="czyUsluga">Usługa</label>
           </div>
           <div class="col-sm-12">
@@ -24,8 +24,8 @@
           </div>
           <div class="col-sm-4">
           <label for="jednostka">Jednostka</label>
-          <select class="form-control" formControlName="jednostka">
-          <option *ngFor="let t of getJednostkTypes()" [value]="t">{{t}}</option>
+          <select class="form-control" formControlName="jednostka" (change)="onChangeJednostka($event)">
+          <option *ngFor="let t of getJednostkaTypes()" [value]="t">{{t}}</option>
           </select>
           </div>
           <div class="col-sm-12 col_mar">       

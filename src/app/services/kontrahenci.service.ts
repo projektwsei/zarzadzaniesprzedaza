@@ -61,14 +61,12 @@ export class KontrahenciService {
     public getKontrahentByIdObs(id: number, isOnce: boolean):Observable<Kontrahent>{
         let ret = new Observable<Kontrahent>(observer => {
             this.db.readById(TABLE_KONTRAHENCI, id, isOnce).subscribe(val => {
-                let obj = null;
-                
                 if(val) {
-                    Object.assign(new Kontrahent, val);
+                    val = Object.assign(new Kontrahent, val);
                     val.id = id;
                 }
 
-                observer.next(obj);
+                observer.next(val);
                 if(isOnce) {
                     observer.complete();
                 }
@@ -90,9 +88,8 @@ export class KontrahenciService {
                 for (let i = 0; i < val.length; i++) {
                     if (val[i].kontrahent.id === id) { num++; }
                 }
+                resolve(num); // zwroc ilosc faktur
             });
-
-            resolve(num); // zwroc ilosc faktur
         });
     }
 }

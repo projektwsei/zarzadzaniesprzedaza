@@ -37,6 +37,11 @@ export class Przedmiot {
         return kwota + vat;
     }
 
+    public getBruttoByKwotaAndVat(kwota: number, vatProc:number):number{
+        let vat = kwota * vatProc / 100;
+        return kwota + vat;
+    }
+
     //aby obliczyc ilosc skorzystajmy z magazyn.service funkcja getQuantity
 }
 

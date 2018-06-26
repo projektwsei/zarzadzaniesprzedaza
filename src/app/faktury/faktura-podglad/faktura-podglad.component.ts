@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Faktura, FAKTURA_TYPE } from '../../model/faktura';
-import { Kontrahent } from '../../model/kontrahent';
-import { DaneFirmy } from '../../model/danefirmy';
-import { DaneFirmyService } from '../../services/danefirmy.service';
-import { KontrahenciService } from '../../services/kontrahenci.service';
 import { Przedmiot, JEDNOSTKI, VAT_VALUES } from '../../model/przedmiot';
 import { MagazynService } from '../../services/magazyn.service';
 import { FakturyService } from '../../services/faktury.service';
-import { UsersService } from '../../services/users.service';
-import { User } from '../../model/user';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-faktura-podglad',
@@ -17,28 +13,58 @@ import { User } from '../../model/user';
 })
 export class FakturaPodgladComponent implements OnInit {
 
-   //zmienne do widoku
-  sprzedawcaNapis: string = 'Sprzedawca';
-  nabywcaNapis: string = 'Nabywca';
-  czyStrata: boolean = false;
+    idFaktury: number;
 
-  //obiekty przechowujace dane
-  przedmioty: Przedmiot[] = [];
-  kontrahenci: Kontrahent[] = [];
-  daneFirmy: DaneFirmy;
-  faktura: Faktura;
+    //zmienne do widoku
+    sprzedawcaNapis: string = 'Sprzedawca';
+    nabywcaNapis: string = 'Nabywca';
+    czyStrata: boolean = false;
+
+    //obiekty przechowujace dane
+    przedmioty: Przedmiot[] = [];
+    //kontrahenci: Kontrahent[] = [];
+    //daneFirmy: DaneFirmy;
+    faktura: Faktura;
 
 
-  constructor(private df: DaneFirmyService, private magazyn: MagazynService,
-              private kontr: KontrahenciService, private fakt: FakturyService, private users: UsersService) {
-              this.faktura = new Faktura();
-               }
+    constructor(private magazyn: MagazynService, private fakt: FakturyService, private location: Location, private route: ActivatedRoute) {
+        this.faktura = new Faktura();
+        this.idFaktury = +this.route.snapshot.paramMap.get('id');
+    }
 
-   private getFakturaTypes():string[]{
-    return FAKTURA_TYPE;
-  }
-  
-  ngOnInit() {
-  }
+    private getFakturaTypes():string[]{
+        return FAKTURA_TYPE;
+    }
+
+    ngOnInit() {
+        this.magazyn.getPrzedmiotyList().then(val => {
+            this.przedmioty = val;//tablica
+        });
+
+        this.fakt.getFakturaById(this.idFaktury).then(val => {
+            this.faktura = val;
+
+            if(val.czyStrata) {
+                this.czyStrata = true;
+            } else {
+                this.czyStrata = false;
+            }
+
+            if(val.czyKoszt){
+                this.sprzedawcaNapis = 'Nabywca';
+                this.nabywcaNapis = 'Sprzedawca';
+            } else {
+                this.sprzedawcaNapis = 'Sprzedawca';
+                this.nabywcaNapis = 'Nabywca';
+            }
+        });
+    }
+
+    private getPrzedmiotById(id: number):Przedmiot{
+        for(let i = 0;i<this.przedmioty.length;i++){
+            if(this.przedmioty[i].id == id) return this.przedmioty[i];
+        }
+        return null;
+    }
 
 }

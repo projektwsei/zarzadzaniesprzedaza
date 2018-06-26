@@ -5,11 +5,13 @@
     <tbody>
       <tr>
         <td>
-          <h3><strong>Faktura nr </strong><span>{{faktura.numerFaktury}}</span></h3>
+          <h3 *ngIf="!czyStrata"><strong>Faktura nr </strong><span>{{faktura.numerFaktury}}</span></h3>
+          <h3 *ngIf="czyStrata"><strong>Strata nr </strong><span>{{faktura.numerFaktury}}</span></h3>
           <br>
           <p><strong>Data wystawienia: </strong><span>{{faktura.dataWystawienia}}</span></p>
           <p><strong>Miejsce wystawienia: </strong><span>{{faktura.miejsceWystawienia}}</span></p>
           <p><strong>Termin płatności: </strong><span>{{faktura.dataPlatnosci}}</span></p>
+          <p *ngIf="faktura.opis.trim()!=''"><small><strong>Opis: </strong><em>{{faktura.opis}}</em></small></p>
         </td>
       </tr>
     </tbody>
@@ -29,18 +31,18 @@
 	<tbody>
 		<tr>
 			<td>
-				<p>{{daneFirmy.nazwaFirmy}}</p>
+				<p>{{faktura.daneFirmy.nazwaFirmy}}</p>
 				<p>
-					{{daneFirmy.adres}}<br>{{daneFirmy.kodPocztowy}} {{daneFirmy.miasto}}
+					{{faktura.daneFirmy.adres}}<br>{{faktura.daneFirmy.kodPocztowy}} {{faktura.daneFirmy.miasto}}
 				</p>
-					<p>NIP: {{daneFirmy.nip}}</p>
+					<p>NIP: {{faktura.daneFirmy.nip}}</p>
 				</td>
 				<td>
-				<p>{{kontrahenci.nazwaFirmy}}</p>
+				<p>{{faktura.kontrahent.nazwaFirmy}}</p>
 				<p> 
-					{{kontrahenci.adres}}<br>{{kontrahenci.kodPocztowy}} {{kontrahenci.miasto}}
+					{{faktura.kontrahent.adres}}<br>{{faktura.kontrahent.kodPocztowy}} {{faktura.kontrahent.miasto}}
 				</p>
-					<p>NIP: {{kontrahenci.nip}}</p>
+					<p>NIP: {{faktura.kontrahent.nip}}</p>
 			</td>
 		</tr>
 	</tbody>
@@ -61,38 +63,38 @@
 	</tr>
 </thead>
 		<tbody>
-		   	<tr>
-					<td>124</td>
-				  <td class="text_left">fgfgvfbfbfbf</td>
-				  <td>234</td>
-          <td>szt</td>
-					<td></td>
-					<td></td>
-					<td></td>        
-					<td></td>
-					<td></td>
-		    </tr>
-        <tr>
-					<td class="empty" colspan=5>RAZEM:</td>
-					<td></td>
-					<td>X</td>        
-					<td></td>
-					<td></td>
-		    </tr>
-        <tr>
-					<td class="empty" colspan=5>W tym:</td>
-					<td></td>
-					<td>23</td>        
-					<td></td>
-					<td></td>
-		    </tr>
+            <tr *ngFor="let p of faktura.przedmioty; let i=index">
+                <td>{{i+1}}</td>
+                <td class="text_left">{{getPrzedmiotById(i).nazwa}}</td>
+                <td>{{p.ilosc}}</td>
+                <td>{{getPrzedmiotById(i).jednostka}}</td>
+                <td>{{p.cenaNetto}}</td>
+                <td>{{p.ilosc * p.cenaNetto}}</td>
+                <td>{{p.vat}}</td>        
+                <td>{{p.ilosc * p.cenaNetto * p.vat / 100}}</td>
+                <td>{{getPrzedmiotById(i).getBruttoByKwotaAndVat((p.ilosc*p.cenaNetto),p.vat)}}</td>
+            </tr>
+            <tr>
+                <td class="empty" colspan=5>RAZEM:</td>
+                <td>{{faktura.getSumNetto()}}</td>
+                <td>X</td>        
+                <td>{{faktura.getSumVat()}}</td>
+                <td>{{faktura.getSumBrutto()}}</td>
+            </tr>
+            <!--<tr>
+                <td class="empty" colspan=5>W tym:</td>
+                <td></td>
+                <td>23</td>        
+                <td></td>
+                <td></td>
+            </tr>-->
     </tbody>
 	</table>
   <br>
   <table>
     <tr>
       <td class="col-sm-10 text-right"><b>Razem do zapłaty:</b></td>
-      <td class="col-sm-2">77</td>
+      <td class="col-sm-2">{{faktura.getSumNetto()}} <small>({{faktura.getSumBrutto()}} brutto)</small></td>
     </tr>
   </table>
 </div>
@@ -103,24 +105,24 @@
 	<tr>
 		<th class="width1">LP</th>
 		<th class="col-sm-4">Nazwa towaru / usługi</th>
-	  <th class="width1">Ilość</th>
-    <th class="width1">Jm</th>
+	    <th class="width1">Ilość</th>
+        <th class="width1">Jm</th>
 		<th class="col-sm-1">Wartość strat</th>
 		<th class="col-sm-1">Wartość strat razem</th>
 	</tr>
 </thead>
 		<tbody>
-		   	<tr>
-					<td>124</td>
-				  <td class="text_left">fgfgvfbfbfbf</td>
-				  <td>234</td>
-          <td>szt</td>
-					<td></td>
-					<td></td>
+		   	<tr *ngFor="let p of faktura.przedmioty; let i=index">
+                <td>{{i+1}}</td>
+                <td class="text_left">{{getPrzedmiotById(i).nazwa}}</td>
+                <td>{{p.ilosc}}</td>
+                <td>{{getPrzedmiotById(i).jednostka}}</td>
+                <td>{{p.cenaNetto}}</td>
+                <td>{{p.ilosc * p.cenaNetto}}</td>
 		    </tr>
-        <tr>
-					<td class="empty" colspan=5>RAZEM:</td>
-					<td></td>
+            <tr>
+				<td class="empty" colspan=5>RAZEM:</td>
+				<td>{{faktura.getSumNetto()}}</td>
 		    </tr>
     </tbody>
 	</table>

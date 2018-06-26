@@ -23,9 +23,14 @@ export class KlienciComponent implements OnInit {
     }
 
     usun(id) {
-        this.kon.deleteKontrahentById(id);
-        this.kontrahenci.splice(this.findIndexById(id), 1);
-
+        this.kon.iloscFakturById(id).then(val => {
+            if(val>0){
+                alert("Nie można usunąć kontrahenta, gdy wystawione są na niego faktury!");
+            } else if(confirm("Czy napewno usunąć?")){
+                this.kon.deleteKontrahentById(id);
+                this.kontrahenci.splice(this.findIndexById(id), 1);
+            }
+        });
     }
 
     findIndexById(id) {

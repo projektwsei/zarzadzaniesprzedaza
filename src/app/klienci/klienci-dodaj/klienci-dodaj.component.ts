@@ -43,6 +43,7 @@ export class KlienciDodajComponent implements OnInit {
             });
 
         } else {
+            console.log("Edycja");
             // this.kontrahent = this.kontr.getKontrahentById(this.nrKlienta);
             this.isEdit = true;
             this.clientAddForm = this.fbc.group({
@@ -96,8 +97,6 @@ export class KlienciDodajComponent implements OnInit {
             this.kontr.updateKontrahent(k);
             this.location.back();
         }
-
-        // TODO przekierowanie do listy kontrahentow
     }
 
 }

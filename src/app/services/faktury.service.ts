@@ -52,7 +52,7 @@ export class FakturyService {
         });
         return ret;
     }
-
+    
     public getFakturaById(id: number):Promise<Faktura>{
         return this.getFakturaByIdObs(id, true).toPromise();
     }
@@ -60,14 +60,12 @@ export class FakturyService {
     public getFakturaByIdObs(id: number, isOnce: boolean):Observable<Faktura>{
         let ret = new Observable<Faktura>(observer => {
             this.db.readById(TABLE_FAKTURY, id, isOnce).subscribe(val => {
-                let obj = null;
-                
                 if(val) {
-                    Object.assign(new Faktura, val);
+                    val = Object.assign(new Faktura, val);
                     val.id = id;
                 }
 
-                observer.next(obj);
+                observer.next(val);
                 if(isOnce) {
                     observer.complete();
                 }

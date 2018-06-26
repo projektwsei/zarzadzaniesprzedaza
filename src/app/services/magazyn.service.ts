@@ -12,10 +12,26 @@ export class MagazynService {
     }
 
     public addPrzedmiot(f: Przedmiot):void{
+        if (typeof (f.cenaDomyslna) === 'string') {
+            f.cenaDomyslna = Number((f as any).cenaDomyslna.replace(',', '.'));
+        }
+
+        if (typeof (f.vat) === 'string') {
+            f.vat = Number((f as any).vat.replace(',', '.'));
+        }
+
         this.db.addData(TABLE_MAGAZYN, f);
     }
 
     public updatePrzedmiot(f: Przedmiot):void{
+        if (typeof (f.cenaDomyslna) == 'string') {
+            f.cenaDomyslna = Number((f as any).cenaDomyslna.replace(',', '.'));
+        }
+
+        if (typeof (f.vat) == 'string') {
+            f.vat = Number((f as any).vat.replace(',', '.'));
+        }
+
         this.db.updateData(TABLE_MAGAZYN, f.id, f);
     }
 
@@ -60,15 +76,13 @@ export class MagazynService {
 
     public getPrzedmiotByIdObs(id: number, isOnce: boolean):Observable<Przedmiot>{
         let ret = new Observable<Przedmiot>(observer => {
-            this.db.readById(TABLE_MAGAZYN, id, isOnce).subscribe(val => {
-                let obj = null;
-                
+            this.db.readById(TABLE_MAGAZYN, id, isOnce).subscribe(val => {              
                 if(val) {
-                    Object.assign(new Przedmiot, val);
+                    val = Object.assign(new Przedmiot, val);
                     val.id = id;
                 }
 
-                observer.next(obj);
+                observer.next(val);
                 if(isOnce) {
                     observer.complete();
                 }
@@ -77,8 +91,27 @@ export class MagazynService {
         return ret;
     }
 
+
     //inne funkcje zw. z przedmiotami
-    
+
+    // ilosc faktur na ktorych jest przedmiot
+    public iloscFaktur(k: Przedmiot): Promise<number> {
+        return this.iloscFakturById(k.id);
+    }
+
+    public iloscFakturById(id: number): Promise<number> {
+        return new Promise((resolve, reject) => {
+            let num = 0;
+
+            this.faktury.getFakturyList().then(val => {
+                for (let i = 0; i < val.length; i++) {
+                    if (val[i].isPrzedmiot(id)) { num++; }
+                }
+                resolve(num); // zwroc ilosc faktur
+            });
+        });
+    }    
+
     //ilośc. UWAGA - dla usługi (przedmiot.czyUsluga==true) nie pobieramy ilosci!!!
     public getQuantity(p: Przedmiot):Promise<number>{
         return this.getQuantityObs(p, true).toPromise();

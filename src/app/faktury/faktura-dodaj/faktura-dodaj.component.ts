@@ -62,14 +62,18 @@ export class FakturaDodajComponent implements OnInit {
     this.createForm();
 
     this.faktura = new Faktura();
+    
     this.idFaktury = +this.route.snapshot.paramMap.get('id');
     if (this.idFaktury === -1){
-      this.isEdit = false;
+        //ustaw jakis domyslny nr
+        this.fakturaForm.get("numerFaktury").setValue(this.faktura.numerFaktury);
+        
+        this.isEdit = false;
+    } else {
+        this.isEdit = true;
+        //TODO pobierz dane faktury
     }
 
-
-    //TODO pobrać dane faktury (jeśli sciezka w adresie jest liczba a nie napisem 'new'). Jeśli napis 'new' tworzymy nowa instancje faktury
-    //jesli edycja: this.isEdit = true;
 
     this.magazyn.getPrzedmiotyList().then(val => {
       this.przedmioty = val;//tablica
@@ -211,15 +215,36 @@ export class FakturaDodajComponent implements OnInit {
     }
 
     if (!hasPrzedmioty) {
-      //TODO musi znajdowac sie jeden przedmiot na fakturze!
+        alert("Na fakturze musi znajdować się przynajmniej jeden przedmiot!");
+        return;
     }
 
     //sprawdz czy jest kontrahent (jesli nie strata)
     let k = this.kontrahenci.find(el => el.id == v.kontrahent.nazwaFirmy);//tu trzymane jest ID kontrahenta :)
     if (!k && v.fakturaType != FAKTURA_TYPE[2]) {
-      //TODO musi byc kontrahent (jesli nie jest to strata)
+        alert("Faktura musi posiadać kontrahenta!");
+        return;
     }
 
+    if(v.numerFaktury.trim() == ''){
+        alert("Należy wpisać numer faktury!");
+        return;
+    }
+
+    if(v.dataWystawienia.replace(' ', '') == ''){
+        alert("Należy wpisać datę wystawienia faktury!");
+        return;
+    }
+
+    if(v.dataPlatnosci.replace(' ', '') == ''){
+        alert("Należy wpisać datę płatności faktury!");
+        return;
+    }
+
+    if(v.miejsceWystawienia.replace(' ', '') == ''){
+        alert("Należy wpisać miejsce wystawienia faktury!");
+        return;
+    }
 
     //////ZAPIS FAKTURY:
     const f = this.faktura;//albo nowa faktura, albo edycja istniejacej
@@ -296,8 +321,6 @@ export class FakturaDodajComponent implements OnInit {
     }
     // Powrót do poprzedniej strony
     this.location.back();
-
-    
   }
 
   anuluj(){
