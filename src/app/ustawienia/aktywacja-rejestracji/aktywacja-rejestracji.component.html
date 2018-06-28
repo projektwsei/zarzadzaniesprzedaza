@@ -1,3 +1,35 @@
-<p>
-  aktywacja-rejestracji works!
-</p>
+<div class="row header">
+  <div class="col-md-6">
+    <h2>Lista uzytkowników</h2>
+  </div>
+</div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Login (e-mail)</th>
+          <th>Imie i nazwisko</th>
+          <th>Provider logowania</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index">
+          <td>fgfgfg</td>
+          <td>{{user.imieNazw}}</td>
+					<td>fgfgfg</td>
+          <td *ngIf="user.isPotw"><span [ngClass]="{'user-activated': user.isPotw}">potwierdzony</span></td>
+          <td *ngIf="!user.isPotw"><span [ngClass]="{'user-deactivated': !user.isPotw}">nie potwierdzony</span></td>
+          <td class="text-right">
+            <a class="btn" title="Potwierdz">
+              <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+            </a>
+            <a class="btn" title="Usuń">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

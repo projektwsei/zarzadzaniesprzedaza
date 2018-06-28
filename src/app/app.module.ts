@@ -1,3 +1,4 @@
+import { AktywacjaRejestracjiComponent } from './ustawienia/aktywacja-rejestracji/aktywacja-rejestracji.component';
 import { UstawieniaComponent } from './ustawienia/ustawienia.component';
 import { KlienciComponent } from './klienci/klienci.component';
 import { FakturyComponent } from './faktury/faktury.component';
@@ -45,6 +46,7 @@ import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podgl
     KlienciComponent,
     KlienciDodajComponent,
     UstawieniaComponent,
+    AktywacjaRejestracjiComponent,
     FakturaPodgladComponent,
   ],
   imports: [

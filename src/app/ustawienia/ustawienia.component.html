@@ -5,17 +5,10 @@
       <div class="form-group">
           <h2>Dane firmy</h2>
           <div class="col-sm-12">
-              <label for="typFirmy">Typ firmy</label>
-              <select class="form-control" formControlName="typFirmy" (change)="onChangeFirmaType($event)">
-                <option *ngFor="let t of getFirmaTypes()" [value]="t">{{t}}</option>
-              </select>
-          </div>
-          <div class="col-sm-12">
-          <label for="nazwaFirmy" *ngIf="isFirma">Nazwa firmy</label>
-          <label for="nazwaFirmy" *ngIf="!isFirma">Imie i nazwisko</label>
+          <label for="nazwaFirmy">Nazwa firmy</label>
           <input type="text" class="form-control" name="nazwaFirmy" id="nazwaFirmy" formControlName="nazwaFirmy">
           </div>
-          <div *ngIf="isFirma" class="col-sm-12">
+          <div class="col-sm-12">
           <label for="nip">NIP</label>
           <input type="text" class="form-control" name="nip" id="nip" formControlName="nip">
           </div>
@@ -37,5 +30,8 @@
           </div>
       </div>
 </form>
+</div>
+<div class="col-sm-6">
+<app-aktywacja-rejestracji></app-aktywacja-rejestracji>
 </div>
 </div>
