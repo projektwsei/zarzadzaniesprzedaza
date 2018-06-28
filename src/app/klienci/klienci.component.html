@@ -13,17 +13,17 @@
       <thead>
         <tr>
           <th>Nazwa firmy</th>
-          <th>NIP</th>
-          <th>Miejscowość</th>
+          <th class="hidden-xs hidden-sm">NIP</th>
+          <th class="hidden-xs">Miejscowość</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let k of kontrahenci">
           <td>{{k.nazwaFirmy}}</td>
-          <td *ngIf="k.firma">{{k.nip}}</td>
-					<td *ngIf="!k.firma">(osoba fizyczna)</td>
-          <td>{{k.miasto}}</td>
+          <td class="hidden-xs hidden-sm" *ngIf="k.firma">{{k.nip}}</td>
+					<td class="hidden-xs hidden-sm" *ngIf="!k.firma">(osoba fizyczna)</td>
+          <td class="hidden-xs">{{k.miasto}}</td>
           <td class="text-right">
             <a routerLink="{{k.id}}" class="btn btn-primary" title="Zobacz">
               <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>

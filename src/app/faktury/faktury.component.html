@@ -13,10 +13,10 @@
               <thead>
                 <tr>
                   <th>Numer</th>
-                  <th>Wartość netto</th>
-                  <th>Wartość brutto</th>
-                  <th>Nazwa firmy/Imie i nazwisko</th>
-                  <th>Data wystawienia</th>
+                  <th class="hidden-xs hidden-sm">Wartość netto</th>
+                  <th class="hidden-xs hidden-sm">Wartość brutto</th>
+                  <th class="hidden-xs">Nazwa firmy/Imie i nazwisko</th>
+                  <th class="hidden-xs">Data wystawienia</th>
                   <th>Typ</th>
                   <th></th>
                 </tr>
@@ -24,10 +24,10 @@
               <tbody>
                 <tr *ngFor="let f of faktury">
                   <td>{{f.numerFaktury}}</td>
-                  <td>{{f.getSumNetto()}}</td>
-                  <td>{{f.getSumBrutto()}}</td>
-                  <td>{{f.kontrahent.nazwaFirmy}}</td>
-                  <td>{{f.dataWystawienia}}</td>
+                  <td class="hidden-xs hidden-sm">{{f.getSumNetto()}}</td>
+                  <td class="hidden-xs hidden-sm">{{f.getSumBrutto()}}</td>
+                  <td class="hidden-xs">{{f.kontrahent.nazwaFirmy}}</td>
+                  <td class="hidden-xs">{{f.dataWystawienia}}</td>
                   <td>{{f.getTypeName()}}</td>
                   <td class="text-right">
                     <a routerLink="{{f.id}}" class="btn btn-primary" title="Zobacz">
