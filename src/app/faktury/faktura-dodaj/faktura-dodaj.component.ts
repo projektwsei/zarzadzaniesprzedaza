@@ -41,7 +41,7 @@ export class FakturaDodajComponent implements OnInit {
   fakturaForm: FormGroup;
 
   constructor(private fb: FormBuilder, private df: DaneFirmyService, private magazyn: MagazynService,
-    private kontr: KontrahenciService, private fakt: FakturyService, private users: UsersService, 
+    private kontr: KontrahenciService, private fakt: FakturyService, private users: UsersService,
     private location: Location, private route: ActivatedRoute) {
 
   }
@@ -59,19 +59,79 @@ export class FakturaDodajComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createForm();
+    // this.createForm();
 
     this.faktura = new Faktura();
-    
+
     this.idFaktury = +this.route.snapshot.paramMap.get('id');
-    if (this.idFaktury === -1){
-        //ustaw jakis domyslny nr
-        this.fakturaForm.get("numerFaktury").setValue(this.faktura.numerFaktury);
-        
-        this.isEdit = false;
+    if (this.idFaktury === -1) {
+      //ustaw jakis domyslny nr
+      this.fakturaForm = this.fb.group({
+        numerFaktury: '',
+        dataWystawienia: '',
+        miejsceWystawienia: '',
+        dataPlatnosci: '',
+        fakturaType: FAKTURA_TYPE[0],
+        opis: '',
+        daneFirmy: this.fb.group({
+          nazwaFirmy: '',
+          nip: '',
+          adres: '',
+          kodPocztowy: '',
+          miasto: '',
+        }),
+        kontrahent: this.fb.group({
+          nazwaFirmy: '',
+          nip: '',
+          adres: '',
+          kodPocztowy: '',
+          miasto: ''
+        }),
+        przedmioty: this.fb.array([this.Przedmioty()])
+      });
+  
+      this.fakturaForm.controls.kontrahent.get('nazwaFirmy').valueChanges.subscribe(value => {
+        this.selectKontrahent(value);
+      });
+      this.fakturaForm.get("numerFaktury").setValue(this.faktura.numerFaktury);
+
+      this.isEdit = false;
     } else {
-        this.isEdit = true;
-        //TODO pobierz dane faktury
+      this.isEdit = true;
+      //TODO pobierz dane faktury
+
+      this.fakt.getFakturaById(this.idFaktury).subscribe(
+        data =>{
+          console.log(data);
+          this.fakturaForm = this.fb.group({
+            numerFaktury: data.numerFaktury,
+            dataWystawienia: data.dataWystawienia,
+            miejsceWystawienia: data.miejsceWystawienia,
+            dataPlatnosci: data.dataPlatnosci,
+            fakturaType: FAKTURA_TYPE[0],
+            opis: data.opis,
+            daneFirmy: this.fb.group({
+              nazwaFirmy: data.daneFirmy.nazwaFirmy,
+              nip: data.daneFirmy.nip,
+              adres: data.daneFirmy.adres,
+              kodPocztowy: data.daneFirmy.kodPocztowy,
+              miasto: data.daneFirmy.miasto,
+            }),
+            kontrahent: this.fb.group({
+              nazwaFirmy: data.kontrahent.nazwaFirmy,
+              nip: data.kontrahent.nip,
+              adres: data.kontrahent.adres,
+              kodPocztowy: data.kontrahent.kodPocztowy,
+              miasto: data.kontrahent.miasto
+            }),
+            przedmioty: this.fb.array([this.Przedmioty()])
+          });
+      
+          this.fakturaForm.controls.kontrahent.get('nazwaFirmy').valueChanges.subscribe(value => {
+            this.selectKontrahent(value);
+          });
+        }
+      );
     }
 
 
@@ -215,35 +275,35 @@ export class FakturaDodajComponent implements OnInit {
     }
 
     if (!hasPrzedmioty) {
-        alert("Na fakturze musi znajdować się przynajmniej jeden przedmiot!");
-        return;
+      alert("Na fakturze musi znajdować się przynajmniej jeden przedmiot!");
+      return;
     }
 
     //sprawdz czy jest kontrahent (jesli nie strata)
     let k = this.kontrahenci.find(el => el.id == v.kontrahent.nazwaFirmy);//tu trzymane jest ID kontrahenta :)
     if (!k && v.fakturaType != FAKTURA_TYPE[2]) {
-        alert("Faktura musi posiadać kontrahenta!");
-        return;
+      alert("Faktura musi posiadać kontrahenta!");
+      return;
     }
 
-    if(v.numerFaktury.trim() == ''){
-        alert("Należy wpisać numer faktury!");
-        return;
+    if (v.numerFaktury.trim() == '') {
+      alert("Należy wpisać numer faktury!");
+      return;
     }
 
-    if(v.dataWystawienia.trim() == ''){
-        alert("Należy wpisać datę wystawienia faktury!");
-        return;
+    if (v.dataWystawienia.trim() == '') {
+      alert("Należy wpisać datę wystawienia faktury!");
+      return;
     }
 
-    if(v.dataPlatnosci.trim() == ''){
-        alert("Należy wpisać datę płatności faktury!");
-        return;
+    if (v.dataPlatnosci.trim() == '') {
+      alert("Należy wpisać datę płatności faktury!");
+      return;
     }
 
-    if(v.miejsceWystawienia.trim() == ''){
-        alert("Należy wpisać miejsce wystawienia faktury!");
-        return;
+    if (v.miejsceWystawienia.trim() == '') {
+      alert("Należy wpisać miejsce wystawienia faktury!");
+      return;
     }
 
     //////ZAPIS FAKTURY:
@@ -323,7 +383,7 @@ export class FakturaDodajComponent implements OnInit {
     this.location.back();
   }
 
-  anuluj(){
+  anuluj() {
     this.location.back();
   }
 

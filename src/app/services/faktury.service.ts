@@ -53,8 +53,8 @@ export class FakturyService {
         return ret;
     }
     
-    public getFakturaById(id: number):Promise<Faktura>{
-        return this.getFakturaByIdObs(id, true).toPromise();
+    public getFakturaById(id: number) {// :Promise<Faktura>{
+        return this.getFakturaByIdObs(id, true);
     }
 
     public getFakturaByIdObs(id: number, isOnce: boolean):Observable<Faktura>{

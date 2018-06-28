@@ -41,7 +41,7 @@ export class FakturaPodgladComponent implements OnInit {
             this.przedmioty = val;//tablica
         });
 
-        this.fakt.getFakturaById(this.idFaktury).then(val => {
+        this.fakt.getFakturaById(this.idFaktury).subscribe(val => {
             this.faktura = val;
 
             if(val.czyStrata) {
