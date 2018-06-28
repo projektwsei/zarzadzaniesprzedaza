@@ -12,5 +12,11 @@ export class DaneFirmy {//dane naszej firmy
         this.miasto = '';
         this.kodPocztowy = '';
     }
+public getFullName():string{
+        if(this.firma) return this.nazwaFirmy;
+        else return '(os. fiz.)  '+this.nazwaFirmy;
+    }
 }
+
+export const FIRMA_TYPE: string[] = ['Firma', 'Osoba fizyczna'];
 
