@@ -110,4 +110,8 @@ export class MagazynDodajComponent implements OnInit {
         }
     }
 
+    anuluj(){
+        this.location.back();
+    }
+
 }

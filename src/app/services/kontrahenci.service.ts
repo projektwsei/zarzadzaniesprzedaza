@@ -54,8 +54,8 @@ export class KontrahenciService {
         return ret;
     }
 
-    public getKontrahentById(id: number):Promise<Kontrahent>{
-        return this.getKontrahentByIdObs(id, true).toPromise();
+    public getKontrahentById(id: number){//:Promise<Kontrahent>{
+        return this.getKontrahentByIdObs(id, true);
     }
 
     public getKontrahentByIdObs(id: number, isOnce: boolean):Observable<Kontrahent>{

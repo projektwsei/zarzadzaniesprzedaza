@@ -43,16 +43,25 @@ export class KlienciDodajComponent implements OnInit {
             });
 
         } else {
-            // this.kontrahent = this.kontr.getKontrahentById(this.nrKlienta);
             this.isEdit = true;
-            this.clientAddForm = this.fbc.group({
-                'typKontr': KONTRAHENT_TYPE[0],
-                'nazwaFirmy': this.kontrahent.nazwaFirmy,
-                'nip': this.kontrahent.nip,
-                'adres': this.kontrahent.adres,
-                'kodPocztowy': this.kontrahent.kodPocztowy,
-                'miasto': this.kontrahent.miasto,
-            });
+            this.kontr.getKontrahentById(this.nrKlienta).subscribe(
+                data => {
+                    console.log(data);
+                    this.kontrahent = data;
+                    this.clientAddForm = this.fbc.group({
+                        'typKontr': KONTRAHENT_TYPE[0],
+                        'nazwaFirmy': this.kontrahent.nazwaFirmy,
+                        'nip': this.kontrahent.nip,
+                        'adres': this.kontrahent.adres,
+                        'kodPocztowy': this.kontrahent.kodPocztowy,
+                        'miasto': this.kontrahent.miasto,
+                    });
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                );
+            
 
         }
     }
@@ -96,6 +105,10 @@ export class KlienciDodajComponent implements OnInit {
             this.kontr.updateKontrahent(k);
             this.location.back();
         }
+    }
+
+    anuluj(){
+        this.location.back();
     }
 
 }
