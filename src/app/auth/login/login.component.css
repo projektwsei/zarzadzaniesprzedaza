@@ -24,22 +24,6 @@
     margin-bottom: 12px;
 }
 
-.facebook-auth-login {
-    line-height: 1.6;
-    font-size: 14px;
-    padding: 8px;
-    border-radius: 3px;
-    color: white;
-    font-weight: 700;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 8px;
-    background-color: #3b5998;
-}
-.facebook-auth-login:hover {
-    background-color: #2d4373;
-}
-
 .google-auth-login {
     line-height: 1.6;
     font-size: 14px;

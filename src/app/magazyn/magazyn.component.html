@@ -1,3 +1,45 @@
-<p>
-  magazyn works!
-</p>
+<div class="row header">
+  <div class="col-md-6">
+    <h2>Lista produktów</h2>
+  </div>
+  <div class="col-md-6 text-right">
+    <a routerLink="dodaj/-1" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    <span><strong> Dodaj produkt/usługę</strong></span></a>
+ </div>
+</div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nazwa</th>
+          <th class="hidden-xs">Cena netto</th>
+          <th class="hidden-xs hidden-sm">% VAT</th>
+          <th class="hidden-xs hidden-sm">Jednostka</th>
+          <th>Ilosc</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of przedmioty ; let i = index">
+          <td>{{p.nazwa}}</td>
+          <td class="hidden-xs">{{p.cenaDomyslna}}</td>
+          <td class="hidden-xs hidden-sm">{{p.vat}}</td>
+          <td class="hidden-xs hidden-sm">{{p.jednostka}}</td>
+          <td *ngIf="!p.czyUsluga">{{przedmiotyIlosci[i]}}</td>
+          <td *ngIf="p.czyUsluga">(Usługa)</td>
+          <td class="text-right">
+            <!--<a routerLink="{{p.id}}" class="btn btn-primary" title="Zobacz">
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            </a>-->
+            <a routerLink="dodaj/{{p.id}}" class="btn btn-primary" title="Edytuj">
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            </a>
+            <a (click)="usun(p.id)" class="btn btn-danger" title="Usuń">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
