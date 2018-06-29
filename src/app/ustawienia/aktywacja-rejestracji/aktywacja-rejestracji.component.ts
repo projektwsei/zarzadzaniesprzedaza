@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../model/user';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-aktywacja-rejestracji',
@@ -8,21 +9,14 @@ import { User } from '../../model/user';
 })
 export class AktywacjaRejestracjiComponent implements OnInit {
 
-  users: User[] = [
-    { uid: '1',
-    imieNazw: 'Jakieś Imie i Nazwisko',
-    isPotw: false },
-    { uid: '2',
-    imieNazw: 'Znowu Jakieś Imie i Nazwisko',
-    isPotw: true }
-  ];
+  users: User[] = [];
 
-  private isPotw = false;
-
-  constructor() { }
+  constructor(private us: UsersService) { }
 
   ngOnInit() {
-
+    this.us.getUserList(true).subscribe(data => {
+      this.users = data;
+    });
   }
 
 }

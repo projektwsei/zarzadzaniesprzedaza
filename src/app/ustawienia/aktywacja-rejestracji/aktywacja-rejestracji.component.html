@@ -1,5 +1,5 @@
 <div class="row header">
-  <div class="col-md-6">
+  <div class="col-md-8">
     <h2>Lista uzytkowników</h2>
   </div>
 </div>
@@ -16,13 +16,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let user of users; let i = index">
-          <td>fgfgfg</td>
+          <td>email z firebase</td>
           <td>{{user.imieNazw}}</td>
-					<td>fgfgfg</td>
+		  <td>provider z firebase</td>
           <td *ngIf="user.isPotw"><span [ngClass]="{'user-activated': user.isPotw}">potwierdzony</span></td>
           <td *ngIf="!user.isPotw"><span [ngClass]="{'user-deactivated': !user.isPotw}">nie potwierdzony</span></td>
           <td class="text-right">
-            <a class="btn" title="Potwierdz">
+            <a class="btn" title="Potwierdz" *ngIf="!user.isPotw">
               <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
             </a>
             <a class="btn" title="Usuń">

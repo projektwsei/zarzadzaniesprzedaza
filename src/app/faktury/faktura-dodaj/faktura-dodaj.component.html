@@ -122,7 +122,7 @@
       </div>
       <div class="col-sm-1">
         <label class="visible-xs">Ilość:</label>
-        <input class="form-control" formControlName="ilosc">
+        <input class="form-control" formControlName="ilosc" (change)="przedmiotChangeValues(i)">
       </div>
       <div class="col-sm-1">
         <label class="visible-xs">Jednostka:</label>
@@ -130,7 +130,7 @@
       </div>
       <div class="col-sm-1" *ngIf="!czyStrata">
         <label class="visible-xs">Cena netto:</label>
-        <input class="form-control" formControlName="cenaNetto">
+        <input class="form-control" formControlName="cenaNetto" (change)="przedmiotChangeValues(i)">
       </div>
       <div class="col-sm-2" *ngIf="czyStrata">
         <label class="visible-xs">Wartość strat:</label>

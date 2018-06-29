@@ -29,38 +29,38 @@ export class KlienciDodajComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.clientAddForm = this.fbc.group({
+            'typKontr': KONTRAHENT_TYPE[0],
+            'nazwaFirmy': '',
+            'nip': '',
+            'adres': '',
+            'kodPocztowy': '',
+            'miasto': ''
+        });
 
         this.kontrahent = new Kontrahent();
         this.nrKlienta = +this.route.snapshot.paramMap.get('id');
         if (this.nrKlienta === -1) {
-            this.clientAddForm = this.fbc.group({
-                'typKontr': KONTRAHENT_TYPE[0],
-                'nazwaFirmy': '',
-                'nip': '',
-                'adres': '',
-                'kodPocztowy': '',
-                'miasto': ''
-            });
-
+            this.isEdit = false;
         } else {
             this.isEdit = true;
-            this.kontr.getKontrahentById(this.nrKlienta).subscribe(
-                data => {
-                    console.log(data);
-                    this.kontrahent = data;
-                    this.clientAddForm = this.fbc.group({
-                        'typKontr': KONTRAHENT_TYPE[0],
-                        'nazwaFirmy': this.kontrahent.nazwaFirmy,
-                        'nip': this.kontrahent.nip,
-                        'adres': this.kontrahent.adres,
-                        'kodPocztowy': this.kontrahent.kodPocztowy,
-                        'miasto': this.kontrahent.miasto,
-                    });
-                    },
-                    error => {
-                        console.log(error);
-                    }
-                );
+            this.kontr.getKontrahentById(this.nrKlienta).subscribe(data => {
+                this.kontrahent = data;
+
+                this.clientAddForm.get("nazwaFirmy").setValue(this.kontrahent.nazwaFirmy);
+                this.clientAddForm.get("nip").setValue(this.kontrahent.nip);
+                this.clientAddForm.get("adres").setValue(this.kontrahent.adres);
+                this.clientAddForm.get("kodPocztowy").setValue(this.kontrahent.kodPocztowy);
+                this.clientAddForm.get("miasto").setValue(this.kontrahent.miasto);
+
+                this.isFirma = this.kontrahent.firma;
+
+                if(this.kontrahent.firma){
+                    this.clientAddForm.get("typKontr").setValue(KONTRAHENT_TYPE[0]);
+                } else {
+                    this.clientAddForm.get("typKontr").setValue(KONTRAHENT_TYPE[1]);
+                }
+            });
             
 
         }

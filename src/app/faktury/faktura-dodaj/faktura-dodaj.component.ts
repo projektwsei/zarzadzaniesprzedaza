@@ -44,6 +44,13 @@ export class FakturaDodajComponent implements OnInit {
     private kontr: KontrahenciService, private fakt: FakturyService, private users: UsersService,
     private location: Location, private route: ActivatedRoute) {
 
+    this.magazyn.getPrzedmiotyList().then(val => {
+      this.przedmioty = val;//tablica
+    });
+
+    this.kontr.getKontrahenciList().then(val => {
+      this.kontrahenci = val;//tablica
+    });
   }
 
   /*getQuantityUnit():string[]{
@@ -59,89 +66,58 @@ export class FakturaDodajComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.createForm();
+    this.createForm();
 
     this.faktura = new Faktura();
 
     this.idFaktury = +this.route.snapshot.paramMap.get('id');
     if (this.idFaktury === -1) {
       //ustaw jakis domyslny nr
-      this.fakturaForm = this.fb.group({
-        numerFaktury: '',
-        dataWystawienia: '',
-        miejsceWystawienia: '',
-        dataPlatnosci: '',
-        fakturaType: FAKTURA_TYPE[0],
-        opis: '',
-        daneFirmy: this.fb.group({
-          nazwaFirmy: '',
-          nip: '',
-          adres: '',
-          kodPocztowy: '',
-          miasto: '',
-        }),
-        kontrahent: this.fb.group({
-          nazwaFirmy: '',
-          nip: '',
-          adres: '',
-          kodPocztowy: '',
-          miasto: ''
-        }),
-        przedmioty: this.fb.array([this.Przedmioty()])
-      });
-  
-      this.fakturaForm.controls.kontrahent.get('nazwaFirmy').valueChanges.subscribe(value => {
-        this.selectKontrahent(value);
-      });
-      this.fakturaForm.get("numerFaktury").setValue(this.faktura.numerFaktury);
+      this.fakturaForm.get('numerFaktury').setValue(this.faktura.numerFaktury);
 
       this.isEdit = false;
     } else {
       this.isEdit = true;
-      //TODO pobierz dane faktury
 
       this.fakt.getFakturaById(this.idFaktury).subscribe(
         data =>{
-          console.log(data);
-          this.fakturaForm = this.fb.group({
-            numerFaktury: data.numerFaktury,
-            dataWystawienia: data.dataWystawienia,
-            miejsceWystawienia: data.miejsceWystawienia,
-            dataPlatnosci: data.dataPlatnosci,
-            fakturaType: FAKTURA_TYPE[0],
-            opis: data.opis,
-            daneFirmy: this.fb.group({
-              nazwaFirmy: data.daneFirmy.nazwaFirmy,
-              nip: data.daneFirmy.nip,
-              adres: data.daneFirmy.adres,
-              kodPocztowy: data.daneFirmy.kodPocztowy,
-              miasto: data.daneFirmy.miasto,
-            }),
-            kontrahent: this.fb.group({
-              nazwaFirmy: data.kontrahent.nazwaFirmy,
-              nip: data.kontrahent.nip,
-              adres: data.kontrahent.adres,
-              kodPocztowy: data.kontrahent.kodPocztowy,
-              miasto: data.kontrahent.miasto
-            }),
-            przedmioty: this.fb.array([this.Przedmioty()])
-          });
-      
-          this.fakturaForm.controls.kontrahent.get('nazwaFirmy').valueChanges.subscribe(value => {
-            this.selectKontrahent(value);
-          });
+          this.faktura = data;//zapisz dane faktury!
+            
+          this.fakturaForm.get('numerFaktury').setValue(this.faktura.numerFaktury);
+          this.fakturaForm.get('dataWystawienia').setValue(this.faktura.dataWystawienia);
+          this.fakturaForm.get('miejsceWystawienia').setValue(this.faktura.miejsceWystawienia);
+          this.fakturaForm.get('dataPlatnosci').setValue(this.faktura.dataPlatnosci);
+          this.fakturaForm.get('opis').setValue(this.faktura.opis);
+
+          if(this.faktura.czyStrata) this.fakturaForm.get('fakturaType').setValue(FAKTURA_TYPE[2]);
+          else if(this.faktura.czyKoszt) this.fakturaForm.get('fakturaType').setValue(FAKTURA_TYPE[1]);
+          else this.fakturaForm.get('fakturaType').setValue(FAKTURA_TYPE[0]);
+
+          //dane firmy
+          this.fakturaForm.get('daneFirmy.nazwaFirmy').setValue(this.faktura.daneFirmy.nazwaFirmy);
+          this.fakturaForm.get('daneFirmy.nip').setValue(this.faktura.daneFirmy.nip);
+          this.fakturaForm.get('daneFirmy.adres').setValue(this.faktura.daneFirmy.adres);
+          this.fakturaForm.get('daneFirmy.kodPocztowy').setValue(this.faktura.daneFirmy.kodPocztowy);
+          this.fakturaForm.get('daneFirmy.miasto').setValue(this.faktura.daneFirmy.miasto);
+
+          //kontrahent
+          this.fakturaForm.get('kontrahent.nazwaFirmy').setValue(this.faktura.kontrahent.id);//tutaj trzymane jest id kontrahenta
+          this.fakturaForm.get('kontrahent.nip').setValue(this.faktura.kontrahent.nip);
+          this.fakturaForm.get('kontrahent.adres').setValue(this.faktura.kontrahent.adres);
+          this.fakturaForm.get('kontrahent.kodPocztowy').setValue(this.faktura.kontrahent.kodPocztowy);
+          this.fakturaForm.get('kontrahent.miasto').setValue(this.faktura.kontrahent.miasto);
+
+          //przedmioty
+          this.magazyn.getPrzedmiotyList().then(val => {//musi to byc, bo wywala ze przedmioty sa jeszcze null (nie pobralo calej listy)
+            for(let i=0;i<this.faktura.przedmioty.length;i++){
+              let fp = this.faktura.przedmioty[i];
+              let p = this.getPrzedmiotById(val, fp.przedmiot_id);
+              this.addPrzedmiotyFromObj(p, fp);
+            }
+          });//przedmioty
         }
       );
     }
-
-
-    this.magazyn.getPrzedmiotyList().then(val => {
-      this.przedmioty = val;//tablica
-    });
-
-    this.kontr.getKontrahenciList().then(val => {
-      this.kontrahenci = val;//tablica
-    });
 
     if (!this.isEdit) {//jesli to NIE JEST edycja to pobieramy aktualne dane firmy z bazdy
       this.df.getDaneFirmy().then(val => {
@@ -155,6 +131,13 @@ export class FakturaDodajComponent implements OnInit {
       });
     }//jesli to jest edycja, dane firmy sa juz na fakturze
 
+  }
+
+  private getPrzedmiotById(p: Przedmiot[], id: number):Przedmiot{
+    for(let i = 0;i<p.length;i++){
+        if(p[i].id == id) return p[i];
+    }
+    return null;
   }
 
   private onChangePrzedmiot(event, pos): void {//zmiana przedmioty, event zawiera obiekt Przedmiot
@@ -200,7 +183,7 @@ export class FakturaDodajComponent implements OnInit {
         kodPocztowy: '',
         miasto: ''
       }),
-      przedmioty: this.fb.array([this.Przedmioty()])
+      przedmioty: this.fb.array([/*this.Przedmioty()*/])
     });
 
     this.fakturaForm.controls.kontrahent.get('nazwaFirmy').valueChanges.subscribe(value => {
@@ -222,9 +205,39 @@ export class FakturaDodajComponent implements OnInit {
     });
   }
 
+  private PrzedmiotyFromObj(p, fp) {
+    let wNetto = fp.ilosc * fp.cenaNetto;
+    let wVat = wNetto * fp.vat / 100;
+    let wBrutto = wNetto + wVat;
+
+    let ret = this.fb.group({
+      nazwa: p.id,
+      ilosc: fp.ilosc,
+      jednostka: p.jednostka,
+      cenaNetto: fp.cenaNetto,
+      vat: fp.vat,
+      wartoscVat: wVat,
+      wartoscNetto: wNetto,
+      wartoscBrutto: wBrutto
+    });
+    
+    if(p.czyUsluga){
+      ret.get('jednostka').setValue(JEDNOSTKI[0]); //JEDNOSTKI[0] = 'Usługa'
+      ret.get('ilosc').setValue('1');
+      ret.get('ilosc').disable();
+    }
+
+    return ret;
+  }
+
   private addPrzedmioty() {
     const control = <FormArray>this.fakturaForm.controls['przedmioty'];
     control.push(this.Przedmioty());
+  }
+
+  private addPrzedmiotyFromObj(p, fp) {
+    const control = <FormArray>this.fakturaForm.controls['przedmioty'];
+    control.push(this.PrzedmiotyFromObj(p, fp));
   }
 
   private delPrzedmioty(index: number) {
@@ -246,6 +259,20 @@ export class FakturaDodajComponent implements OnInit {
     }
   }
 
+  private przedmiotChangeValues(pos: number):void{
+		let ilosc = this.fakturaForm.get('przedmioty.' + pos).get('ilosc').value;
+		let cena = this.fakturaForm.get('przedmioty.' + pos).get('cenaNetto').value;
+		let vat = this.fakturaForm.get('przedmioty.' + pos).get('vat').value;
+		
+		let wNetto = ilosc * cena;
+		let wVat = wNetto * vat / 100;
+		let wBrutto = wNetto + wVat;
+
+    this.fakturaForm.get('przedmioty.' + pos).get('wartoscVat').setValue(wVat);
+		this.fakturaForm.get('przedmioty.' + pos).get('wartoscNetto').setValue(wNetto);
+		this.fakturaForm.get('przedmioty.' + pos).get('wartoscBrutto').setValue(wBrutto);
+  }
+
   private selectPrzedmiot(val: any = null, pos: number): void {
     let p = this.przedmioty.find(el => el.id == val);//tu musi byc '==' a nie '===' bo z formularza pobiera nam stringa, a nie number
     if (p) {
@@ -261,6 +288,8 @@ export class FakturaDodajComponent implements OnInit {
 
       this.fakturaForm.get('przedmioty.' + pos).get('cenaNetto').setValue(p.cenaDomyslna);
       this.fakturaForm.get('przedmioty.' + pos).get('vat').setValue(p.vat);
+
+			this.przedmiotChangeValues(pos);
     }
   }
 
@@ -327,8 +356,8 @@ export class FakturaDodajComponent implements OnInit {
       f.czyStrata = true;
     }
 
-    //dane firmy
-    f.daneFirmy = this.daneFirmy;
+    //dane firmy (tylko jesli nie edycja)
+    if(!this.isEdit) f.daneFirmy = this.daneFirmy;
 
     //kontrahent
     if (v.fakturaType == FAKTURA_TYPE[2]) {//strata, wiec nie musi byc kontrahenta

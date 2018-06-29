@@ -11,26 +11,44 @@ import { tap } from 'rxjs/operators';
 })
 export class UstawieniaComponent implements OnInit {
 
-   daneFirmy: DaneFirmy;
+  daneFirmy: DaneFirmy;
+  saved: boolean;
+  firmForm: FormGroup;
 
-   firmForm: FormGroup;
-
-  constructor( private fbf: FormBuilder, private fir: DaneFirmyService ) { }
+  constructor( private fbf: FormBuilder, private fir: DaneFirmyService ) {
+    this.saved = false;
+  }
 
   ngOnInit() {
-
     this.firmForm = this.fbf.group({
-                nazwaFirmy: '',
-                nip: '',
-                adres: '',
-                kodPocztowy: '',
-                miasto: '',
-            });
+      nazwaFirmy: '',
+      nip: '',
+      adres: '',
+      kodPocztowy: '',
+      miasto: '',
+    });
 
-            this.fir.getDaneFirmy().then(val => {
-            this.daneFirmy = val;
-            this.firmForm.patchValue(this.daneFirmy);
-        });
+    this.fir.getDaneFirmy().then(val => {
+      this.daneFirmy = val;
+      this.firmForm.patchValue(this.daneFirmy);
+    });
   }
+
+  onSubmitEdit(v){
+    this.daneFirmy.nazwaFirmy = v.nazwaFirmy;
+    this.daneFirmy.nip = v.nip;
+    this.daneFirmy.adres = v.adres;
+    this.daneFirmy.kodPocztowy = v.kodPocztowy;
+    this.daneFirmy.miasto = v.miasto;
+
+    this.fir.saveDaneFirmy(this.daneFirmy);
+
+    this.saved = true;
+    setTimeout(()=>{
+        this.saved = false;
+    }, 6000);//po 6 sekundach ukryj napis "zapisano"
+  }
+
+
 
 }

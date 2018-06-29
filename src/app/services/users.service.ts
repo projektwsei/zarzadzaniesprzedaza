@@ -52,6 +52,8 @@ export class UsersService {
         this.saveUser(u);
     }
 
+    //TODO pobieranie userow po firebase!
+
     public getUserList(isOnce: boolean):Observable<User[]>{//isOnce - czy pobieramy raz liste, czy subskrybujemy
         let ret = new Observable<User[]>(observer => {
             this.db.readList(TABLE_USERS, isOnce).subscribe(val => {
@@ -65,7 +67,7 @@ export class UsersService {
                         tab.push(u);
                     }
                 }
-
+                
                 observer.next(tab);
                 if(isOnce) {
                     observer.complete();
