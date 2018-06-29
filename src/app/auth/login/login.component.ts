@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private formLogin: string = '';
     private formPass: string = '';
 
-    constructor(private auth: AuthService) {
+    constructor(private auth: AuthService, private router: Router) {
 
     }
 
@@ -21,6 +22,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         this.observer = this.auth.getLoginState().subscribe(v => {
             console.log(v);
+            if (v.state === 2) {
+                this.router.navigate(['/home']);
+            }
         });
     }
 
@@ -28,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if(this.observer) this.observer.unsubscribe();
     }
 
-    private zaloguj():void{
+    private zaloguj(): void{
         this.auth.login(this.formLogin, this.formPass);
     }
 
