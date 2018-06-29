@@ -1,8 +1,8 @@
-import { KosztaDodajComponent } from './koszta/koszta-dodaj/koszta-dodaj.component';
+import { AuthGuard } from './auth/guard.auth';
+import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podglad.component';
 import { KlienciDodajComponent } from './klienci/klienci-dodaj/klienci-dodaj.component';
 import { MagazynDodajComponent } from './magazyn/magazyn-dodaj/magazyn-dodaj.component';
 import { FakturaDodajComponent } from './faktury/faktura-dodaj/faktura-dodaj.component';
-import { KosztaComponent } from './koszta/koszta.component';
 import { UstawieniaComponent } from './ustawienia/ustawienia.component';
 import { MagazynComponent } from './magazyn/magazyn.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -15,29 +15,44 @@ import { RegistrationComponent } from './auth/registration/registration.componen
 import { KlienciComponent } from './klienci/klienci.component';
 import { FakturyComponent } from './faktury/faktury.component';
 
-
 const appRoutes: Routes = [
     {
-        path: '', component: LoadingComponent,
-        // canActivate: [AuthGuard]
+        path: '', component: HomePageComponent,
+        canActivate: [AuthGuard]
     },
-    { path: 'home', component: HomePageComponent },
+    {
+        path: 'home', component: HomePageComponent, canActivate: [AuthGuard]
+    },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegistrationComponent },
 
-    { path: 'kontrahenci', component: KlienciComponent },
-    { path: 'kontrachenci/dodaj/:id', component: KlienciDodajComponent },
+    {
+        path: 'kontrahenci', component: KlienciComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'kontrahenci/dodaj/:id', component: KlienciDodajComponent, canActivate: [AuthGuard]
+    },
 
-    { path: 'magazyn', component: MagazynComponent },
-    { path: 'magazyn/dodaj/:id', component: MagazynDodajComponent },
+    {
+        path: 'magazyn', component: MagazynComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'magazyn/dodaj/:id', component: MagazynDodajComponent, canActivate: [AuthGuard]
+    },
 
-    { path: 'ustawienia', component: UstawieniaComponent },
+    {
+        path: 'ustawienia', component: UstawieniaComponent, canActivate: [AuthGuard]
+    },
 
-    { path: 'faktury', component: FakturyComponent },
-    { path: 'faktury/dodaj/:id', component: FakturaDodajComponent },
-
-    { path: 'koszty', component: KosztaComponent },
-    { path: 'koszty/dodaj/:id', component: KosztaDodajComponent },
+    {
+        path: 'faktury', component: FakturyComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'faktury/dodaj/:id', component: FakturaDodajComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'faktury/:id', component: FakturaPodgladComponent, canActivate: [AuthGuard]
+    },
 
     // otherwise redirect to HomePageComponent
     { path: '**', redirectTo: '' }

@@ -1,27 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+    private observer;
 
-    constructor(private auth: AuthService) {
-        auth.logout(); //wyloguj, przy wlaczeniu strony logowania
+    private formLogin: string = '';
+    private formPass: string = '';
+
+    constructor(private auth: AuthService, private router: Router) {
+
     }
 
     ngOnInit() {
-        //this.auth.createUser('test5@wp.pl', 'abec1234', 'test usera');
-        this.auth.login('test5@wp.pl', 'abec1234');
+        this.auth.logout(); //wyloguj, przy wlaczeniu strony logowania
 
-        //this.auth.loginWithGoogle();
-        this.auth.getLoginState().subscribe(v => {
+        this.observer = this.auth.getLoginState().subscribe(v => {
             console.log(v);
+            if (v.state === 2) {
+                this.router.navigate(['/home']);
+            }
         });
+    }
 
-        
+    ngOnDestroy(){
+        if(this.observer) this.observer.unsubscribe();
+    }
+
+    private zaloguj(): void{
+        this.auth.login(this.formLogin, this.formPass);
+    }
+
+    private loginGoogle():void{
+        this.auth.loginWithGoogle();
     }
 
 }

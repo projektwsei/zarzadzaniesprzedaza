@@ -1,4 +1,46 @@
-<p>
-  Lista faktur
-</p>
-<a routerLink="dodaj/0">dodaj nową</a>
+<div class="row header">
+  <div class="col-md-6">
+    <h2>Lista faktur</h2>
+  </div>
+  <div class="col-md-6 text-right">
+    <a routerLink="dodaj/-1" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    <span><strong> Dodaj fakturę</strong></span></a>
+ </div>
+</div>
+<div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Numer</th>
+                  <th class="hidden-xs hidden-sm">Wartość netto</th>
+                  <th class="hidden-xs hidden-sm">Wartość brutto</th>
+                  <th class="hidden-xs">Nazwa firmy/Imie i nazwisko</th>
+                  <th class="hidden-xs">Data wystawienia</th>
+                  <th>Typ</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let f of faktury">
+                  <td>{{f.numerFaktury}}</td>
+                  <td class="hidden-xs hidden-sm">{{f.getSumNetto()}}</td>
+                  <td class="hidden-xs hidden-sm">{{f.getSumBrutto()}}</td>
+                  <td class="hidden-xs">{{f.kontrahent.nazwaFirmy}}</td>
+                  <td class="hidden-xs">{{f.dataWystawienia}}</td>
+                  <td>{{f.getTypeName()}}</td>
+                  <td class="text-right">
+                    <a routerLink="{{f.id}}" class="btn btn-primary" title="Zobacz">
+                      <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    </a>
+                    <a routerLink="dodaj/{{f.id}}" class="btn btn-primary" title="Edytuj">
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </a>
+                    <a (click)="usun(f.id)" class="btn btn-danger" title="Usuń">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>

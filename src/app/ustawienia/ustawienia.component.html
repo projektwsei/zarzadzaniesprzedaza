@@ -1,3 +1,39 @@
-<p>
-  ustawienia works!
-</p>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+    <form *ngIf="daneFirmy" [formGroup]="firmForm"
+          (ngSubmit)="onSubmitEdit(firmForm.value)">
+          <div class="form-group">
+              <h2>Dane firmy</h2>
+              <div class="col-sm-12">
+              <label for="nazwaFirmy">Nazwa firmy</label>
+              <input type="text" class="form-control" name="nazwaFirmy" id="nazwaFirmy" formControlName="nazwaFirmy">
+              </div>
+              <div class="col-sm-12">
+              <label for="nip">NIP</label>
+              <input type="text" class="form-control" name="nip" id="nip" formControlName="nip">
+              </div>
+              <div class="col-sm-12">
+              <label for="adres">Ulica i nr</label>
+              <input type="text" class="form-control" formControlName="adres" name="adres" id="adres">
+              </div>
+              <div class="col-sm-3">
+              <label for="kodPocztowy">Kod pocztowy</label>
+              <input type="text" class="form-control" formControlName="kodPocztowy" name="kodPocztowy" id="kodPocztowy">
+              </div>
+              <div class="col-sm-9">
+              <label for="miasto">Miejscowość</label>
+              <input type="text" class="form-control" formControlName="miasto" name="miasto" id="miasto">
+              </div>
+              <div class="col-sm-12 col_mar">       
+              <button class="btn btn-primary" type="submit">Zapisz</button> <span *ngIf="saved">Zapisano</span>
+              </div>
+          </div>
+    </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <app-aktywacja-rejestracji></app-aktywacja-rejestracji>
+    </div>
+</div>
+

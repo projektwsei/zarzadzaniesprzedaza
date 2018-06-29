@@ -1,16 +1,24 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        <a class="navbar-brand">ZS</a>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" routerLink="/home">ZS</a>
+     </div>
+        <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav" routerLinkActive="active">
             <li><a routerLink="/home">Podsumowanie</a></li>
             <li><a routerLink="/magazyn">Magazyn</a></li>
             <li><a routerLink="/kontrahenci">Kontrahenci</a></li>
-            <li><a routerLink="/faktury">Faktury</a></li>
-            <li><a routerLink="/koszty">Koszty</a></li>
+            <li><a routerLink="/faktury">Faktury i koszty</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+            <a href="#" id="menuUser" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
               <span class="glyphicon glyphicon-user" style="padding-right: 5px;"></span>Nazwa użytkownika
               <span class="caret"></span>
             </a>
@@ -23,6 +31,7 @@
             <a routerLink="/ustawienia"><span class="glyphicon glyphicon-cog"></span>Ustawienia</a>
           </li>
         </ul>
+      </div>
     </div>
 </nav>
 

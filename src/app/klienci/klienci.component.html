@@ -1,3 +1,41 @@
-<p>
-  klienci works!
-</p>
+<div class="row header">
+  <div class="col-md-6">
+    <h2>Lista kontahentów</h2>
+  </div>
+  <div class="col-md-6 text-right">
+    <a routerLink="dodaj/-1" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    <span><strong> Dodaj kontrahenta</strong></span></a>
+ </div>
+</div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nazwa firmy</th>
+          <th class="hidden-xs hidden-sm">NIP</th>
+          <th class="hidden-xs">Miejscowość</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let k of kontrahenci">
+          <td>{{k.nazwaFirmy}}</td>
+          <td class="hidden-xs hidden-sm" *ngIf="k.firma">{{k.nip}}</td>
+					<td class="hidden-xs hidden-sm" *ngIf="!k.firma">(osoba fizyczna)</td>
+          <td class="hidden-xs">{{k.miasto}}</td>
+          <td class="text-right">
+            <!--<a routerLink="{{k.id}}" class="btn btn-primary" title="Zobacz">
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            </a>-->
+            <a routerLink="dodaj/{{k.id}}" class="btn btn-primary" title="Edytuj">
+              <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            </a>
+            <a (click)="usun(k.id)" class="btn btn-danger" title="Usuń">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
