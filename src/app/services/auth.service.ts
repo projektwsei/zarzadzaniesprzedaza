@@ -100,6 +100,7 @@ export class AuthService {
     }*/
 
     public logout(): void{
+        this.bState.next(new LoginState(AUTH_WAITING, null, null));
         this.fire.auth().signOut().then(() => {
             this.bState.next(new LoginState(AUTH_NOT_LOGGED, null, null));
         }).catch((error)=>{ console.log(error); });
@@ -112,6 +113,13 @@ export class AuthService {
     public getLastLoginState(): LoginState{
         return this.bState.getValue();
     }
+
+    // public isLogedIn(){
+    //     this.getLoginState().subscribe(data =>
+    //     {
+    //         if (data.state == )
+    //     })
+    // }
 
 }
 
@@ -144,5 +152,6 @@ export const AUTH_INVALID: number = 1; //blad logowania
 export const AUTH_ONLY_VALID: number = 2;//email i haslo sie zgadza, jednak uzytkownik nie jest potwierdzony
 export const AUTH_LOGIN_OK: number = 3;//zalogowano poprawnie
 export const AUTH_NEWUSER: number = 4;//stworzony nowy uzytkownik
+export const AUTH_WAITING: number = 5; // czekamy na odpowiedz
 //export const AUTH_LOGGEDOUT: number = 6;//wylogowano usera
 

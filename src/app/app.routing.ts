@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth/guard.auth';
 import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podglad.component';
 import { KlienciDodajComponent } from './klienci/klienci-dodaj/klienci-dodaj.component';
 import { MagazynDodajComponent } from './magazyn/magazyn-dodaj/magazyn-dodaj.component';
@@ -16,24 +17,42 @@ import { FakturyComponent } from './faktury/faktury.component';
 
 const appRoutes: Routes = [
     {
-        path: '', component: LoadingComponent,
-        // canActivate: [AuthGuard]
+        path: '', component: HomePageComponent,
+        canActivate: [AuthGuard]
     },
-    { path: 'home', component: HomePageComponent },
+    {
+        path: 'home', component: HomePageComponent, canActivate: [AuthGuard]
+    },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegistrationComponent },
 
-    { path: 'kontrahenci', component: KlienciComponent },
-    { path: 'kontrahenci/dodaj/:id', component: KlienciDodajComponent },
+    {
+        path: 'kontrahenci', component: KlienciComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'kontrahenci/dodaj/:id', component: KlienciDodajComponent, canActivate: [AuthGuard]
+    },
 
-    { path: 'magazyn', component: MagazynComponent },
-    { path: 'magazyn/dodaj/:id', component: MagazynDodajComponent },
+    {
+        path: 'magazyn', component: MagazynComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'magazyn/dodaj/:id', component: MagazynDodajComponent, canActivate: [AuthGuard]
+    },
 
-    { path: 'ustawienia', component: UstawieniaComponent },
+    {
+        path: 'ustawienia', component: UstawieniaComponent, canActivate: [AuthGuard]
+    },
 
-    { path: 'faktury', component: FakturyComponent },
-    { path: 'faktury/dodaj/:id', component: FakturaDodajComponent },
-    { path: 'faktury/:id', component: FakturaPodgladComponent },
+    {
+        path: 'faktury', component: FakturyComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'faktury/dodaj/:id', component: FakturaDodajComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'faktury/:id', component: FakturaPodgladComponent, canActivate: [AuthGuard]
+    },
 
     // otherwise redirect to HomePageComponent
     { path: '**', redirectTo: '' }
