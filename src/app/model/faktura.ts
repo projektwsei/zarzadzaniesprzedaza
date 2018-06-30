@@ -29,9 +29,9 @@ export class Faktura { //klasa z danymi
         this.opis = '';
         this.kontrahent = new Kontrahent();
         this.daneFirmy = new DaneFirmy();
-        this.wystawiajacy_id = -1;
+        this.wystawiajacy_id = '-1';
         this.wystawiajacyImieNazw = '';
-        this.lastMod_id = -1;
+        this.lastMod_id = '-1';
         this.lastModImieNazw = '';
         this.dataWystawienia = '';
         this.dataPlatnosci = '';

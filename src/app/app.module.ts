@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app.routing';
 import { AuthGuard } from './auth/guard.auth';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Routes, Router, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -40,7 +40,7 @@ import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podgl
     AppComponent,
     HomePageComponent,
     LoadingComponent,
-    // MenuComponent,
+    MenuComponent,
     MagazynComponent,
     MagazynDodajComponent,
     FakturyComponent,
@@ -57,8 +57,8 @@ import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podgl
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AuthModule,
-    SharedModule
+    AuthModule
+    //SharedModule
   ],
   providers: [AuthGuard, AuthService, DaneFirmyService, DatabaseService, FakturyService, FirebaseService, KontrahenciService, MagazynService, UsersService],
   bootstrap: [AppComponent]

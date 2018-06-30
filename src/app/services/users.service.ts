@@ -95,7 +95,7 @@ export class UsersService {
     }
 
     public getCurrentUserFirebase(){
-        return this.currentUserFirebase = uf;
+        return this.currentUserFirebase;
     }
 
 }

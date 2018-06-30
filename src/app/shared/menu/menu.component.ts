@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Routes, Router, RouterModule } from '@angular/router';
 
 declare var $: any; //aby uzywac jquery musi to byc
 

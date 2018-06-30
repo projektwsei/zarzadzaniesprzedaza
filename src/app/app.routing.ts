@@ -10,7 +10,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LoadingComponent } from './loading/loading.component';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, Router, RouterModule } from '@angular/router';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { KlienciComponent } from './klienci/klienci.component';
 import { FakturyComponent } from './faktury/faktury.component';

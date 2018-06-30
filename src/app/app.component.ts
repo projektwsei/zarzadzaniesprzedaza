@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService, AUTH_LOGIN_OK, AUTH_ONLY_VALID } from './services/auth.service';
+import { Routes, Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-root',
