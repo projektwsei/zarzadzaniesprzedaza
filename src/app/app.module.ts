@@ -34,6 +34,7 @@ import { KontrahenciService } from './services/kontrahenci.service';
 import { MagazynService } from './services/magazyn.service';
 import { UsersService } from './services/users.service';
 import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podglad.component';
+import { EdytujProfilComponent } from './ustawienia/edytuj-profil/edytuj-profil.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podgl
     UstawieniaComponent,
     AktywacjaRejestracjiComponent,
     FakturaPodgladComponent,
-    EdycjaProfiluComponent
+    //EdycjaProfiluComponent,
+    EdytujProfilComponent
   ],
   imports: [
     BrowserModule,
