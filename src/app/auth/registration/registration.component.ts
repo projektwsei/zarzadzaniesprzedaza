@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
 export class RegistrationComponent implements OnInit, OnDestroy {
     private observer;
 
-     formLogin: string = '';
-     formPass: string = '';
-     formImieNazw: string = '';
+    private formLogin: string = '';
+    private formPass: string = '';
+    private formImieNazw: string = '';
 
 
     constructor(private auth: AuthService, private router: Router) {
@@ -33,7 +33,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         if(this.observer) this.observer.unsubscribe();
     }
 
-     zarejestruj(){
+    private zarejestruj(){
         this.auth.createUser(this.formLogin, this.formPass, this.formImieNazw);
     }
 

@@ -111,7 +111,7 @@
   <div class="col-sm-3">Wartość strat razem:</div>
 </div>
 
-  <div *ngFor="let position of fakturaForm['controls'].przedmioty['controls']; let i=index" [formGroupName]="i" >
+  <div *ngFor="let position of fakturaForm.controls.przedmioty.controls; let i=index" [formGroupName]="i" >
     <!-- The repeated template -->
     <div class="row row_pos">
       <div class="col-sm-4">

@@ -9,7 +9,7 @@ import { FakturyService } from '../services/faktury.service';
 })
 export class FakturyComponent implements OnInit {
 
-     faktury: Faktura[] = [];
+    private faktury: Faktura[] = [];
 
     constructor(private fakt: FakturyService) {
 

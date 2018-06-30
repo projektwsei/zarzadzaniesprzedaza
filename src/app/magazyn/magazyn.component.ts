@@ -9,8 +9,8 @@ import { MagazynService } from '../services/magazyn.service';
 })
 export class MagazynComponent implements OnInit {
 
-     przedmioty: Przedmiot[] = [];
-     przedmiotyIlosci: number[] = [];
+    private przedmioty: Przedmiot[] = [];
+    private przedmiotyIlosci: number[] = [];
 
     constructor(private mag: MagazynService) { }
 

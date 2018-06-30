@@ -69,11 +69,11 @@ export class KlienciDodajComponent implements OnInit {
 
 
 
-     getKontrahentTypes(): string[] {
+    private getKontrahentTypes(): string[] {
         return KONTRAHENT_TYPE;
     }
 
-     onChangeKontrahentType(event): void {
+    private onChangeKontrahentType(event): void {
         if (event.target.value === KONTRAHENT_TYPE[0]) {// firma
             this.isFirma = true;
         } else {// osoba prywatna
@@ -81,7 +81,7 @@ export class KlienciDodajComponent implements OnInit {
         }
     }
 
-     onSubmitAdd(v): void {
+    private onSubmitAdd(v): void {
         const k = this.kontrahent;
 
         // k.id ustawiane automatycznie podczas dodawania, lub jest juz ustawione podczas edycji

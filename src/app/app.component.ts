@@ -7,7 +7,7 @@ import { AuthService } from './services/auth.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    canShowMenu: boolean = false;
+    private canShowMenu: boolean = false;
 
     constructor(private auth: AuthService) {
         this.canShowMenu = false;
