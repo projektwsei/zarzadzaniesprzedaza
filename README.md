@@ -1,2 +1,0 @@
-# zarzadzaniesprzedaza
-Zarzadzanie sprzedażą
