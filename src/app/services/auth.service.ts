@@ -38,9 +38,9 @@ export class AuthService {
                     } else {
                         //this.currentUser = val;  
                         if(val.isPotw){
-                            this.bState.next(new LoginState(AUTH_LOGIN_OK, val, user));//niepotwierdzony user
+                            this.bState.next(new LoginState(AUTH_LOGIN_OK, val, user));//potwierdzony user
                         } else {
-                            this.bState.next(new LoginState(AUTH_ONLY_VALID, val, user));
+                            this.bState.next(new LoginState(AUTH_ONLY_VALID, val, user));//niepotwierdzony user
                         }
                     }
                 });

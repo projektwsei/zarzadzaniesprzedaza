@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from './services/auth.service';
+import { AuthService, AUTH_LOGIN_OK, AUTH_ONLY_VALID } from './services/auth.service';
 
 @Component({
     selector: 'app-root',
@@ -12,16 +12,13 @@ export class AppComponent {
     constructor(private auth: AuthService) {
         this.canShowMenu = false;
         this.auth.getLoginState().subscribe(data => {
-            if (data.state === 2) {
+            //if (data.state === AUTH_ONLY_VALID) {
+            if (data.state === AUTH_LOGIN_OK) {
                 this.canShowMenu = true;
             } else {
                 this.canShowMenu = false;
             }
         });
     }
-
-    // public setCanShowMenu(b: boolean) {
-    //     this.canShowMenu = b;
-    // }
 }
 
