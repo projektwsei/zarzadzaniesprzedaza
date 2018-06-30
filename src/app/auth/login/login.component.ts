@@ -1,3 +1,4 @@
+import { AUTH_INVALID } from './../../services/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService, AUTH_ONLY_VALID, AUTH_LOGIN_OK } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -25,6 +26,12 @@ export class LoginComponent implements OnInit, OnDestroy {
             //if (v.state === AUTH_ONLY_VALID) {
             if (v.state === AUTH_LOGIN_OK) {
                 this.router.navigate(['/home']);
+            } else
+            if (v.state === AUTH_INVALID){
+                alert ('Zły login lub hasło. Spróbuj ponownie.');
+            } else
+            if (v.state === AUTH_ONLY_VALID) {
+                alert('Konto nie aktywne! Skontaktuj się z administratorem.');
             }
         });
     }
