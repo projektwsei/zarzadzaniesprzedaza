@@ -39,6 +39,9 @@ export class AuthService {
                         //this.currentUser = val;  
                         if(val.isPotw){
                             this.bState.next(new LoginState(AUTH_LOGIN_OK, val, user));//potwierdzony user
+                            //zapisz kto sie zalogowal:
+                            this.users.setCurrentUser(val);
+                            this.users.setCurrentUserFirebase(user);
                         } else {
                             this.bState.next(new LoginState(AUTH_ONLY_VALID, val, user));//niepotwierdzony user
                         }

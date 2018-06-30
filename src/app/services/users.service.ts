@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 export class UsersService {
 
     private currentUser: User = null;
+    private currentUserFirebase = null;
 
     constructor(private db: DatabaseService) {
         this.currentUser = new User();
@@ -87,6 +88,14 @@ export class UsersService {
 
     public getCurrentUser():User{//aktualny user
         return this.currentUser;
+    }
+
+    public setCurrentUserFirebase(uf){
+        this.currentUserFirebase = uf;
+    }
+
+    public getCurrentUserFirebase(){
+        return this.currentUserFirebase = uf;
     }
 
 }

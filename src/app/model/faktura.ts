@@ -16,11 +16,11 @@ export class Faktura { //klasa z danymi
     public miejsceWystawienia: string;
     public dataPlatnosci: string;
 
-    public wystawiajacy_id; //id usera wystawiajacego fakture
-    public wystawiajacyImieNazw;
+    public wystawiajacy_id: string; //id usera wystawiajacego fakture
+    public wystawiajacyImieNazw: string;
 
-    public lastMod_id; //id usera ostatnio modyfikujacego fakture
-    public lastModImieNazw;
+    public lastMod_id: string; //id usera ostatnio modyfikujacego fakture
+    public lastModImieNazw: string;
 
     constructor(){
         this.id = -1;
