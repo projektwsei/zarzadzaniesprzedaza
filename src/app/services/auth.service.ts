@@ -10,6 +10,7 @@ export class AuthService {
     //private currentUserFirebase;
     //private currentUser: User;
     private creatingImieNazw: string; //przy tworzeniu nowego uzytkownika tutaj jest imie i nazwisko zapisywane w naszej bazie
+    private provider: string;
 
     private bState: BehaviorSubject<LoginState>;
 
@@ -29,6 +30,8 @@ export class AuthService {
                         u.uid = user.uid;
                         u.imieNazw = this.creatingImieNazw;
                         u.isPotw = false;
+                        u.email = user.email;
+                        u.provider = this.provider;
                         this.users.createUser(u);
                         //this.currentUser = u;
 
@@ -61,7 +64,8 @@ export class AuthService {
     }
 
     public createUser(email: string, haslo: string, imieNazw: string):void{
-        this.creatingImieNazw = imieNazw;  
+        this.creatingImieNazw = imieNazw;
+        this.provider = 'Email';
         this.fire.auth().createUserWithEmailAndPassword(email, haslo).catch((error)=>{ 
             this.bState.next(new LoginState(AUTH_INVALID,null,null));
             console.log(error); 
@@ -69,6 +73,7 @@ export class AuthService {
     }
 
     public loginWithGoogle():void{
+        this.provider = 'Google';
         let provider = this.fire.getGoogleAuthProvider();
         this.fire.auth().signInWithPopup(provider).then((result) => {
             let token = result.credential.accessToken; // This gives you a Google Access Token. You can use it to access the Google API.

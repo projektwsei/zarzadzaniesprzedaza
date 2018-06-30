@@ -16,9 +16,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let user of users; let i = index">
-          <td>email z firebase  {{user.email}}</td>
+          <td>{{user.email}}</td>
           <td>{{user.imieNazw}}</td>
-		  <td>provider z firebase {{user.provider}}</td>
+		  <td>{{user.provider}}</td>
           <td *ngIf="user.isPotw"><span [ngClass]="{'user-activated': user.isPotw}">potwierdzony</span></td>
           <td *ngIf="!user.isPotw"><span [ngClass]="{'user-deactivated': !user.isPotw}">nie potwierdzony</span></td>
           <td class="text-right">

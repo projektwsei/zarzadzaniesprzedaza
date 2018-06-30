@@ -41,19 +41,18 @@ export class UsersService {
     }
 
     public deleteUser(u: User){
-        this.db.deleteById(TABLE_USERS, u.uid);    
+        this.deleteUserById(u.uid);
     }
 
     public deleteUserById(id: number){
         this.db.deleteById(TABLE_USERS, id);
+        //TODO usun z firebase
     }
 
     public potwierdzUser(u: User):void{
         u.isPotw=true;
         this.saveUser(u);
     }
-
-    //TODO pobieranie userow po firebase!
 
     public getUserList(isOnce: boolean):Observable<User[]>{//isOnce - czy pobieramy raz liste, czy subskrybujemy
         let ret = new Observable<User[]>(observer => {
