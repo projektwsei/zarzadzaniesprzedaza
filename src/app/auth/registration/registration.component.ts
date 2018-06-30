@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, AUTH_NEWUSER } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,7 +23,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.auth.logout(); //wyloguj, przy wlaczeniu strony rejestracji
 
         this.observer = this.auth.getLoginState().subscribe(v => {
-            if (v.state === 4) {
+            if (v.state === AUTH_NEWUSER) {
                 this.router.navigate(['/login']);
             }
         });

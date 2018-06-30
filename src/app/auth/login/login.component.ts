@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, AUTH_ONLY_VALID, AUTH_LOGIN_OK } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         this.observer = this.auth.getLoginState().subscribe(v => {
             console.log(v);
-            if (v.state === 2) {
+            //if (v.state === AUTH_ONLY_VALID) {
+            if (v.state === AUTH_LOGIN_OK) {
                 this.router.navigate(['/home']);
             }
         });
