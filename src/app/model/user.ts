@@ -4,6 +4,7 @@ export class User{
     public isPotw: boolean; //czy potwierdzony?
     public email: string;
     public provider: string;
+    public deleted: boolean;
 
     constructor(){
         this.uid = '';
@@ -11,6 +12,7 @@ export class User{
         this.isPotw = false;
         this.email = '';
         this.provider = '';
+        this.deleted = false;
     }
 }
 

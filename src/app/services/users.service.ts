@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import { DatabaseService, TABLE_USERS } from './database.service';
 import { Observable } from 'rxjs';
+import { FirebaseService } from './firebase.service';
 
 @Injectable()
 export class UsersService {
@@ -9,7 +10,7 @@ export class UsersService {
     private currentUser: User = null;
     private currentUserFirebase = null;
 
-    constructor(private db: DatabaseService) {
+    constructor(private db: DatabaseService, private fire: FirebaseService) {
         this.currentUser = new User();
     }
 
@@ -20,10 +21,8 @@ export class UsersService {
                     observer.next(null);
                     observer.complete();
                 } else {                
-                    let u = new User();
+                    let u = Object.assign(new User, val);
                     u.uid = uid;
-                    u.imieNazw = val.imieNazw;
-                    u.isPotw = val.isPotw;
                     observer.next(u);
                     observer.complete();
                 }
@@ -41,12 +40,8 @@ export class UsersService {
     }
 
     public deleteUser(u: User){
-        this.deleteUserById(u.uid);
-    }
-
-    public deleteUserById(id: number){
-        this.db.deleteById(TABLE_USERS, id);
-        //TODO usun z firebase
+        u.deleted = true;
+        this.saveUser(u);
     }
 
     public potwierdzUser(u: User):void{
@@ -64,7 +59,7 @@ export class UsersService {
                     for(let i=0;i<entries.length;i++){
                         let u = Object.assign(new User, entries[i][1]);
                         u.uid = entries[i][0];
-                        tab.push(u);
+                        if(!u.deleted) tab.push(u);
                     }
                 }
                 
@@ -77,8 +72,9 @@ export class UsersService {
         return ret;
     }
 
-    public zmienHaslo():void{
-        //TODO zmiana hasla w firebase    
+    public zmienHaslo(pass: string):void{
+        //this.fire.auth().updateUser(u.uid, { password: pass }); //nie dziala
+        this.currentUserFirebase.updatePassword(pass);
     }
 
     public setCurrentUser(u: User){//aktualnego usera wpisujemy do cache, by byl dostep synchroniczny, a nie przez observable lub promise
