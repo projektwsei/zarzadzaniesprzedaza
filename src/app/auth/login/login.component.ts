@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit, OnDestroy {
     private observer;
 
-    private formLogin: string = '';
-    private formPass: string = '';
+    formLogin: string = '';
+    formPass: string = '';
 
     constructor(private auth: AuthService, private router: Router) {
 
@@ -33,11 +33,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         if(this.observer) this.observer.unsubscribe();
     }
 
-    private zaloguj(): void{
+     zaloguj(): void{
         this.auth.login(this.formLogin, this.formPass);
     }
 
-    private loginGoogle():void{
+     loginGoogle():void{
         this.auth.loginWithGoogle();
     }
 

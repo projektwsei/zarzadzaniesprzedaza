@@ -1,3 +1,5 @@
+import { EdycjaProfiluComponent } from './ustawienia/edycja-profilu/edycja-profilu.component';
+import { SharedModule } from './shared/shared.module';
 import { AktywacjaRejestracjiComponent } from './ustawienia/aktywacja-rejestracji/aktywacja-rejestracji.component';
 import { UstawieniaComponent } from './ustawienia/ustawienia.component';
 import { KlienciComponent } from './klienci/klienci.component';
@@ -38,7 +40,7 @@ import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podgl
     AppComponent,
     HomePageComponent,
     LoadingComponent,
-    MenuComponent,
+    // MenuComponent,
     MagazynComponent,
     MagazynDodajComponent,
     FakturyComponent,
@@ -48,6 +50,7 @@ import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podgl
     UstawieniaComponent,
     AktywacjaRejestracjiComponent,
     FakturaPodgladComponent,
+    EdycjaProfiluComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,7 @@ import { FakturaPodgladComponent } from './faktury/faktura-podglad/faktura-podgl
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
+    SharedModule
   ],
   providers: [AuthGuard, AuthService, DaneFirmyService, DatabaseService, FakturyService, FirebaseService, KontrahenciService, MagazynService, UsersService],
   bootstrap: [AppComponent]

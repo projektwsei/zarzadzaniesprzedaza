@@ -14,6 +14,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { KlienciComponent } from './klienci/klienci.component';
 import { FakturyComponent } from './faktury/faktury.component';
+import { EdycjaProfiluComponent } from './ustawienia/edycja-profilu/edycja-profilu.component';
 
 const appRoutes: Routes = [
     {

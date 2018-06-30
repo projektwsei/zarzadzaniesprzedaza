@@ -6,9 +6,9 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-magazyn-dodaj',
-  templateUrl: './magazyn-dodaj.component.html',
-  styleUrls: ['./magazyn-dodaj.component.css']
+    selector: 'app-magazyn-dodaj',
+    templateUrl: './magazyn-dodaj.component.html',
+    styleUrls: ['./magazyn-dodaj.component.css']
 })
 export class MagazynDodajComponent implements OnInit {
 
@@ -35,7 +35,7 @@ export class MagazynDodajComponent implements OnInit {
         this.przedmiot = new Przedmiot();
 
         if (this.idPrzedmiot === -1) {
-            this.isEdit = false;    
+            this.isEdit = false;
         } else {
             this.isEdit = true;
 
@@ -46,8 +46,8 @@ export class MagazynDodajComponent implements OnInit {
                 this.przedmiotAddForm.get("czyUsluga").setValue(v.czyUsluga);
                 this.przedmiotAddForm.get("cenaDomyslna").setValue(v.cenaDomyslna);
                 this.przedmiotAddForm.get("vat").setValue(v.vat);
-                
-                if(v.czyUsluga){
+
+                if (v.czyUsluga) {
                     this.przedmiotAddForm.get("jednostka").setValue(JEDNOSTKI[0]);
                     this.przedmiotAddForm.get("jednostka").disable();
                 } else {
@@ -59,10 +59,10 @@ export class MagazynDodajComponent implements OnInit {
         }
     }
 
-    private onChangeCzyUsluga(event){
+    onChangeCzyUsluga(event) {
         let czyUsluga = event.target.checked;
-        
-        if(czyUsluga){
+
+        if (czyUsluga) {
             this.przedmiotAddForm.get("jednostka").setValue(JEDNOSTKI[0]);
             this.przedmiotAddForm.get("jednostka").disable();
         } else {
@@ -71,27 +71,27 @@ export class MagazynDodajComponent implements OnInit {
         }
     }
 
-    private onChangeJednostka(event){     
-        if(event.target.value==JEDNOSTKI[0]){
+    onChangeJednostka(event) {
+        if (event.target.value == JEDNOSTKI[0]) {
             this.przedmiotAddForm.get("jednostka").setValue(JEDNOSTKI[1]);
             alert("Ta jednostka jest zarezerwowana tylko dla usług!");
         }
     }
 
-    private getVatTypes(): number[] {
+    getVatTypes(): number[] {
         return VAT_VALUES;
     }
 
-    private getJednostkaTypes(): string[] {
+    getJednostkaTypes(): string[] {
         return JEDNOSTKI;
     }
 
-    private onSubmitAdd(v): void {
+    onSubmitAdd(v): void {
         const p = this.przedmiot;
 
-        if(v.czyUsluga){
-            p.czyUsluga=true;
-            p.jednostka=JEDNOSTKI[0];
+        if (v.czyUsluga) {
+            p.czyUsluga = true;
+            p.jednostka = JEDNOSTKI[0];
         } else {
             p.czyUsluga = false;
             p.jednostka = v.jednostka;
@@ -110,7 +110,7 @@ export class MagazynDodajComponent implements OnInit {
         }
     }
 
-    anuluj(){
+    anuluj() {
         this.location.back();
     }
 

@@ -19,6 +19,8 @@ export class UstawieniaComponent implements OnInit {
     this.saved = false;
   }
 
+  
+
   ngOnInit() {
     this.firmForm = this.fbf.group({
       nazwaFirmy: '',
