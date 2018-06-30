@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-registration',
@@ -14,7 +15,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private formImieNazw: string = '';
 
 
-    constructor(private auth: AuthService) {
+    constructor(private auth: AuthService, private router: Router) {
 
     }
 
@@ -22,7 +23,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.auth.logout(); //wyloguj, przy wlaczeniu strony rejestracji
 
         this.observer = this.auth.getLoginState().subscribe(v => {
-            console.log(v);
+            if (v.state === 4) {
+                this.router.navigate(['/login']);
+            }
         });
     }
 
