@@ -14,7 +14,7 @@ import { Routes, Router, RouterModule } from '@angular/router';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { KlienciComponent } from './klienci/klienci.component';
 import { FakturyComponent } from './faktury/faktury.component';
-import { EdycjaProfiluComponent } from './ustawienia/edycja-profilu/edycja-profilu.component';
+import { EdytujProfilComponent } from './ustawienia/edytuj-profil/edytuj-profil.component';
 
 const appRoutes: Routes = [
     {
@@ -43,6 +43,9 @@ const appRoutes: Routes = [
 
     {
         path: 'ustawienia', component: UstawieniaComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'edytujprofil', component: EdytujProfilComponent, canActivate: [AuthGuard]
     },
 
     {

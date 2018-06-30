@@ -51,7 +51,6 @@ import { EdytujProfilComponent } from './ustawienia/edytuj-profil/edytuj-profil.
     UstawieniaComponent,
     AktywacjaRejestracjiComponent,
     FakturaPodgladComponent,
-    //EdycjaProfiluComponent,
     EdytujProfilComponent
   ],
   imports: [
