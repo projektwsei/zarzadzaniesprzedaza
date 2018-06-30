@@ -9,7 +9,7 @@ import { KontrahenciService } from '../services/kontrahenci.service';
 })
 export class KlienciComponent implements OnInit {
 
-    private kontrahenci: Kontrahent[] = [];
+    kontrahenci: Kontrahent[] = [];
 
     constructor(private kon: KontrahenciService) {
 

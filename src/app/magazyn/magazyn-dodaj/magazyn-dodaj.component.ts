@@ -59,7 +59,7 @@ export class MagazynDodajComponent implements OnInit {
         }
     }
 
-    private onChangeCzyUsluga(event){
+     onChangeCzyUsluga(event){
         let czyUsluga = event.target.checked;
         
         if(czyUsluga){
@@ -71,22 +71,22 @@ export class MagazynDodajComponent implements OnInit {
         }
     }
 
-    private onChangeJednostka(event){     
+     onChangeJednostka(event){     
         if(event.target.value==JEDNOSTKI[0]){
             this.przedmiotAddForm.get("jednostka").setValue(JEDNOSTKI[1]);
             alert("Ta jednostka jest zarezerwowana tylko dla usług!");
         }
     }
 
-    private getVatTypes(): number[] {
+     getVatTypes(): number[] {
         return VAT_VALUES;
     }
 
-    private getJednostkaTypes(): string[] {
+     getJednostkaTypes(): string[] {
         return JEDNOSTKI;
     }
 
-    private onSubmitAdd(v): void {
+     onSubmitAdd(v): void {
         const p = this.przedmiot;
 
         if(v.czyUsluga){

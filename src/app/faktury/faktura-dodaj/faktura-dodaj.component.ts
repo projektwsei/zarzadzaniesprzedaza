@@ -61,7 +61,7 @@ export class FakturaDodajComponent implements OnInit {
     return VAT_VALUES;
   }*/
 
-  private getFakturaTypes(): string[] {
+   getFakturaTypes(): string[] {
     return FAKTURA_TYPE;
   }
 
@@ -133,18 +133,18 @@ export class FakturaDodajComponent implements OnInit {
 
   }
 
-  private getPrzedmiotById(p: Przedmiot[], id: number):Przedmiot{
+   getPrzedmiotById(p: Przedmiot[], id: number):Przedmiot{
     for(let i = 0;i<p.length;i++){
         if(p[i].id == id) return p[i];
     }
     return null;
   }
 
-  private onChangePrzedmiot(event, pos): void {//zmiana przedmioty, event zawiera obiekt Przedmiot
+   onChangePrzedmiot(event, pos): void {//zmiana przedmioty, event zawiera obiekt Przedmiot
     this.selectPrzedmiot(event.target.value, pos);
   }
 
-  private onChangeFakturaType(event): void {
+   onChangeFakturaType(event): void {
     let v = event.target.value;
 
     if (v == FAKTURA_TYPE[0]) { //zwykla faktura, my jestesmy sprzedajacy
@@ -160,7 +160,7 @@ export class FakturaDodajComponent implements OnInit {
     }
   }
 
-  private createForm(): void {
+   createForm(): void {
 
     this.fakturaForm = this.fb.group({
       numerFaktury: '',
@@ -192,7 +192,7 @@ export class FakturaDodajComponent implements OnInit {
   }
 
 
-  private Przedmioty() {
+   Przedmioty() {
     return this.fb.group({
       nazwa: [''],
       ilosc: [''],
@@ -205,7 +205,7 @@ export class FakturaDodajComponent implements OnInit {
     });
   }
 
-  private PrzedmiotyFromObj(p, fp) {
+   PrzedmiotyFromObj(p, fp) {
     let wNetto = fp.ilosc * fp.cenaNetto;
     let wVat = wNetto * fp.vat / 100;
     let wBrutto = wNetto + wVat;
@@ -230,22 +230,22 @@ export class FakturaDodajComponent implements OnInit {
     return ret;
   }
 
-  private addPrzedmioty() {
+   addPrzedmioty() {
     const control = <FormArray>this.fakturaForm.controls['przedmioty'];
     control.push(this.Przedmioty());
   }
 
-  private addPrzedmiotyFromObj(p, fp) {
+   addPrzedmiotyFromObj(p, fp) {
     const control = <FormArray>this.fakturaForm.controls['przedmioty'];
     control.push(this.PrzedmiotyFromObj(p, fp));
   }
 
-  private delPrzedmioty(index: number) {
+   delPrzedmioty(index: number) {
     const control = <FormArray>this.fakturaForm.controls['przedmioty'];
     control.removeAt(index);
   }
 
-  private selectKontrahent(val: any = null): void {
+   selectKontrahent(val: any = null): void {
     let k = this.kontrahenci.find(el => el.id == val);//tu musi byc '==' a nie '===' bo z formularza pobiera nam stringa, a nie number
     if (k) {
       this.kontrahentChanged = true;
@@ -259,7 +259,7 @@ export class FakturaDodajComponent implements OnInit {
     }
   }
 
-  private przedmiotChangeValues(pos: number):void{
+   przedmiotChangeValues(pos: number):void{
 		let ilosc = this.fakturaForm.get('przedmioty.' + pos).get('ilosc').value;
 		let cena = this.fakturaForm.get('przedmioty.' + pos).get('cenaNetto').value;
 		let vat = this.fakturaForm.get('przedmioty.' + pos).get('vat').value;
@@ -273,7 +273,7 @@ export class FakturaDodajComponent implements OnInit {
 		this.fakturaForm.get('przedmioty.' + pos).get('wartoscBrutto').setValue(wBrutto);
   }
 
-  private selectPrzedmiot(val: any = null, pos: number): void {
+   selectPrzedmiot(val: any = null, pos: number): void {
     let p = this.przedmioty.find(el => el.id == val);//tu musi byc '==' a nie '===' bo z formularza pobiera nam stringa, a nie number
     if (p) {
       if (p.czyUsluga == false) {
@@ -293,7 +293,7 @@ export class FakturaDodajComponent implements OnInit {
     }
   }
 
-  private onSubmitAdd(v): void {
+   onSubmitAdd(v): void {
     //sprawdz czy sa przedmioty:
     let hasPrzedmioty = false;
     for (let i = 0; i < v.przedmioty.length; i++) {

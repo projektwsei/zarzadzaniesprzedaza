@@ -32,7 +32,7 @@ export class FakturaPodgladComponent implements OnInit {
         this.idFaktury = +this.route.snapshot.paramMap.get('id');
     }
 
-    private getFakturaTypes():string[]{
+     getFakturaTypes():string[]{
         return FAKTURA_TYPE;
     }
 
@@ -60,7 +60,7 @@ export class FakturaPodgladComponent implements OnInit {
         });
     }
 
-    private getPrzedmiotById(id: number):Przedmiot{
+     getPrzedmiotById(id: number):Przedmiot{
         for(let i = 0;i<this.przedmioty.length;i++){
             if(this.przedmioty[i].id == id) return this.przedmioty[i];
         }
