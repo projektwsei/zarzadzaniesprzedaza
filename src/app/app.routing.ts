@@ -7,7 +7,6 @@ import { UstawieniaComponent } from './ustawienia/ustawienia.component';
 import { MagazynComponent } from './magazyn/magazyn.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { LoadingComponent } from './loading/loading.component';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { Routes, Router, RouterModule } from '@angular/router';

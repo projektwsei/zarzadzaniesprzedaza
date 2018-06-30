@@ -15,7 +15,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { LoadingComponent } from './loading/loading.component';
 import { MenuComponent } from './menu/menu.component';
 import { MagazynDodajComponent } from './magazyn/magazyn-dodaj/magazyn-dodaj.component';
 import { FakturaDodajComponent } from './faktury/faktura-dodaj/faktura-dodaj.component';
@@ -38,7 +37,6 @@ import { EdytujProfilComponent } from './ustawienia/edytuj-profil/edytuj-profil.
   declarations: [
     AppComponent,
     HomePageComponent,
-    LoadingComponent,
     MenuComponent,
     MagazynComponent,
     MagazynDodajComponent,
@@ -57,7 +55,6 @@ import { EdytujProfilComponent } from './ustawienia/edytuj-profil/edytuj-profil.
     FormsModule,
     ReactiveFormsModule,
     AuthModule
-    //SharedModule
   ],
   providers: [AuthGuard, AuthService, DaneFirmyService, DatabaseService, FakturyService, FirebaseService, KontrahenciService, MagazynService, UsersService],
   bootstrap: [AppComponent]
