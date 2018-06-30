@@ -16,16 +16,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let user of users; let i = index">
-          <td>email z firebase</td>
+          <td>email z firebase  {{user.email}}</td>
           <td>{{user.imieNazw}}</td>
-		  <td>provider z firebase</td>
+		  <td>provider z firebase {{user.provider}}</td>
           <td *ngIf="user.isPotw"><span [ngClass]="{'user-activated': user.isPotw}">potwierdzony</span></td>
           <td *ngIf="!user.isPotw"><span [ngClass]="{'user-deactivated': !user.isPotw}">nie potwierdzony</span></td>
           <td class="text-right">
-            <a class="btn" title="Potwierdz" *ngIf="!user.isPotw">
+            <a class="btn" title="Potwierdz" *ngIf="!user.isPotw" (click)="potwierdz(i)">
               <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
             </a>
-            <a class="btn" title="Usuń">
+            <a class="btn" title="Usuń" (click)="usun(i)">
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </a>
           </td>

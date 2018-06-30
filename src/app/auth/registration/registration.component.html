@@ -2,15 +2,15 @@
 <h2 class="form-registration-heading">Rejestracja</h2>
 <div class="text-input">
   <label for="inputLogin" class="sr-only">Login</label>
-  <input type="text" id="inputLogin" class="form-control" placeholder="Login" required="" autofocus=""  name="login" [(ngModel)]="formLogin" (keyup.enter)="zarejestruj()">
+  <input required type="text" id="inputLogin" class="form-control" placeholder="Login" required="" autofocus=""  name="login" [(ngModel)]="formLogin" (keyup.enter)="zarejestruj()">
 </div>
 <div class="text-input">
   <label for="inputPassword" class="sr-only">Hasło</label>
-  <input type="password" id="inputPassword" class="form-control" placeholder="Hasło" required="" name="pass" [(ngModel)]="formPass" (keyup.enter)="zarejestruj()">
+  <input required type="password" id="inputPassword" class="form-control" placeholder="Hasło" required="" name="pass" [(ngModel)]="formPass" (keyup.enter)="zarejestruj()">
 </div>
 <div class="text-input">
   <label for="inputImieNazw" class="sr-only">Imie i nazwisko</label>
-  <input type="text" id="inputImieNazw" class="form-control" placeholder="Imie i nazwisko" required="" name="imienazw" [(ngModel)]="formImieNazw" (keyup.enter)="zarejestruj()">
+  <input required type="text" id="inputImieNazw" class="form-control" placeholder="Imie i nazwisko" required="" name="imienazw" [(ngModel)]="formImieNazw" (keyup.enter)="zarejestruj()">
 </div>
 <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="zarejestruj()">Zarejestruj się</button>
 <div class="separator-2">

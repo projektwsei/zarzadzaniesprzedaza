@@ -16,7 +16,17 @@ export class AktywacjaRejestracjiComponent implements OnInit {
   ngOnInit() {
     this.us.getUserList(true).subscribe(data => {
       this.users = data;
+      console.log(data);
     });
+  }
+
+  potwierdz(index){
+    this.us.potwierdzUser(this.users[index]);
+  }
+
+  usun(index) {
+    this.us.deleteUser(this.users[index]);
+    this.users.splice(index, 1);
   }
 
 }
