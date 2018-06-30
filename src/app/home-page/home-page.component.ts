@@ -21,7 +21,7 @@ export class HomePageComponent implements OnInit {
     }
 
     ngOnInit() {
-
+      // this.u.potwierdzUser(this.u.getCurrentUser());
     }
 
 }
