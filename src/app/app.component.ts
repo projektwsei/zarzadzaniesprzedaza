@@ -12,7 +12,7 @@ export class AppComponent {
     constructor(private auth: AuthService) {
         this.canShowMenu = false;
         this.auth.getLoginState().subscribe(data => {
-            if (data.state === 2) {
+            if (data.state === 3) {
                 this.canShowMenu = true;
             } else {
                 this.canShowMenu = false;

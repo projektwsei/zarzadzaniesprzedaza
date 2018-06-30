@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         this.observer = this.auth.getLoginState().subscribe(v => {
             console.log(v);
-            if (v.state === 2) {
+            if (v.state === 3) {
                 this.router.navigate(['/home']);
             }
         });
