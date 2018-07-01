@@ -8,19 +8,19 @@
       <thead>
         <tr>
           <th>Login (e-mail)</th>
-          <th>Imie i nazwisko</th>
-          <th>Provider logowania</th>
-          <th>Status</th>
+          <th class="hidden-xs hidden-sm">Imie i nazwisko</th>
+          <th class="hidden-xs">Provider logowania</th>
+          <th class="hidden-xs">Status</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let user of users; let i = index">
           <td>{{user.email}}</td>
-          <td>{{user.imieNazw}}</td>
-		  <td>{{user.provider}}</td>
-          <td *ngIf="user.isPotw"><span [ngClass]="{'user-activated': user.isPotw}">potwierdzony</span></td>
-          <td *ngIf="!user.isPotw"><span [ngClass]="{'user-deactivated': !user.isPotw}">nie potwierdzony</span></td>
+          <td class="hidden-xs hidden-sm">{{user.imieNazw}}</td>
+		  <td class="hidden-xs">{{user.provider}}</td>
+          <td class="hidden-xs" *ngIf="user.isPotw"><span [ngClass]="{'user-activated': user.isPotw}">potwierdzony</span></td>
+          <td class="hidden-xs" *ngIf="!user.isPotw"><span [ngClass]="{'user-deactivated': !user.isPotw}">nie potwierdzony</span></td>
           <td class="text-right">
             <a class="btn" title="Potwierdz" *ngIf="!user.isPotw" (click)="potwierdz(i)">
               <span class="glyphicon glyphicon-check" aria-hidden="true"></span>

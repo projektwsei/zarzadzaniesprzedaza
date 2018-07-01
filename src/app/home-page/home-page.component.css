@@ -1,0 +1,21 @@
+.info {
+    padding: 0 15% 0 15%;
+}
+
+.item-info {
+    color: #fff;
+    background-color: #337ab7;
+    border-radius: 8px;
+    padding: 15px 25px 25px 25px;
+    min-height: 270px;
+    font-size: 18px;
+}
+
+.carousel-control {
+    color: #000;
+    background-image: none;
+}
+
+.carousel-control:hover {
+    color: #000;
+}

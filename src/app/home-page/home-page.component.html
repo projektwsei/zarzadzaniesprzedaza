@@ -1,40 +1,65 @@
-<h2>Zyski i straty</h2>
-<div>
+<div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+  <div class="carousel-inner">
+    <div class="item active info">
+        <div class="item-info">
+      <h2>Zyski i straty</h2>
+      <hr>
+        <div>
     Straty [zł]: {{straty | number:'1.2-2'}}
-</div>
-<div>
+        </div>
+        <div>
     Koszta [zł]: {{koszta | number:'1.2-2'}}
-</div>
-<div>
+        </div>
+        <div>
     Przychód [zł]: {{przychod | number:'1.2-2'}}
-</div>
-<div>
+        </div>
+        <div>
     Dochód [zł]: {{dochod | number:'1.2-2'}}
-</div>
+        </div>
+      </div>
+    </div>
 
-
-<h2>Kwoty brutto</h2>
-<div>
+    <div class="item info">
+        <div class="item-info">
+      <h2>Kwoty brutto</h2>
+      <hr>
+        <div>
     Koszta brutto [zł]: {{kosztaBrutto | number:'1.2-2'}}
-</div>
-<div>
+        </div>
+        <div>
     Przychód brutto [zł]: {{przychodBrutto | number:'1.2-2'}}
-</div>
-<div>
+        </div>
+        <div>
     Dochód brutto (bez strat) [zł]: {{dochodBruttoBezStr | number:'1.2-2'}}
-</div>
-<div>
+        </div>
+        <div>
     Dochód brutto (wliczając straty) [zł]: {{dochodBrutto | number:'1.2-2'}}
-</div>
-
-
-<h2>VAT</h2>
-<div>
+        </div>
+        </div>
+    </div>
+    <div class="item info">
+        <div class="item-info">
+      <h2>VAT</h2>
+      <hr>
+        <div>
     VAT zapłacony (koszta) [zł]: {{vatKoszta | number:'1.2-2'}}
-</div>
-<div>
+        </div>
+        <div>
     VAT otrzymany (przychód) [zł]: {{vatPrzychod | number:'1.2-2'}}
-</div>
-<div>
+        </div>
+        <div>
     VAT należny do US [zł]: {{vatNalezny | number:'1.2-2'}}
+        </div>
+    </div>
+    </div>
+  </div>
+  <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Poprzedni</span>
+  </a>
+  <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Następny</span>
+  </a>
 </div>
+
