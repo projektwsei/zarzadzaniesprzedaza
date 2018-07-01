@@ -1,23 +1,38 @@
+<div class="row header">
+  <div class="col-sm-6 col-sm-offset-3">
+    <h2>Edycja profilu</h2>
+  </div>
+</div>
 <div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
+    <div class="col-sm-6 col-sm-offset-3 div-grey">
         <form #reg="ngForm" (ngSubmit)="zmienImieNazwisko(reg)" [formGroup]="imieNazwiskoForm">
+          <div class="form-group">
           <label>Imie i Nazwisko: </label>
-          <input formControlName="imieNazwisko" type="text">
+          <input class="form-control" formControlName="imieNazwisko" type="text">
+          </div>
           <button class="btn btn-primary" type="submit">Zapisz</button> <span *ngIf="savedImieNazw">Zapisano</span>
         </form>
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
+    <div class="col-sm-6 col-sm-offset-3">
+<hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3 div-grey">
       <form #reg2="ngForm" (ngSubmit)="zmienHaslo(reg2)" [formGroup]="zmianaHaslaForm">
-
+ <div class="form-group">
         <label>Nowe hasło:</label>
-        <input type="text" formControlName="haslo">
-
+        <input class="form-control" type="password" formControlName="haslo">
+ </div>
+  <div class="form-group">
         <label>Potwierdź nowe hasło:</label>
-        <input type="text" formControlName="hasloPotwierdz">
-
+        <input class="form-control" type="password" formControlName="hasloPotwierdz">
+  </div>
+   <div class="form-group">
         <button class="btn btn-primary" type="submit">Zapisz</button> <span *ngIf="savedPass">Zapisano</span>
+   </div>
       </form>
     </div>
 </div>
