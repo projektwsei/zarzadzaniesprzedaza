@@ -25,8 +25,10 @@
                 <tr *ngFor="let f of faktury">
                   <td>{{f.numerFaktury}}</td>
                   <td class="hidden-xs hidden-sm">{{f.getSumNetto()| number:'1.2-2'}}</td>
-                  <td class="hidden-xs hidden-sm">{{f.getSumBrutto() | number:'1.2-2'}}</td>
-                  <td class="hidden-xs">{{f.kontrahent.nazwaFirmy}}</td>
+                  <td class="hidden-xs hidden-sm" *ngIf="!f.czyStrata">{{f.getSumBrutto() | number:'1.2-2'}}</td>
+                  <td class="hidden-xs hidden-sm" *ngIf="f.czyStrata">(Strata)</td>
+                  <td class="hidden-xs" *ngIf="!f.czyStrata">{{f.kontrahent.nazwaFirmy}}</td>
+                  <td class="hidden-xs" *ngIf="f.czyStrata">(Strata)</td>
                   <td class="hidden-xs">{{f.dataWystawienia}}</td>
                   <td>{{f.getTypeName()}}</td>
                   <td class="text-right">

@@ -52,12 +52,11 @@ export class EdytujProfilComponent implements OnInit {
     } else {
       alert('Pole nie może byc puste');
     }
-
   }
 
   zmienHaslo(form: NgForm) {
     if (form.valid && this.haslo.value === this.hasloPotwierdz.value) {
-      console.log('zmiana hasla');
+      //console.log('zmiana hasla');
       this.u.zmienHaslo(this.haslo.value);
 
       this.savedPass = true;
