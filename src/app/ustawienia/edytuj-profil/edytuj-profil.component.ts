@@ -30,7 +30,6 @@ export class EdytujProfilComponent implements OnInit {
 
     this.imieNazwisko = this.imieNazwiskoForm.controls['imieNazwisko'];
 
-    this.stareHaslo = this.zmianaHaslaForm.controls['stareHaslo'];
     this.haslo = this.zmianaHaslaForm.controls['haslo'];
     this.hasloPotwierdz = this.zmianaHaslaForm.controls['hasloPotwierdz'];
   }
