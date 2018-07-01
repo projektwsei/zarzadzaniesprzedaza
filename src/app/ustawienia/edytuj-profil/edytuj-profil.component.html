@@ -1,16 +1,23 @@
-<form #reg="ngForm" (ngSubmit)="zmienImieNazwisko(reg)" [formGroup]="imieNazwiskoForm">
-  <label>Imie i Nazwisko: </label>
-  <input formControlName="imieNazwisko" type="text">
-  <button class="btn btn-primary" type="submit">Zapisz</button>
-</form>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <form #reg="ngForm" (ngSubmit)="zmienImieNazwisko(reg)" [formGroup]="imieNazwiskoForm">
+          <label>Imie i Nazwisko: </label>
+          <input formControlName="imieNazwisko" type="text">
+          <button class="btn btn-primary" type="submit">Zapisz</button> <span *ngIf="savedImieNazw">Zapisano</span>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <form #reg2="ngForm" (ngSubmit)="zmienHaslo(reg2)" [formGroup]="zmianaHaslaForm">
 
-<form #reg2="ngForm" (ngSubmit)="zmienHaslo(reg2)" [formGroup]="zmianaHaslaForm">
+        <label>Nowe hasło:</label>
+        <input type="text" formControlName="haslo">
 
-    <label>Nowe hasło:</label>
-    <input type="text" formControlName="haslo">
+        <label>Potwierdź nowe hasło:</label>
+        <input type="text" formControlName="hasloPotwierdz">
 
-    <label>Potwierdź nowe hasło:</label>
-    <input type="text" formControlName="hasloPotwierdz">
-
-    <button class="btn btn-primary" type="submit">Zapisz</button>
-  </form>
+        <button class="btn btn-primary" type="submit">Zapisz</button> <span *ngIf="savedPass">Zapisano</span>
+      </form>
+    </div>
+</div>

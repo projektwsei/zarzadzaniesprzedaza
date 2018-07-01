@@ -1,6 +1,6 @@
 import { AUTH_INVALID } from './../../services/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService, AUTH_ONLY_VALID, AUTH_LOGIN_OK } from '../../services/auth.service';
+import { AuthService, AUTH_ONLY_VALID, AUTH_LOGIN_OK, AUTH_INVALID } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({

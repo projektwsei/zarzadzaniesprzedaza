@@ -17,12 +17,23 @@ import { MagazynService } from '../services/magazyn.service';
 export class HomePageComponent implements OnInit {
 
   faktury: Faktura[] = [];
+
+  //netto
   straty = 0;
   koszta = 0;
-
   przychod = 0;
-  przychodBezStrat = 0;
+  dochod = 0;
 
+  //brutto
+  kosztaBrutto = 0;
+  przychodBrutto = 0;
+  dochodBrutto = 0;
+  dochodBruttoBezStr = 0;
+
+  //vat
+  vatKoszta = 0;
+  vatPrzychod = 0;
+  vatNalezny = 0;
 
 
   constructor(private df: DaneFirmyService, private u: UsersService, private f: FakturyService, private k: KontrahenciService, private mag: MagazynService) {
@@ -35,16 +46,23 @@ export class HomePageComponent implements OnInit {
         this.faktury = data;
 
         this.faktury.forEach(faktura => {
-          if (faktura.czyKoszt === true) {
-            this.koszta += faktura.getSumNetto();
-          } else if (faktura.czyStrata === true) {
+          if (faktura.czyStrata === true) {//straty
             this.straty += faktura.getSumNetto();
-          } else {
+          } else if (faktura.czyKoszt === true) {//koszty
+            this.koszta += faktura.getSumNetto();
+            this.kosztaBrutto += faktura.getSumBrutto();
+            this.vatKoszta += faktura.getSumVat();
+          } else {//przychod
             this.przychod += faktura.getSumNetto();
+            this.przychodBrutto += faktura.getSumBrutto();
+            this.vatPrzychod += faktura.getSumVat();
           }
 
         });
-        this.przychodBezStrat = this.przychod - this.koszta - this.straty;
+        this.dochod = this.przychod - this.koszta - this.straty;
+        this.dochodBrutto = this.przychodBrutto - this.kosztaBrutto - this.straty;
+        this.dochodBruttoBezStr = this.przychodBrutto - this.kosztaBrutto;
+        this.vatNalezny = this.vatPrzychod - this.vatKoszta;
       }
     );
 

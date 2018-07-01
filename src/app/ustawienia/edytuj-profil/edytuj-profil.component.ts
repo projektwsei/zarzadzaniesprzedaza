@@ -10,12 +10,16 @@ import { UsersService } from '../../services/users.service';
 export class EdytujProfilComponent implements OnInit {
   imieNazwiskoForm: FormGroup;
   imieNazwisko: AbstractControl;
-
+  savedPass: boolean;
+  savedImieNazw: boolean;
 
   zmianaHaslaForm: FormGroup;
   haslo: AbstractControl;
   hasloPotwierdz: AbstractControl;
-  constructor(private fb: FormBuilder, private u: UsersService) { }
+  constructor(private fb: FormBuilder, private u: UsersService) {
+    this.savedPass = false;
+    this.savedImieNazw = false;
+  }
 
   ngOnInit() {
     // this.u.getCurrentUser().
@@ -39,15 +43,28 @@ export class EdytujProfilComponent implements OnInit {
       const user = this.u.getCurrentUser();
       user.imieNazw = this.imieNazwisko.value;
       this.u.saveUser(user);
+
+      this.savedImieNazw = true;
+      setTimeout(()=>{
+          this.savedImieNazw = false;
+      }, 6000);//po 6 sekundach ukryj napis "zapisano"
+
     } else {
       alert('Pole nie może byc puste');
     }
+
   }
 
   zmienHaslo(form: NgForm) {
     if (form.valid && this.haslo.value === this.hasloPotwierdz.value) {
-      console.log('zmiana');
+      console.log('zmiana hasla');
       this.u.zmienHaslo(this.haslo.value);
+
+      this.savedPass = true;
+      setTimeout(()=>{
+          this.savedPass = false;
+      }, 6000);//po 6 sekundach ukryj napis "zapisano"
+
     } else {
       alert( 'Hało musi mieć minimum 6 znaków oraz hasła muszą się zgadzać');
     }

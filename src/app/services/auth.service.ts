@@ -39,8 +39,10 @@ export class AuthService {
                         
                         this.bState.next(new LoginState(AUTH_NEWUSER, u, user));
                     } else {
-                        //this.currentUser = val;  
-                        if(val.isPotw){
+                        //this.currentUser = val;
+                        if(val.deleted){
+                            this.bState.next(new LoginState(AUTH_INVALID,null,null));//usuniety user, nie loguj
+                        } else if(val.isPotw){
                             this.bState.next(new LoginState(AUTH_LOGIN_OK, val, user));//potwierdzony user
                             //zapisz kto sie zalogowal:
                             this.users.setCurrentUser(val);
