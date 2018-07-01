@@ -5,9 +5,6 @@
 </form>
 
 <form #reg2="ngForm" (ngSubmit)="zmienHaslo(reg2)" [formGroup]="zmianaHaslaForm">
-    
-    <label>Stare hasło: </label>
-    <input formControlName="stareHaslo" type="text">
 
     <label>Nowe hasło:</label>
     <input type="text" formControlName="haslo">

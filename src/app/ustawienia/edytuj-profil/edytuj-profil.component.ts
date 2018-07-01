@@ -13,7 +13,6 @@ export class EdytujProfilComponent implements OnInit {
 
 
   zmianaHaslaForm: FormGroup;
-  stareHaslo: AbstractControl;
   haslo: AbstractControl;
   hasloPotwierdz: AbstractControl;
   constructor(private fb: FormBuilder, private u: UsersService) { }
@@ -25,7 +24,6 @@ export class EdytujProfilComponent implements OnInit {
     });
 
     this.zmianaHaslaForm = this.fb.group({
-      stareHaslo: ['', [Validators.required, Validators.min(6)]],
       haslo: ['', [Validators.required, Validators.min(6)]],
       hasloPotwierdz: ['', [Validators.required, Validators.min(6)]],
     });
